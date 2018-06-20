@@ -5,6 +5,7 @@ import YDUI from 'vue-ydui'; /* 相当于import YDUI from 'vue-ydui/ydui.rem.js'
 import 'vue-ydui/dist/ydui.rem.css';
 import App from './App';
 import router from './router';
+import store from './store';
 
 
 Vue.use(YDUI);
@@ -15,6 +16,7 @@ Vue.config.productionTip = false;
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
