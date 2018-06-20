@@ -1,15 +1,16 @@
 <template>
-    <div id="app">
-        <router-view/>
+    <div class="page">
+    	
     </div>
 </template>
 
 <script>
 export default {
-    data(){
+    data () {
         return {
 
         }
     }
 }
 </script>
+
