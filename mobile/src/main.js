@@ -10,7 +10,7 @@ import store from './store';
 Vue.use(YDUI);
 
 
-import '../static/css/style.css';
+import './assets/css/style.css';
 import '../static/js/ydui.flexible.js';
 
 Vue.config.productionTip = false;

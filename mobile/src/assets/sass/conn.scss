@@ -1,0 +1,41 @@
+$colorff6700:#ff6700;
+.rd-item-head{
+	padding:0.1rem 0.2rem;
+	color:#555;
+	font-size:0.32rem;
+	background-color:#fff;
+	span{
+		padding-right:0.2rem;
+		border-right:0.08rem solid $colorff6700;
+	}
+}
+.rd-item-conn{
+	width:100%;
+	display: -webkit-flex;
+	display: flex;
+	flex-wrap:wrap;
+	li{
+		width:50%;
+	}
+}
+.rdi-in{
+	margin:0.1rem;
+	background-color:#fff;
+}
+.rdi-li-1{
+	img{
+		width:100%;
+	}
+}
+.rdi-li-2{
+	color:#000;
+}
+.rdi-li-3{
+	color:#555;
+}
+.rdi-li-4{
+	color:#ea625b;
+}
+.rdi-li-5{
+	padding:0.1rem;
+}
