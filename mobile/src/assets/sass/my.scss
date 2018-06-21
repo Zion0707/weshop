@@ -1,0 +1,31 @@
+@import 'conn.scss';
+
+.my-head{
+	height:1.5rem;
+	background-color:#f37d0f;
+	padding:0.2rem;
+}
+.myh-portrait{
+	border-radius:50%;
+	width:1rem;
+	height:1rem;
+	background-color:rgba(255,255,255,0.6);
+	border:0.08rem solid rgba(255,255,255,0.4);
+
+	i{
+		display: block;
+		font-size:0.8rem;
+		text-align: center;
+		line-height:0.85rem;
+		color:#f1f1f1;
+	}
+}
+.not-logged{
+	height:1.05rem;
+	line-height:1.05rem;
+
+	a, span{
+		color:#fff;
+		font-size:0.3rem;
+	}
+}

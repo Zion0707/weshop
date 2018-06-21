@@ -2,6 +2,23 @@
 .mt10{margin-top:0.1rem;}
 .mt20{margin-top:0.2rem;}
 .mt30{margin-top:0.3rem;}
+
+
+.ml5{margin-left:0.05rem;}
+.ml10{margin-left:0.1rem;}
+.ml20{margin-left:0.2rem;}
+.ml30{margin-left:0.3rem;}
+
+.mr5{margin-right:0.05rem;}
+.mr10{margin-right:0.1rem;}
+.mr20{margin-right:0.2rem;}
+.mr30{margin-right:0.3rem;}
+
+.mb5{margin-bottom:0.05rem;}
+.mb10{margin-bottom:0.1rem;}
+.mb20{margin-bottom:0.2rem;}
+.mb30{margin-bottom:0.3rem;}
+
 .fl{float: left;}
 .fr{float: right;}
 
@@ -10,9 +27,53 @@
 .clearfix,.row{zoom:1}
 .clear{clear:both;}
 
-
 .c-999999{color:#999999;}
 .c-ff6700{color:#ff6700;}
+
+/* 转场切换动画 */
+.goleft-enter-active ,
+.goleft-leave-active{
+    transition-duration:.3s;
+}
+.goleft-enter, .goleft-leave-active {
+    transform: translateX(100%);
+}
+
+
+
+
+
+.cp-nav{
+	position:fixed;
+	width:100%;
+	left:0;
+	top:0;
+	height:1rem;
+}
+.cp-body{
+	position: fixed;
+	left:0;
+	right:0;
+	bottom:0;
+	top:1rem;
+	overflow-y:auto;
+}
+.yd-navbar{
+	background-color:#f2f2f2 !important;
+}
+.yd-navbar-center-title{
+	font-size:0.35rem !important;
+}
+
+.child-page{
+	position:fixed;
+	left:0;
+	top:0;
+	right:0;
+	bottom:0;
+	background-color:#fff;
+	z-index:9;
+}
 
 .index-header{
 	position: fixed;

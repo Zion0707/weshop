@@ -25,7 +25,17 @@ export default new Router({
 		},
 		{
 			path: '/my',
-			component: resolve => require(['@/components/my/index.vue'], resolve)
+			component: resolve => require(['@/components/my/index.vue'], resolve) ,
+			children:[
+				{
+					path:'/login',
+					component: resolve => require(['@/components/my/login.vue'], resolve)
+				},
+				{
+					path:'/register',
+					component: resolve => require(['@/components/my/register.vue'], resolve)
+				}
+			]	
 		}
 	]
 })
