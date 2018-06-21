@@ -9,8 +9,8 @@
 	border-radius:50%;
 	width:1rem;
 	height:1rem;
-	background-color:rgba(255,255,255,0.6);
-	border:0.08rem solid rgba(255,255,255,0.4);
+	background-color:rgba(255,255,255,0.1);
+	border:0.08rem solid rgba(255,255,255,0.1);
 
 	i{
 		display: block;
@@ -27,5 +27,23 @@
 	a, span{
 		color:#fff;
 		font-size:0.3rem;
+	}
+}
+.my-tool{
+	background-color:#fff;
+	display:flex;
+	li{
+		width:33.3333%;
+		text-align: center;
+		padding:0.3rem 0 0.2rem;
+		color:#999;
+		i{
+			display: block;
+			font-size:0.6rem;
+		}
+		span{
+			display: block;
+			line-height:0.6rem;
+		}
 	}
 }
