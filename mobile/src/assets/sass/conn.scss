@@ -1,41 +1,23 @@
 $colorff6700:#ff6700;
 .rd-item-head{
-	padding:0.1rem 0.2rem;
+	padding:0.2rem 0.2rem;
 	color:#555;
 	font-size:0.32rem;
 	background-color:#fff;
+	border-bottom:1px solid #f1f1f1;
 	span{
 		padding-right:0.2rem;
 		border-right:0.08rem solid $colorff6700;
 	}
 }
-.rd-item-conn{
+.rdl-01,
+.rdl-02{
 	width:100%;
-	display: -webkit-flex;
-	display: flex;
-	flex-wrap:wrap;
-	li{
-		width:50%;
-	}
 }
-.rdi-in{
-	margin:0.1rem;
-	background-color:#fff;
+.yd-list-other{
+	display: block;
 }
-.rdi-li-1{
-	img{
-		width:100%;
-	}
-}
-.rdi-li-2{
-	color:#000;
-}
-.rdi-li-3{
-	color:#555;
-}
-.rdi-li-4{
-	color:#ea625b;
-}
-.rdi-li-5{
-	padding:0.1rem;
+.list-price{
+	color:#ff6700;
+	line-height:0.45rem;
 }

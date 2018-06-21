@@ -1,22 +1,30 @@
 .mt5{margin-top:0.05rem;}
 .mt10{margin-top:0.1rem;}
+.mt15{margin-top:0.15rem;}
 .mt20{margin-top:0.2rem;}
+.mt25{margin-top:0.25rem;}
 .mt30{margin-top:0.3rem;}
 
 
 .ml5{margin-left:0.05rem;}
 .ml10{margin-left:0.1rem;}
+.ml15{margin-left:0.15rem;}
 .ml20{margin-left:0.2rem;}
+.ml25{margin-left:0.25rem;}
 .ml30{margin-left:0.3rem;}
 
 .mr5{margin-right:0.05rem;}
 .mr10{margin-right:0.1rem;}
+.mr15{margin-right:0.15rem;}
 .mr20{margin-right:0.2rem;}
+.mr25{margin-right:0.25rem;}
 .mr30{margin-right:0.3rem;}
 
 .mb5{margin-bottom:0.05rem;}
 .mb10{margin-bottom:0.1rem;}
+.mb15{margin-bottom:0.15rem;}
 .mb20{margin-bottom:0.2rem;}
+.mb25{margin-bottom:0.25rem;}
 .mb30{margin-bottom:0.3rem;}
 
 .fl{float: left;}
@@ -30,6 +38,7 @@
 .c-999999{color:#999999;}
 .c-ff6700{color:#ff6700;}
 
+
 /* 转场切换动画 */
 .goleft-enter-active ,
 .goleft-leave-active{
@@ -38,10 +47,6 @@
 .goleft-enter, .goleft-leave-active {
     transform: translateX(100%);
 }
-
-
-
-
 
 .cp-nav{
 	position:fixed;
@@ -130,7 +135,7 @@
 	height:0.8rem;
 	line-height:0.8rem;
 }
-.ihn-list::-webkit-scrollbar {
+.ihn-list::-webkit-scrollbar{
     height: 0;
     background: transparent;
 }

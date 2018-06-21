@@ -27,170 +27,57 @@
 				<h3 class="rd-item-head">
 					<span>每日精选</span>
 				</h3>
-				<ul class="rd-item-conn">
-					<li>
-						<div class="rdi-in">
-							<div class="rdi-li-1">
-								<img src="//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360">
-							</div>
-							<div class="rdi-li-5">
-								<div class="rdi-li-2">黑鲨游戏手机 液冷更快</div>
-								<div class="rdi-li-3">液冷更快，独显芯片</div>
-								<div class="rdi-li-4">￥999起</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="rdi-in">
-							<div class="rdi-li-1">
-								<img src="//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360">
-							</div>
-							<div class="rdi-li-5">
-								<div class="rdi-li-2">黑鲨游戏手机 液冷更快</div>
-								<div class="rdi-li-3">液冷更快，独显芯片</div>
-								<div class="rdi-li-4">￥999起</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="rdi-in">
-							<div class="rdi-li-1">
-								<img src="//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360">
-							</div>
-							<div class="rdi-li-5">
-								<div class="rdi-li-2">黑鲨游戏手机 液冷更快</div>
-								<div class="rdi-li-3">液冷更快，独显芯片</div>
-								<div class="rdi-li-4">￥999起</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="rdi-in">
-							<div class="rdi-li-1">
-								<img src="//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360">
-							</div>
-							<div class="rdi-li-5">
-								<div class="rdi-li-2">黑鲨游戏手机 液冷更快</div>
-								<div class="rdi-li-3">液冷更快，独显芯片</div>
-								<div class="rdi-li-4">￥999起</div>
-							</div>
-						</div>
-					</li>
-				</ul>
+
+				<yd-list theme="3">
+			        <yd-list-item v-for="item, key in list" :key="key">
+			            <img slot="img" :src="item.img">
+			            <span slot="title">{{item.title}}</span>
+			            <yd-list-other slot="other">
+			                <div class="rdl-01">
+			                    <span class="list-price"><em>¥</em>{{item.price}}</span>
+			                </div>
+			                <div class="rdl-02">{{item.content}}</div>
+			            </yd-list-other>
+			        </yd-list-item>
+			    </yd-list>
 			</div>
 
 
-			<div class="rd-item mt10">
+			<div class="rd-item mt15">
 				<h3 class="rd-item-head">
 					<span>优惠精品</span>
 				</h3>
-				<ul class="rd-item-conn">
-					<li>
-						<div class="rdi-in">
-							<div class="rdi-li-1">
-								<img src="//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/b8ef4bce02ff3fdb538fb9260a5215e2.jpg?thumb=1&w=360&h=360">
-							</div>
-							<div class="rdi-li-5">
-								<div class="rdi-li-2">黑鲨游戏手机 液冷更快</div>
-								<div class="rdi-li-3">液冷更快，独显芯片</div>
-								<div class="rdi-li-4">￥999起</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="rdi-in">
-							<div class="rdi-li-1">
-								<img src="//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/b8ef4bce02ff3fdb538fb9260a5215e2.jpg?thumb=1&w=360&h=360">
-							</div>
-							<div class="rdi-li-5">
-								<div class="rdi-li-2">黑鲨游戏手机 液冷更快</div>
-								<div class="rdi-li-3">液冷更快，独显芯片</div>
-								<div class="rdi-li-4">￥999起</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="rdi-in">
-							<div class="rdi-li-1">
-								<img src="//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/b8ef4bce02ff3fdb538fb9260a5215e2.jpg?thumb=1&w=360&h=360">
-							</div>
-							<div class="rdi-li-5">
-								<div class="rdi-li-2">黑鲨游戏手机 液冷更快</div>
-								<div class="rdi-li-3">液冷更快，独显芯片</div>
-								<div class="rdi-li-4">￥999起</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="rdi-in">
-							<div class="rdi-li-1">
-								<img src="//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/b8ef4bce02ff3fdb538fb9260a5215e2.jpg?thumb=1&w=360&h=360">
-							</div>
-							<div class="rdi-li-5">
-								<div class="rdi-li-2">黑鲨游戏手机 液冷更快</div>
-								<div class="rdi-li-3">液冷更快，独显芯片</div>
-								<div class="rdi-li-4">￥999起</div>
-							</div>
-						</div>
-					</li>
-				</ul>
+				<yd-list theme="3">
+			        <yd-list-item v-for="item, key in list" :key="key">
+			            <img slot="img" :src="item.img">
+			            <span slot="title">{{item.title}}</span>
+			            <yd-list-other slot="other">
+			                <div class="rdl-01">
+			                    <span class="list-price"><em>¥</em>{{item.price}}</span>
+			                </div>
+			                <div class="rdl-02">{{item.content}}</div>
+			            </yd-list-other>
+			        </yd-list-item>
+			    </yd-list>
 			</div>
 
 
-			<div class="rd-item mt10">
+			<div class="rd-item mt15 mb10">
 				<h3 class="rd-item-head">
 					<span>新品上市</span>
 				</h3>
-				<ul class="rd-item-conn">
-					<li>
-						<div class="rdi-in">
-							<div class="rdi-li-1">
-								<img src="//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/b69a791174672026ea3dc0c30b363029.jpg?thumb=1&w=360&h=360">
-							</div>
-							<div class="rdi-li-5">
-								<div class="rdi-li-2">黑鲨游戏手机 液冷更快</div>
-								<div class="rdi-li-3">液冷更快，独显芯片</div>
-								<div class="rdi-li-4">￥999起</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="rdi-in">
-							<div class="rdi-li-1">
-								<img src="//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/b69a791174672026ea3dc0c30b363029.jpg?thumb=1&w=360&h=360">
-							</div>
-							<div class="rdi-li-5">
-								<div class="rdi-li-2">黑鲨游戏手机 液冷更快</div>
-								<div class="rdi-li-3">液冷更快，独显芯片</div>
-								<div class="rdi-li-4">￥999起</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="rdi-in">
-							<div class="rdi-li-1">
-								<img src="//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/b69a791174672026ea3dc0c30b363029.jpg?thumb=1&w=360&h=360">
-							</div>
-							<div class="rdi-li-5">
-								<div class="rdi-li-2">黑鲨游戏手机 液冷更快</div>
-								<div class="rdi-li-3">液冷更快，独显芯片</div>
-								<div class="rdi-li-4">￥999起</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="rdi-in">
-							<div class="rdi-li-1">
-								<img src="//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/b69a791174672026ea3dc0c30b363029.jpg?thumb=1&w=360&h=360">
-							</div>
-							<div class="rdi-li-5">
-								<div class="rdi-li-2">黑鲨游戏手机 液冷更快</div>
-								<div class="rdi-li-3">液冷更快，独显芯片</div>
-								<div class="rdi-li-4">￥999起</div>
-							</div>
-						</div>
-					</li>
-				</ul>
+				<yd-list theme="3">
+			        <yd-list-item v-for="item, key in list" :key="key">
+			            <img slot="img" :src="item.img">
+			            <span slot="title">{{item.title}}</span>
+			            <yd-list-other slot="other">
+			                <div class="rdl-01">
+			                    <span class="list-price"><em>¥</em>{{item.price}}</span>
+			                </div>
+			                <div class="rdl-02">{{item.content}}</div>
+			            </yd-list-other>
+			        </yd-list-item>
+			    </yd-list>
 			</div>
 		
 		</div>
@@ -205,7 +92,14 @@
 export default {
     data () {
         return {
-
+        	list: [
+                {img: "//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360", title: "黑鲨手机", price: 156.23, content:"专业游戏手机"},
+                {img: "//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360", title: "黑鲨手机", price: 256.23, content:"专业游戏手机"},
+                {img: "//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360", title: "黑鲨手机", price: 356.23, content:"专业游戏手机"},
+                {img: "//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360", title: "黑鲨手机", price: 456.23, content:"专业游戏手机"},
+                {img: "//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360", title: "黑鲨手机", price: 556.23, content:"专业游戏手机"},
+                {img: "//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360", title: "黑鲨手机", price: 656.23, content:"专业游戏手机"}
+            ]
         }
     }
 }

@@ -2,7 +2,9 @@
     <div class="page">
     	<div class="my-head clearfix">
     		<div class="myh-portrait fl">
-                <i class="iconfont icon-my"></i>      
+                <router-link to="/login">
+                    <i class="iconfont icon-my"></i>   
+                </router-link>   
             </div>
             <div class="fl ml30">
                 <div class="not-logged">
