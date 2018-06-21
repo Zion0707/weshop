@@ -1,0 +1,55 @@
+.mt10{margin-top:0.1rem;}
+.mt20{margin-top:0.2rem;}
+.mt30{margin-top:0.3rem;}
+.fl{float: left;}
+.fr{float: right;}
+
+.clearfix:after,
+.row:after{clear:both;content:'\0020';display:block;height:0}
+.clearfix,.row{zoom:1}
+.clear{clear:both;}
+
+
+.c-999999{color:#999999;}
+.c-ff6700{color:#ff6700;}
+
+.ih-top{
+	display: flex;
+	padding:0.2rem 0;
+}
+.ih-logo{
+	width:1.25rem;
+	font-size:0.35rem;
+	font-weight:bold;
+	color:#ff6700;
+	text-align: center;
+	line-height:0.6rem;
+	font-style:italic;
+}
+.ih-my{
+	width:1.25rem;
+}
+.ih-my i{
+	font-size:0.45rem;
+	width:1.25rem;
+	display:block;
+	text-align: center;
+	line-height:0.55rem;
+	color:#555;
+}
+.ih-search{
+	position: relative;
+}
+.ih-search i{
+	position: absolute;
+	left:0.12rem;
+	top:0.12rem;
+	color:#999;
+}
+.ih-search input{
+	width:5rem;
+	outline:1px solid #ddd;
+	padding:0.1rem 0.2rem;
+	padding-left:0.5rem;
+	background-color:#fff;
+}

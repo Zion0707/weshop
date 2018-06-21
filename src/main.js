@@ -7,8 +7,11 @@ import App from './App';
 import router from './router';
 import store from './store';
 
-
 Vue.use(YDUI);
+
+
+import '../static/css/style.css';
+import '../static/js/ydui.flexible.js';
 
 Vue.config.productionTip = false;
 
