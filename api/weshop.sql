@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.20)
 # Database: weshop
-# Generation Time: 2018-06-21 03:49:48 +0000
+# Generation Time: 2018-06-22 11:19:11 +0000
 # ************************************************************
 
 
@@ -34,9 +34,20 @@ CREATE TABLE `user_info` (
   `age` int(3) DEFAULT NULL COMMENT '年龄',
   `address` varchar(255) DEFAULT NULL COMMENT '地址',
   `createTime` int(10) DEFAULT NULL COMMENT '创建时间',
+  `status` int(1) DEFAULT '1' COMMENT '用户状态：0表示禁用 , 1表示正常',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `user_info` WRITE;
+/*!40000 ALTER TABLE `user_info` DISABLE KEYS */;
+
+INSERT INTO `user_info` (`id`, `username`, `password`, `tellphone`, `sex`, `age`, `address`, `createTime`, `status`)
+VALUES
+	(8,'Zion','202cb962ac59075b964b07152d234b70',NULL,NULL,NULL,NULL,1529661620,1),
+	(9,'Zion2','202cb962ac59075b964b07152d234b70',NULL,NULL,NULL,NULL,1529662526,1);
+
+/*!40000 ALTER TABLE `user_info` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 
