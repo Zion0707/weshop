@@ -205,6 +205,7 @@
 	top:1.9rem;
 	bottom:1rem;
 	overflow-y:auto;
+	overflow-x:hidden;
 }
 .mb-not{
 	margin-bottom:0;
