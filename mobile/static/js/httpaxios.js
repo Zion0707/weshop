@@ -11,11 +11,14 @@ httpaxios.post = function(url,data,successCallbck,errorCallback){
         method: 'post',
         baseURL: host,
         url: url,
+        data: data,
+        timeout: 2000,
+        //请求参数转换，这样才能被后台拿到
         transformRequest: [function (data) {
             return Qs.stringify(data)
         }],
-        data: data,
-        timeout: 2000
+        //需要指定，后端session才能被保存
+        withCredentials:true 
     }).then(function(response) {
         successCallbck && successCallbck(response.data);
     }).catch(function(error) {
