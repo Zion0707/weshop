@@ -64,6 +64,17 @@ export default {
         return {
 
         }
+    },
+    methods:{
+        getUserInfo(){
+            var _self = this;
+            this.http.post('/UserInfo.class.php',null,function(data){
+                console.log(data);
+            });
+        }
+    },
+    mounted(){
+        this.getUserInfo();
     }
 }
 </script>

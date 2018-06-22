@@ -1,5 +1,5 @@
-//https://www.kancloud.cn/yunye/axios/234845
-//axios使用说明
+// https://www.kancloud.cn/yunye/axios/234845
+// axios使用说明
 import axios from 'axios';
 import Qs from 'qs';
 

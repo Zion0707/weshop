@@ -87,14 +87,13 @@ export default {
                     username: this.username,
                     password: this.password
                 },function(data){
-
                     $('#code').click();
                     
-                    if (data.code==0) {
+                    if ( data.code == 0 ) {
                         _self.$dialog.toast({
                             mes: data.msg,
                             callback:()=>{
-
+                                _self.$router.push({path:'/my'});
                             }
                         });
                     }else{
