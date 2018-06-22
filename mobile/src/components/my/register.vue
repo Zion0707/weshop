@@ -16,7 +16,7 @@
 			<yd-cell-group style="border-top:1px solid #f1f1f1;">
 		        <yd-cell-item>
 		            <span slot="left">用户名：</span>
-		            <yd-input slot="right" v-model.trim="username" placeholder="请输入用户名" max="20"></yd-input>
+		            <yd-input slot="right" v-model.trim="username" placeholder="请输入用户名"></yd-input>
 		        </yd-cell-item>
 		        <yd-cell-item>
 		            <span slot="left">密码：</span>
@@ -52,6 +52,7 @@
 </template>
 
 <script>
+
 export default {
     data () {
         return {
@@ -64,6 +65,8 @@ export default {
     },
     methods:{
     	upFrom(){
+            var _self = this;
+
     		//表单校验
     		if (this.username == '') {
     			this.$dialog.notify({mes: '请输入用户名'});
@@ -78,10 +81,30 @@ export default {
             }else if ( this.vCode != this.code ) {
                 this.$dialog.notify({mes: '验证码不正确'});
             }else{
-	    		
-	    		console.log(this.username);
-	    		console.log(this.password);
-	    		console.log(this.password2);
+
+                //注册调用
+                this.http.post('/Register.class.php',{
+                    username: this.username,
+                    password: this.password
+                },function(data){
+
+                    $('#code').click();
+                    
+                    if (data.code==0) {
+                        _self.$dialog.toast({
+                            mes: data.msg,
+                            callback:()=>{
+
+                            }
+                        });
+                    }else{
+                        _self.$dialog.toast({
+                            mes: data.msg,
+                            callback:()=>{
+                            }
+                        });
+                    }
+                });
 
     		}
     	}
@@ -89,11 +112,9 @@ export default {
     mounted(){
     	var _self = this;
 
-
         //canvas 验证码生成
         var cvs = document.getElementById('code');
         var cxt = cvs.getContext('2d');
-
 
         function randomNumber(min, max) {
             return Math.floor(Math.random() * (max - min + 1) + min);
@@ -139,8 +160,7 @@ export default {
         cvs.onclick = function (e) {
             drawString(randomString());
         }
-
-          
+  
     }
 }
 </script>
