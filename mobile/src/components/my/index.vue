@@ -81,7 +81,9 @@ export default {
     methods:{
         getUserInfo(){
             var _self = this;
-            this.http.post('/UserInfo.class.php',null,function(data){
+            this.http.post('/UserInfo.class.php',{
+                type:'get'
+            },function(data){
                 _self.userInfo = data;
             });
         },
