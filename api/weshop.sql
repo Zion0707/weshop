@@ -5,9 +5,9 @@
 # http://www.sequelpro.com/
 # https://github.com/sequelpro/sequelpro
 #
-# Host: 127.0.0.1 (MySQL 5.7.20)
+# Host: 127.0.0.1 (MySQL 5.7.17)
 # Database: weshop
-# Generation Time: 2018-06-22 11:19:11 +0000
+# Generation Time: 2018-06-23 03:43:21 +0000
 # ************************************************************
 
 
