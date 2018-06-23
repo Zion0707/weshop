@@ -37,11 +37,11 @@
         <ul class="my-tool clearfix">
            <li @click="myJump(1)">
                <i class="iconfont icon-fukuanfangshi"></i>
-               <span>代付款</span>
+               <span>待付款</span>
            </li> 
            <li @click="myJump(2)">
                <i class="iconfont icon-daishouhuo"></i>
-               <span>代收货</span>
+               <span>待收货</span>
            </li> 
            <li @click="myJump(3)">
                <i class="iconfont icon-weixiu"></i>
