@@ -33,11 +33,10 @@
 				}
 				//判断用户数量
 				if ( count($userArr) ) {
-					echo json_encode([
+					exit( json_encode([
 						'code'=> -2,
 						'msg'=> '该用户名已经注册过！'
-					]);
-					return;
+					]) );
 				}
 
 
@@ -64,18 +63,18 @@
 						$_SESSION['uid'] = $row['id'];
 					}
 
-					echo json_encode([
+					exit( json_encode([
 						'code'=> 0,
 						'msg'=> '恭喜您注册成功！'
-					]);
+					]) );
 				}
 				
 			}else{
 			
-				echo json_encode([
+				exit( json_encode([
 					'code'=> -2,
 					'msg'=>'用户名和密码不能为空，注册失败！'
-				]);
+				]) );
 			
 			}
 		}

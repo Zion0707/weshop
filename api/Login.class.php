@@ -41,22 +41,22 @@
 					$_SESSION['expireTime'] = time() + 3600;
 					$_SESSION['uid'] = $rowArr[0]['id'];
 
-					echo json_encode([
+					exit( json_encode([
 						'code'=> 0,
 						'msg'=> '登录成功！'
-					]);
+					]) );
 				}else{
-					echo json_encode([
+					exit( json_encode([
 						'code'=> -2,
 						'msg'=> '账号或密码错误！'
-					]);
+					]) );
 				}
 
 			}else{
-				echo json_encode([
+				exit( json_encode([
 					'code'=> -2,
 					'msg'=>'用户名和密码不能为空，登录失败！'
-				]);
+				]) );
 			}
 		}
 	}

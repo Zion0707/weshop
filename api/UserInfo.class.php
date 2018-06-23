@@ -14,7 +14,7 @@
 			
 			if (!session_id()) session_start();
 			// $_SESSION['uid'] = 'Zion';
-			echo $_SESSION['uid'];
+			exit( $_SESSION['uid'] );
 		
 		}
 	}

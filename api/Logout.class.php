@@ -14,10 +14,10 @@
 			if (!session_id()) session_start();
 			session_destroy();
 
-			echo json_encode([
+			exit( json_encode([
 				'code'=> 0,
 				'msg'=> '退出成功！'
-			]);
+			]) );
 		}
 	}
 
