@@ -44,6 +44,7 @@
 
 .c-999999{color:#999999;}
 .c-ff6700{color:#ff6700;}
+.c-ff0000{color:#ff0000;}
 
 
 /* 转场切换动画 */
@@ -57,7 +58,7 @@
 
 
 .yd-navbar{
-	background-color:#f9f9f9;
+	background-color:#f9f9f9 !important;
 }
 .yd-navbar:after,
 .yd-cell:after{

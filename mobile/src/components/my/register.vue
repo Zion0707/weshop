@@ -93,6 +93,8 @@ export default {
                         _self.$dialog.toast({
                             mes: data.msg,
                             callback:()=>{
+                                //调用父级组件中的方法并返回到父级
+                                _self.$parent.getUserInfo();
                                 _self.$router.push({path:'/my'});
                             }
                         });

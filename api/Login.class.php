@@ -25,7 +25,8 @@
 				$stmt = $pdo->prepare('SELECT * FROM user_info WHERE `username`=? AND `password`=?');
 
 				$stmt->bindParam(1, $username);
-				$stmt->bindParam(2, md5($password));
+				//因为注册的时候采用了用户名和密码作为md5加密，所以登录的时候也需要做处理
+				$stmt->bindParam(2, md5($username.$password));
 				$stmt->execute();
 				$rowArr = [];
 

@@ -41,8 +41,10 @@
 
 
 				//注册新用户
-				$stmt = $pdo->prepare('INSERT INTO user_info (`username`,`password`,`createTime`) VALUES (?,?,?)');				
-				$psw = md5($password);
+				$stmt = $pdo->prepare('INSERT INTO user_info (`username`,`password`,`createTime`) VALUES (?,?,?)');			
+				
+				//这里使用用户名和密码作为md5加密，即使两个人密码相同但是用户名不一样，也会生成不一样的密码	
+				$psw = md5( $username.$password );
 				$createTime = time();
 				$stmt->bindParam(1, $username);
 				$stmt->bindParam(2, $psw);

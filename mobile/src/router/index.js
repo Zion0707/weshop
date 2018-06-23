@@ -34,6 +34,10 @@ export default new Router({
 				{
 					path:'/register',
 					component: resolve => require(['@/components/my/register.vue'], resolve)
+				},
+				{
+					path:'/settings',
+					component: resolve => require(['@/components/my/settings.vue'], resolve)
 				}
 			]	
 		}

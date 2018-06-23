@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.17)
 # Database: weshop
-# Generation Time: 2018-06-23 03:43:21 +0000
+# Generation Time: 2018-06-23 12:14:58 +0000
 # ************************************************************
 
 
@@ -28,23 +28,25 @@ DROP TABLE IF EXISTS `user_info`;
 CREATE TABLE `user_info` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户id',
   `username` varchar(20) DEFAULT NULL COMMENT '用户名',
-  `password` varchar(100) DEFAULT NULL COMMENT '用户密码',
+  `password` varchar(32) DEFAULT NULL COMMENT '用户密码',
   `tellphone` int(11) DEFAULT NULL COMMENT '手机号码',
+  `avatarUrl` varchar(100) DEFAULT NULL COMMENT '用户头像地址',
   `sex` int(1) DEFAULT NULL COMMENT '性别：0男，1女',
   `age` int(3) DEFAULT NULL COMMENT '年龄',
   `address` varchar(255) DEFAULT NULL COMMENT '地址',
   `createTime` int(10) DEFAULT NULL COMMENT '创建时间',
-  `status` int(1) DEFAULT '1' COMMENT '用户状态：0表示禁用 , 1表示正常',
+  `character` int(1) DEFAULT '0' COMMENT '角色：0表示普通用户，2表示vip，3表示管理员',
+  `status` int(1) DEFAULT '0' COMMENT '用户状态：0表示正常 , 1表示禁用，2表示删除',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `user_info` WRITE;
 /*!40000 ALTER TABLE `user_info` DISABLE KEYS */;
 
-INSERT INTO `user_info` (`id`, `username`, `password`, `tellphone`, `sex`, `age`, `address`, `createTime`, `status`)
+INSERT INTO `user_info` (`id`, `username`, `password`, `tellphone`, `avatarUrl`, `sex`, `age`, `address`, `createTime`, `character`, `status`)
 VALUES
-	(8,'Zion','202cb962ac59075b964b07152d234b70',NULL,NULL,NULL,NULL,1529661620,1),
-	(9,'Zion2','202cb962ac59075b964b07152d234b70',NULL,NULL,NULL,NULL,1529662526,1);
+	(12,'Zion','41c45c00e7515f75bfccda7eaf3086cc',NULL,'../../../static/images/logo.png',NULL,NULL,NULL,1529749975,0,0),
+	(13,'Zion2','3d39b90398028dc2f30902704865963d',NULL,'../../../static/images/logo.png',NULL,NULL,NULL,1529750008,0,0);
 
 /*!40000 ALTER TABLE `user_info` ENABLE KEYS */;
 UNLOCK TABLES;
