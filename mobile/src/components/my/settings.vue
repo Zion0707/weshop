@@ -34,6 +34,7 @@ export default {
     				_self.$dialog.toast({
                         mes: data.msg,
                         callback:()=>{
+                            _self.$parent.getUserInfo();
                             _self.$router.push({path:'/login'});
                         }
                     });

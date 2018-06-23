@@ -38,7 +38,7 @@
 
 				
 	        <div class="pd1050">
-	        	<yd-button size="large" type="primary" @click.native="upFrom">提交注册</yd-button>
+	        	<yd-button size="large" type="primary" @click.native="upFrom">注 册</yd-button>
 	        </div>
 
 			<div class="re-miss">

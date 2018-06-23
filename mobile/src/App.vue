@@ -50,7 +50,7 @@ export default {
         menuPath(item){
             switch(item.num){
                 case 0:
-                    this.$router.push({'path':'/recommend'});
+                    this.$router.push({'path':'/'});
                     this.menu.currentNum = item.num;
                 break;
                 case 1:

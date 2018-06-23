@@ -7,13 +7,7 @@ export default new Router({
 	routes: [
 		{
 			path: '/',
-			component: resolve => require(['@/components/index/index.vue'], resolve) ,
-			children:[
-				{
-					path:'/recommend',
-					component: resolve => require(['@/components/index/recommend.vue'], resolve)
-				}
-			]
+			component: resolve => require(['@/components/index/index.vue'], resolve) 
 		},
 		{
 			path: '/class',

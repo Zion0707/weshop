@@ -141,11 +141,11 @@
 }
 .ih-logo{
 	width:1.25rem;
-	font-size:0.35rem;
+	font-size:0.45rem;
 	font-weight:bold;
 	color:#ff6700;
 	text-align: center;
-	line-height:0.65rem;
+	line-height:0.75rem;
 	font-style:italic;
 }
 .ih-my{
@@ -167,7 +167,7 @@
 	left:0.15rem;
 	top:0.17rem;
 	color:#999;
-	font-size:0.25rem;
+	font-size:0.3rem;
 }
 .ih-search input{
 	width:5rem;
@@ -200,7 +200,7 @@
 	content:"";
 	display:block;
 	position: absolute;
-	height:0.06rem;
+	height:0.1rem;
 	width:100%;
 	background-color:#ff6700;
 	bottom:0;

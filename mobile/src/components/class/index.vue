@@ -10,15 +10,15 @@
 		<div class="cp-body">
 
 			<yd-scrolltab :callback="ydScrollTabBack">
-	            <yd-scrolltab-panel label="空调">
+	            <yd-scrolltab-panel label="手机">
 	                <div style="height: 350px;background-color: gray;"></div>
 	            </yd-scrolltab-panel>
 	    
-	            <yd-scrolltab-panel label="冰箱">
+	            <yd-scrolltab-panel label="电视">
 	                <div style="height: 350px;background-color: blue;"></div>
 	            </yd-scrolltab-panel>
 	    
-	            <yd-scrolltab-panel label="洗衣机">
+	            <yd-scrolltab-panel label="电脑">
 	                <div style="height: 350px;background-color: yellow;"></div>
 	            </yd-scrolltab-panel>
 	    
