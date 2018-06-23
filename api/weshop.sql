@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.17)
 # Database: weshop
-# Generation Time: 2018-06-23 12:14:58 +0000
+# Generation Time: 2018-06-23 14:36:32 +0000
 # ************************************************************
 
 
@@ -18,6 +18,21 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+# Dump of table shop_car
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `shop_car`;
+
+CREATE TABLE `shop_car` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '购物车id',
+  `uid` int(10) DEFAULT NULL COMMENT '用户id',
+  `status` int(1) DEFAULT '0' COMMENT '购物车状态：0表示正常，1表示禁用',
+  `createTime` int(10) DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 
 # Dump of table user_info
