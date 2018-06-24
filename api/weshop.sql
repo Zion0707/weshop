@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.17)
 # Database: weshop
-# Generation Time: 2018-06-23 14:36:32 +0000
+# Generation Time: 2018-06-24 04:02:38 +0000
 # ************************************************************
 
 
@@ -33,6 +33,16 @@ CREATE TABLE `shop_car` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `shop_car` WRITE;
+/*!40000 ALTER TABLE `shop_car` DISABLE KEYS */;
+
+INSERT INTO `shop_car` (`id`, `uid`, `status`, `createTime`)
+VALUES
+	(1,16,0,1529811570),
+	(2,17,0,1529811964);
+
+/*!40000 ALTER TABLE `shop_car` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table user_info
@@ -45,7 +55,7 @@ CREATE TABLE `user_info` (
   `username` varchar(20) DEFAULT NULL COMMENT '用户名',
   `password` varchar(32) DEFAULT NULL COMMENT '用户密码',
   `tellphone` int(11) DEFAULT NULL COMMENT '手机号码',
-  `avatarUrl` varchar(100) DEFAULT NULL COMMENT '用户头像地址',
+  `avatarUrl` varchar(100) DEFAULT '../../../static/images/logo.png' COMMENT '用户头像地址',
   `sex` int(1) DEFAULT NULL COMMENT '性别：0男，1女',
   `age` int(3) DEFAULT NULL COMMENT '年龄',
   `address` varchar(255) DEFAULT NULL COMMENT '地址',
@@ -61,7 +71,7 @@ LOCK TABLES `user_info` WRITE;
 INSERT INTO `user_info` (`id`, `username`, `password`, `tellphone`, `avatarUrl`, `sex`, `age`, `address`, `createTime`, `character`, `status`)
 VALUES
 	(12,'Zion','41c45c00e7515f75bfccda7eaf3086cc',NULL,'../../../static/images/logo.png',NULL,NULL,NULL,1529749975,0,0),
-	(13,'Zion2','3d39b90398028dc2f30902704865963d',NULL,'../../../static/images/logo.png',NULL,NULL,NULL,1529750008,0,0);
+	(17,'Zion2','3d39b90398028dc2f30902704865963d',NULL,'../../../static/images/logo.png',NULL,NULL,NULL,1529811964,0,0);
 
 /*!40000 ALTER TABLE `user_info` ENABLE KEYS */;
 UNLOCK TABLES;

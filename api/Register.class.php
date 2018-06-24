@@ -3,6 +3,10 @@
 	require 'Conn.class.php';
 	use Weshop\Api\Conn as Conn;
 
+
+	require 'ShopCar.class.php';
+	use Weshop\Api\ShopCar as ShopCar;
+
 	/**
 	* 注册类
 	*/
@@ -42,28 +46,29 @@
 
 				//注册新用户
 				$stmt = $pdo->prepare('INSERT INTO user_info (`username`,`password`,`createTime`) VALUES (?,?,?)');			
-				
 				//这里使用用户名和密码作为md5加密，即使两个人密码相同但是用户名不一样，也会生成不一样的密码	
 				$psw = md5( $username.$password );
 				$createTime = time();
 				$stmt->bindParam(1, $username);
 				$stmt->bindParam(2, $psw);
 				$stmt->bindParam(3, $createTime);
-				if ( $stmt->execute() ) {
+				if ( $stmt->execute() ) {		
 
-					
 					//根据username查询uid
 					$stmt = $pdo->prepare('SELECT * FROM user_info WHERE `username`=?');
 					$stmt->bindParam(1, $username);
 					$stmt->execute();
-
 					//设置 session 1小时过期时间 和 用户uid
 					if (!session_id()) session_start();
 					$_SESSION['expireTime'] = time() + 3600;
-
 					while( $row = $stmt->fetch(PDO::FETCH_ASSOC) ){						
 						$_SESSION['uid'] = $row['id'];
 					}
+
+
+					//获取uid来进行创建购物车
+					$ShopCar = new ShopCar();
+					$ShopCar->createCar($pdo, $_SESSION['uid']);
 
 					exit( json_encode([
 						'code'=> 0,

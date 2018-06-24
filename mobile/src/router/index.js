@@ -14,8 +14,8 @@ export default new Router({
 			component: resolve => require(['@/components/class/index.vue'], resolve)
 		},
 		{
-			path: '/cart',
-			component: resolve => require(['@/components/cart/index.vue'], resolve) 
+			path: '/car',
+			component: resolve => require(['@/components/car/index.vue'], resolve) 
 		},
 		{
 			path: '/my',

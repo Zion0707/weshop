@@ -44,18 +44,24 @@
 			$resObj->createTime = date('Y-m-d H:i:s', $resObj->createTime);
 
 			exit(json_encode($resObj));
-			
-			
 		}
+
+		//更改用户信息
+		public function updateUserInfo(){
+
+		}
+
 	}
 
 
 
 	if( isset($_POST) ) 
 	{
-		if ( $_POST['type'] == 'get' ) 
-		{
-			$UserInfo = new UserInfo();
+		$UserInfo = new UserInfo();
+		
+		if ( $_POST['type'] == 'get' ) {
 			$UserInfo->getUserInfo();
+		}else if ( $_POST['type'] == 'update' ) {
+			$UserInfo->updateUserInfo();
 		}
 	}

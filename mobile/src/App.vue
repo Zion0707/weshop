@@ -58,7 +58,7 @@ export default {
                     this.menu.currentNum = item.num;
                 break;
                 case 2:
-                    this.$router.push({'path':'/cart'});
+                    this.$router.push({'path':'/car'});
                     this.menu.currentNum = item.num;
                 break;
                 case 3:

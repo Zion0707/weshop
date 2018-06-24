@@ -2,6 +2,9 @@
     <div class="page">
 		<div class="cp-nav">
 	    	<yd-navbar title="分类">
+				<span slot="left" @click="back">
+		            <yd-navbar-back-icon></yd-navbar-back-icon>
+		        </span>
 		        <router-link to="/search" slot="right">
 		        	<yd-icon name="search" :class="'class-search'"></yd-icon>
 		        </router-link>
@@ -38,6 +41,10 @@ export default {
         }
     },
     methods:{
+    	back(){
+    		this.$router.back();
+    	},
+
     	//返回的索引来进行按需加载
     	ydScrollTabBack($index){
     		console.log($index);
