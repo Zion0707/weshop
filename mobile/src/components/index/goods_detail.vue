@@ -34,6 +34,14 @@
                 </swiper>
             </div>
 
+            <div class="goods-desc">
+                <div class="gd-01">黑鲨游戏手机 液冷更快</div>
+                <div class="gd-02 mt10">液冷散热 / 独立图像处理芯片 / 一键游戏模式 / 骁龙845处理器 / 18:9全面屏 / 前后2000万摄像头</div>
+                <div class="gd-03 mt10">
+                    <span>￥</span>3499
+                </div>
+            </div>
+
             
 
 

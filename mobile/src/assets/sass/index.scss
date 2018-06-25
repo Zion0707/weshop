@@ -17,5 +17,21 @@
 	img{
 		width:100%;
 	}
-	
+}
+.goods-desc{
+	padding:0.3rem;
+	.gd-01{
+		font-size:0.35rem;
+	}
+	.gd-02{
+		color:#777;
+	}
+	.gd-03{
+		font-size:0.4rem;
+		color:#ff6700;
+		font-weight: bold;
+		span{
+			font-size:0.35rem;
+		}
+	}
 }

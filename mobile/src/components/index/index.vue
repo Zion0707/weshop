@@ -160,7 +160,7 @@ export default {
         //跳转到详情
         orderDetail(item){
             console.log(item);
-            this.$router.push({ 'path':'/order_detail', 'query':{id:item.id}});
+            this.$router.push({ 'path':'/goods_detail', 'query':{id:item.id}});
         },
 
         //跳转到`我的`页面
