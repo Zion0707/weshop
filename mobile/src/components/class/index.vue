@@ -103,7 +103,7 @@ export default {
     	//跳转到详情
         goodsDetail(item){
             console.log(item);
-            this.$router.push({ 'path':'/goods_detail', 'query':{id:item.id}});
+            this.$router.push({ 'path':'/class/goods_detail', 'query':{id:item.id}});
         },
 
     	//返回的索引来进行按需加载
