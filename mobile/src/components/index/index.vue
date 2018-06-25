@@ -62,7 +62,7 @@
                     </h3>
 
                     <yd-list theme="3">
-                        <yd-list-item v-for="item, key in list" :key="key" @click.native="orderDetail(item)">
+                        <yd-list-item v-for="item, key in list" :key="key" @click.native="goodsDetail(item)">
                             <img slot="img" :src="item.img">
                             <span slot="title">{{item.title}}</span>
                             <yd-list-other slot="other">
@@ -121,6 +121,7 @@
         <transition name="goleft">
             <router-view></router-view>
         </transition>
+        
     </div>
 </template>
 
@@ -158,7 +159,7 @@ export default {
     },
     methods:{
         //跳转到详情
-        orderDetail(item){
+        goodsDetail(item){
             console.log(item);
             this.$router.push({ 'path':'/goods_detail', 'query':{id:item.id}});
         },

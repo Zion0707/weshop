@@ -73,6 +73,7 @@ export default {
         //返回上一级
     	back(){
     		this.$router.back();
+            // this.$router.push({path:'/'});
     	}
     },
     mounted(){
