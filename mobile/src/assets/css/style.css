@@ -46,6 +46,9 @@
 .c-ff6700{color:#ff6700;}
 .c-ff0000{color:#ff0000;}
 
+.pr{position:relative;}
+.pa{position:absolute;}
+
 
 /* 转场切换动画 */
 .goleft-enter-active ,
@@ -83,8 +86,12 @@
 	padding: .4rem .24rem;
 }
 
-
-
+.swiper-pagination .swiper-pagination-bullet-active{
+	background:#f66706;
+}
+.order-swiper .swiper-pagination-bullet{
+	background-color:#fff;
+}
 
 
 
@@ -109,13 +116,17 @@
 	top:0;
 	height:1rem;
 }
-.cp-body{
+.cp-body,
+.cp2-body{
 	position: fixed;
 	left:0;
 	right:0;
 	bottom:0;
 	top:1rem;
 	overflow-y:auto;
+}
+.cp2-body{
+	top:0;
 }
 .child-page{
 	position:fixed;

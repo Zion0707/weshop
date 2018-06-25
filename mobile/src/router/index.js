@@ -7,7 +7,13 @@ export default new Router({
 	routes: [
 		{
 			path: '/',
-			component: resolve => require(['@/components/index/index.vue'], resolve) 
+			component: resolve => require(['@/components/index/index.vue'], resolve) ,
+			children:[
+				{
+					path:'/order_detail',
+					component: resolve => require(['@/components/index/order_detail.vue'], resolve)
+				}
+			]
 		},
 		{
 			path: '/class',

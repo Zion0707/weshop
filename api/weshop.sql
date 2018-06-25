@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.20)
 # Database: weshop
-# Generation Time: 2018-06-25 02:27:05 +0000
+# Generation Time: 2018-06-25 09:07:54 +0000
 # ************************************************************
 
 
@@ -27,8 +27,8 @@ DROP TABLE IF EXISTS `goods`;
 
 CREATE TABLE `goods` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '商品id',
-  `cover` varchar(255) DEFAULT NULL COMMENT '商品封面',
   `name` varchar(100) DEFAULT NULL COMMENT '商品名称',
+  `cover` varchar(255) DEFAULT NULL COMMENT '商品封面',
   `description` varchar(255) DEFAULT NULL COMMENT '商品描述',
   `realPrice` decimal(11,2) DEFAULT NULL COMMENT '商品真实价格',
   `marketPrice` decimal(11,2) DEFAULT NULL COMMENT '商品市场价格',
@@ -42,12 +42,31 @@ CREATE TABLE `goods` (
 LOCK TABLES `goods` WRITE;
 /*!40000 ALTER TABLE `goods` DISABLE KEYS */;
 
-INSERT INTO `goods` (`id`, `cover`, `name`, `description`, `realPrice`, `marketPrice`, `createTime`, `types`, `status`, `model`)
+INSERT INTO `goods` (`id`, `name`, `cover`, `description`, `realPrice`, `marketPrice`, `createTime`, `types`, `status`, `model`)
 VALUES
-	(1,'//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360','黑鲨手机','专业游戏手机',3200.00,4000.00,NULL,0,0,NULL);
+	(1,'黑鲨手机','//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360','专业游戏手机',3200.00,4000.00,NULL,0,0,NULL);
 
 /*!40000 ALTER TABLE `goods` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
+# Dump of table order
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `order`;
+
+CREATE TABLE `order` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '订单id',
+  `uid` int(10) DEFAULT NULL COMMENT '用户id',
+  `oid` varchar(100) DEFAULT NULL COMMENT '订单编号',
+  `name` varchar(100) DEFAULT NULL COMMENT '商品名称',
+  `description` varchar(255) DEFAULT NULL COMMENT '商品描述',
+  `createTime` int(10) DEFAULT NULL COMMENT '订单创建时间',
+  `realPrice` decimal(11,2) DEFAULT NULL COMMENT '订单真实价格',
+  `marketPrice` decimal(11,2) DEFAULT NULL COMMENT '订单市场价格',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 
 # Dump of table shop_car

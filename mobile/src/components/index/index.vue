@@ -31,26 +31,27 @@
 
 		<div class="index-body">
             
-
-
             <div class="clearfix">
-                <yd-slider autoplay="0">
-                    <yd-slider-item>
+                <swiper :options="swiperOption" ref="mySwiper" :class="'index-swiper'">
+                    <!-- slides -->
+                    <swiper-slide>
                         <a href="javascript:;">
                             <img src="//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/1edb36d7033f83953b132b5a4fd11f05.jpg?thumb=1&w=720&h=360">
                         </a>
-                    </yd-slider-item>
-                    <yd-slider-item>
+                    </swiper-slide>
+                    <swiper-slide>
                         <a href="javascript:;">
                             <img src="//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/2ac0a79904813dbf63e1a50ba004f9bc.jpg?thumb=1&w=720&h=360">
                         </a>
-                    </yd-slider-item>
-                    <yd-slider-item>
+                    </swiper-slide>
+                    <swiper-slide>
                         <a href="javascript:;">
                             <img src="//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/4d8254479f085cde04386422acff2a19.jpg?thumb=1&w=720&h=360">
                         </a>
-                    </yd-slider-item>
-                </yd-slider>
+                    </swiper-slide>
+                    <!-- Optional controls -->
+                    <div class="swiper-pagination" slot="pagination"></div>
+                </swiper>
             </div>
             
             <div class="clearfix">
@@ -61,7 +62,7 @@
                     </h3>
 
                     <yd-list theme="3">
-                        <yd-list-item v-for="item, key in list" :key="key">
+                        <yd-list-item v-for="item, key in list" :key="key" @click.native="orderDetail(item)">
                             <img slot="img" :src="item.img">
                             <span slot="title">{{item.title}}</span>
                             <yd-list-other slot="other">
@@ -113,9 +114,13 @@
                 </div>
             </div>
 
-
-
 		</div><!--index-body-->
+
+        
+        
+        <transition name="goleft">
+            <router-view></router-view>
+        </transition>
     </div>
 </template>
 
@@ -126,20 +131,39 @@ import { mapGetters } from 'vuex';
 export default {
     data () {
         return {
+            // some swiper options/callbacks
+            // 所有的参数同 swiper 官方 api 参数
+            swiperOption: {
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+            },
+
             list: [
-                {img: "//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360", title: "黑鲨手机", price: 156.23, content:"专业游戏手机"},
-                {img: "//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360", title: "黑鲨手机", price: 256.23, content:"专业游戏手机"},
-                {img: "//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360", title: "黑鲨手机", price: 356.23, content:"专业游戏手机"},
-                {img: "//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360", title: "黑鲨手机", price: 456.23, content:"专业游戏手机"},
-                {img: "//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360", title: "黑鲨手机", price: 556.23, content:"专业游戏手机"},
-                {img: "//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360", title: "黑鲨手机", price: 656.23, content:"专业游戏手机"}
+                {img: "//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360", title: "黑鲨手机", price: 156.23, content:"专业游戏手机",id:1},
+                {img: "//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360", title: "黑鲨手机", price: 256.23, content:"专业游戏手机",id:2},
+                {img: "//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360", title: "黑鲨手机", price: 356.23, content:"专业游戏手机",id:3},
+                {img: "//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360", title: "黑鲨手机", price: 456.23, content:"专业游戏手机",id:4},
+                {img: "//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360", title: "黑鲨手机", price: 556.23, content:"专业游戏手机",id:5},
+                {img: "//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360", title: "黑鲨手机", price: 656.23, content:"专业游戏手机",id:6}
             ]
         }
     },
     computed:{
-        ...mapGetters(['menu'])
+        //轮播使用
+        swiper() {
+            return this.$refs.mySwiper.swiper
+        },
+        ...mapGetters(['menu']),
     },
     methods:{
+        //跳转到详情
+        orderDetail(item){
+            console.log(item);
+            this.$router.push({ 'path':'/order_detail', 'query':{id:item.id}});
+        },
+
+        //跳转到`我的`页面
         myPath(){
             this.menu.currentNum = 3;
             this.$router.push({'path':'/my'});
