@@ -5,9 +5,9 @@
 # http://www.sequelpro.com/
 # https://github.com/sequelpro/sequelpro
 #
-# Host: 127.0.0.1 (MySQL 5.7.17)
+# Host: 127.0.0.1 (MySQL 5.7.20)
 # Database: weshop
-# Generation Time: 2018-06-24 04:02:38 +0000
+# Generation Time: 2018-06-25 02:27:05 +0000
 # ************************************************************
 
 
@@ -18,6 +18,36 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+# Dump of table goods
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `goods`;
+
+CREATE TABLE `goods` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '商品id',
+  `cover` varchar(255) DEFAULT NULL COMMENT '商品封面',
+  `name` varchar(100) DEFAULT NULL COMMENT '商品名称',
+  `description` varchar(255) DEFAULT NULL COMMENT '商品描述',
+  `realPrice` decimal(11,2) DEFAULT NULL COMMENT '商品真实价格',
+  `marketPrice` decimal(11,2) DEFAULT NULL COMMENT '商品市场价格',
+  `createTime` int(10) DEFAULT NULL COMMENT '商品创建时间',
+  `types` int(10) DEFAULT NULL COMMENT '商品类型：0:手机、1:电脑、2:电视',
+  `status` int(1) DEFAULT '0' COMMENT '商品状态：0:正常、1:售罄、3:停售',
+  `model` varchar(255) DEFAULT NULL COMMENT '型号',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `goods` WRITE;
+/*!40000 ALTER TABLE `goods` DISABLE KEYS */;
+
+INSERT INTO `goods` (`id`, `cover`, `name`, `description`, `realPrice`, `marketPrice`, `createTime`, `types`, `status`, `model`)
+VALUES
+	(1,'//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360','黑鲨手机','专业游戏手机',3200.00,4000.00,NULL,0,0,NULL);
+
+/*!40000 ALTER TABLE `goods` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table shop_car

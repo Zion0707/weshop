@@ -18,6 +18,12 @@ Vue.config.productionTip = false;
 import './assets/css/style.css';
 import '../static/js/ydui.flexible.js';
 
+//https://www.npmjs.com/package/vue-awesome-swiper
+import VueAwesomeSwiper from 'vue-awesome-swiper';
+import 'swiper/dist/css/swiper.min.css';
+Vue.use(VueAwesomeSwiper);
+
+
 //调用axios的封装方法
 import httpaxios from '../static/js/httpaxios.js';
 Vue.prototype.http = httpaxios;
