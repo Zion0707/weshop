@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.20)
 # Database: weshop
-# Generation Time: 2018-06-26 07:08:32 +0000
+# Generation Time: 2018-06-26 10:39:01 +0000
 # ************************************************************
 
 
@@ -26,7 +26,7 @@
 DROP TABLE IF EXISTS `goods`;
 
 CREATE TABLE `goods` (
-  `id` mediumint(8) NOT NULL AUTO_INCREMENT,
+  `id` mediumint(8) NOT NULL AUTO_INCREMENT COMMENT '商品id',
   `name` varchar(100) DEFAULT NULL COMMENT '商品名称',
   `cover` varchar(255) DEFAULT NULL COMMENT '商品封面',
   `description` varchar(255) DEFAULT NULL COMMENT '商品描述',
@@ -70,6 +70,45 @@ VALUES
 	(22,'悦米机械键盘Pro静音版','//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/d67b10a1ab4a6a3d4bdc7c32d5493954.jpg?thumb=1&w=360&h=360','天生极简 精致由内到外',599.00,0.00,1529992051,0,3,0,'机械键盘',2);
 
 /*!40000 ALTER TABLE `goods` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table goods_banner
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `goods_banner`;
+
+CREATE TABLE `goods_banner` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `gid` int(10) DEFAULT NULL COMMENT '与商品相关联的id',
+  `bannerUrl` varchar(255) DEFAULT NULL COMMENT '商品展示图',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `goods_banner` WRITE;
+/*!40000 ALTER TABLE `goods_banner` DISABLE KEYS */;
+
+INSERT INTO `goods_banner` (`id`, `gid`, `bannerUrl`)
+VALUES
+	(1,1,'//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/be0f7095a8d06868c8ff4205301c5d2e.jpg?thumb=1&w=720&h=792'),
+	(2,1,'//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ec9b0f12d604fdc2a0d92d3fb5af3f50.jpg?thumb=1&w=720&h=792'),
+	(3,1,'//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/3372902d84c593dc2ef1303592228aa0.jpg?thumb=1&w=720&h=792'),
+	(4,1,'//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/32368af038111276c17719aede69b563.jpg?thumb=1&w=720&h=792'),
+	(5,1,'//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/a16b59a3d47c53cf08f21025de9f0816.jpg?thumb=1&w=720&h=792'),
+	(8,2,'//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/936dba0ada52e4cb64aa4a70f215b4dc.jpg?thumb=1&w=720&h=792'),
+	(9,2,'//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/1301f2b1c9c260581be6ecc9d103c736.jpg?thumb=1&w=720&h=792'),
+	(10,2,'//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/fbba1cc0cafce94c52b260d3c613eb39.jpg?thumb=1&w=720&h=792'),
+	(11,2,'//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/a8c3b93eb77dedf964a3c6bcb9bc0359.jpg?thumb=1&w=720&h=792'),
+	(13,5,'//i8.mifile.cn/v1/a1/5a483713-7b6f-b83d-0afe-ef5f4b5fc66b!720x792.webp'),
+	(14,5,'//i8.mifile.cn/v1/a1/19cd41e0-4721-deca-2204-4a07d606a6f6!720x792.webp'),
+	(15,5,'//i8.mifile.cn/v1/a1/4f2f5377-d590-40bc-082f-7356bb65a263!720x792.webp'),
+	(18,4,'//i8.mifile.cn/v1/a1/6ef534bb-6817-f6e2-192a-460e659819b8!720x792.webp'),
+	(19,4,'//i8.mifile.cn/v1/a1/2ec6acfd-6d81-0bbd-191c-830b91802564!720x792.webp'),
+	(20,4,'//i8.mifile.cn/v1/a1/59508b3c-fdb4-70b3-1364-d2260478617c!720x792.webp'),
+	(21,4,'//i8.mifile.cn/v1/a1/ec11c5fb-df45-f78b-90a4-f6012d865830!720x792.webp'),
+	(22,4,'//i8.mifile.cn/v1/a1/2aa2177d-6b9c-70d2-9d71-9bf5679e2eba!720x792.webp');
+
+/*!40000 ALTER TABLE `goods_banner` ENABLE KEYS */;
 UNLOCK TABLES;
 
 

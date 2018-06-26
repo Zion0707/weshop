@@ -62,14 +62,14 @@
                     </h3>
 
                     <yd-list theme="3">
-                        <yd-list-item v-for="item, key in list" :key="key" @click.native="goodsDetail(item)">
-                            <img slot="img" :src="item.img">
-                            <span slot="title">{{item.title}}</span>
+                        <yd-list-item v-for="item, key in homeGoods.dailyList" :key="key" @click.native="goodsDetail(item)">
+                            <img slot="img" :src="item.cover">
+                            <span slot="title">{{ item.name }}</span>
                             <yd-list-other slot="other">
                                 <div class="rdl-01">
-                                    <span class="list-price price"> {{item.price}}</span>
+                                    <span class="list-price price"> {{ item.realPrice }}</span>
                                 </div>
-                                <div class="rdl-02">{{item.content}}</div>
+                                <div class="rdl-02">{{ item.description }}</div>
                             </yd-list-other>
                         </yd-list-item>
                     </yd-list>
@@ -80,15 +80,16 @@
                     <h3 class="rd-item-head">
                         <span>优惠精品</span>
                     </h3>
+                    
                     <yd-list theme="3">
-                        <yd-list-item v-for="item, key in list" :key="key">
-                            <img slot="img" :src="item.img">
-                            <span slot="title">{{item.title}}</span>
+                        <yd-list-item v-for="item, key in homeGoods.preferentialList" :key="key" @click.native="goodsDetail(item)">
+                            <img slot="img" :src="item.cover">
+                            <span slot="title">{{ item.name }}</span>
                             <yd-list-other slot="other">
                                 <div class="rdl-01">
-                                    <span class="list-price price"> {{item.price}}</span>
+                                    <span class="list-price price"> {{ item.realPrice }}</span>
                                 </div>
-                                <div class="rdl-02">{{item.content}}</div>
+                                <div class="rdl-02">{{ item.description }}</div>
                             </yd-list-other>
                         </yd-list-item>
                     </yd-list>
@@ -99,15 +100,16 @@
                     <h3 class="rd-item-head">
                         <span>新品上市</span>
                     </h3>
+                    
                     <yd-list theme="3">
-                        <yd-list-item v-for="item, key in list" :key="key">
-                            <img slot="img" :src="item.img">
-                            <span slot="title">{{item.title}}</span>
+                        <yd-list-item v-for="item, key in homeGoods.newProductsList" :key="key" @click.native="goodsDetail(item)">
+                            <img slot="img" :src="item.cover">
+                            <span slot="title">{{ item.name }}</span>
                             <yd-list-other slot="other">
                                 <div class="rdl-01">
-                                    <span class="list-price price"> {{item.price}}</span>
+                                    <span class="list-price price"> {{ item.realPrice }}</span>
                                 </div>
-                                <div class="rdl-02">{{item.content}}</div>
+                                <div class="rdl-02">{{ item.description }}</div>
                             </yd-list-other>
                         </yd-list-item>
                     </yd-list>
@@ -135,19 +137,15 @@ export default {
             // some swiper options/callbacks
             // 所有的参数同 swiper 官方 api 参数
             swiperOption: {
+                loop : true,
+                autoplay:true,
                 pagination: {
                     el: '.swiper-pagination',
                 },
             },
 
-            list: [
-                {img: "//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360", title: "黑鲨手机", price: 156.23, content:"专业游戏手机",id:1},
-                {img: "//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360", title: "黑鲨手机", price: 256.23, content:"专业游戏手机",id:2},
-                {img: "//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360", title: "黑鲨手机", price: 356.23, content:"专业游戏手机",id:3},
-                {img: "//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360", title: "黑鲨手机", price: 456.23, content:"专业游戏手机",id:4},
-                {img: "//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360", title: "黑鲨手机", price: 556.23, content:"专业游戏手机",id:5},
-                {img: "//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360", title: "黑鲨手机", price: 656.23, content:"专业游戏手机",id:6}
-            ]
+
+            homeGoods:{}
         }
     },
     computed:{
@@ -160,7 +158,7 @@ export default {
     methods:{
         //跳转到详情
         goodsDetail(item){
-            console.log(item);
+            // console.log(item);
             this.$router.push({ 'path':'/goods_detail', 'query':{id:item.id}});
         },
 
@@ -168,9 +166,26 @@ export default {
         myPath(){
             this.menu.currentNum = 3;
             this.$router.push({'path':'/my'});
+        },
+
+        //列表数据
+        listData(type){
+            var _self = this;
+            this.http.post('/HomeGoods.class.php',{
+                type: type
+            },function(data){
+                if ( data.code == 0 ) {
+                    _self.homeGoods = data;
+                }else{
+                    _self.$dialog.toast({ mes: data.msg });
+                }
+            });
         }
     },
     mounted(){
+        
+        //默认获取为推荐
+        this.listData('recommended');
 
     }
 }

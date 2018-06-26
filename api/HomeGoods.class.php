@@ -14,47 +14,56 @@
 		{
 			$Conn = new Conn();
 			$this->pdo = $Conn->connDb();
-		}
+		}	
 
-		//每日精选
-		private function daily(){
-
+		//获取每个类型的列表
+		private function getLabelTypeList($labelType){
 			$pdo=$this->pdo;
-
-			$stmt = $pdo->prepare('SELECT * FROM `goods` WHERE `labelType`=0 LIMIT 0,6');
+			$stmt = $pdo->prepare('SELECT * FROM `goods` WHERE `labelType`=? LIMIT 0,6');
+			$stmt->bindParam(1, $labelType);
 			$stmt->execute();
 			$rowArr = [];
 			while( $row = $stmt->fetch(PDO::FETCH_ASSOC) ){
 				$rowArr[] = $row;
 			}
-
-			print_r($rowArr);
-
-
+			return $rowArr;
 		}
 
-		//优惠精品
-		private function preferential(){
-			
-		}
+		//推荐数据列表
+		public function recommended(){
+			//每日精选
+			$labelTypeList0 = $this->getLabelTypeList(0);
+			//优惠精品
+			$labelTypeList1 = $this->getLabelTypeList(1);
+			//新品上市
+			$labelTypeList2 = $this->getLabelTypeList(2);
 
-		//新品上市
-		private function newProduct(){
-			
-		}
 
-		//总的数据汇总
-		public function homeData(){
-			$this->daily();
-		}
+			exit( json_encode([
+				'code'=> 0,
+				'msg'=> 'success',
+				'dailyList'=> $labelTypeList0,
+				'preferentialList'=> $labelTypeList1,
+				'newProductsList'=> $labelTypeList2
+			]));
+
+		}	
 
 	}
 
 
 
-	//调用
-	$HomeGoods = new HomeGoods();
-	$HomeGoods->homeData();
+	if ( isset($_POST) ) {
+		$HomeGoods = new HomeGoods();
+		switch( $_POST['type'] ){
+			//首页推荐
+			case 'recommended':
+				$HomeGoods->recommended( $_POST['type'] );
+			break;
+		}
+	}
+
+
 
 
 
