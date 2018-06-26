@@ -37,10 +37,51 @@
             <div class="goods-desc">
                 <div class="gd-01">黑鲨游戏手机 液冷更快</div>
                 <div class="gd-02 mt10">液冷散热 / 独立图像处理芯片 / 一键游戏模式 / 骁龙845处理器 / 18:9全面屏 / 前后2000万摄像头</div>
-                <div class="gd-03 mt10">
-                    <span>￥</span>3499
+                <div class="gd-03 mt10 price">
+                    3499
                 </div>
             </div>
+
+            
+            <div class="clearfix mt10">
+                <yd-cell-group>
+                    <yd-cell-item arrow @click.native="show1 = true">
+                        <div class="goods-select" slot="left"><em>已选</em><span>黑鲨游戏手机 高配版 极夜黑 128GB x1</span></div>
+                        <div slot="right"></div>
+                    </yd-cell-item>
+                    <yd-cell-item arrow @click.native="show2 = true">
+                        <div class="goods-select" slot="left"><em>送至</em><span>广东省 深圳市 南山区</span></div>
+                        <div slot="right"></div>
+                    </yd-cell-item>
+                </yd-cell-group>
+            </div>
+
+            
+
+
+
+
+
+            <!-- 规格弹框 -->
+            <yd-popup v-model="show1" position="bottom" height="70%">
+                <div class="parter-01 pf bd_b clearfix">
+                    <div class="par1-left fl"></div>
+                    <div class="par1-right">
+                        <div class="par1r-01 price"> 3200</div>
+                        <div class="par1r-02">黑鲨游戏手机 高配版 极夜黑 128GB</div>
+                    </div>
+                </div>
+                <div class="parter-02"></div>
+                <div class="parter-03 pf">
+                    加入购物车
+                </div>
+            </yd-popup>
+
+
+            <!-- 地区弹框 -->
+            <yd-popup v-model="show2" position="bottom" height="60%">
+
+            </yd-popup>
 
             
 
@@ -54,6 +95,8 @@
 export default {
     data () {
         return {
+            show1:true,
+            show2:false,
             // some swiper options/callbacks
             // 所有的参数同 swiper 官方 api 参数
             swiperOption: {
@@ -84,5 +127,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-	@import '../../assets/sass/index.scss';
+	@import '../../assets/sass/goods_detail.scss';
 </style>

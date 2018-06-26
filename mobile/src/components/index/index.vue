@@ -67,7 +67,7 @@
                             <span slot="title">{{item.title}}</span>
                             <yd-list-other slot="other">
                                 <div class="rdl-01">
-                                    <span class="list-price"><em>¥</em>{{item.price}}</span>
+                                    <span class="list-price price"> {{item.price}}</span>
                                 </div>
                                 <div class="rdl-02">{{item.content}}</div>
                             </yd-list-other>
@@ -86,7 +86,7 @@
                             <span slot="title">{{item.title}}</span>
                             <yd-list-other slot="other">
                                 <div class="rdl-01">
-                                    <span class="list-price"><em>¥</em>{{item.price}}</span>
+                                    <span class="list-price price"> {{item.price}}</span>
                                 </div>
                                 <div class="rdl-02">{{item.content}}</div>
                             </yd-list-other>
@@ -105,7 +105,7 @@
                             <span slot="title">{{item.title}}</span>
                             <yd-list-other slot="other">
                                 <div class="rdl-01">
-                                    <span class="list-price"><em>¥</em>{{item.price}}</span>
+                                    <span class="list-price price"> {{item.price}}</span>
                                 </div>
                                 <div class="rdl-02">{{item.content}}</div>
                             </yd-list-other>
