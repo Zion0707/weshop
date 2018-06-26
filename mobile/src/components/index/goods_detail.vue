@@ -42,7 +42,6 @@
                 </div>
             </div>
 
-            
             <div class="clearfix mt10">
                 <yd-cell-group>
                     <yd-cell-item arrow @click.native="show1 = true">
@@ -61,18 +60,59 @@
 
 
 
+            <!-- 华丽的分割线 -->
 
-            <!-- 规格弹框 -->
+
+
+
+
+
+
+            <!-- 规格参数弹框 -->
             <yd-popup v-model="show1" position="bottom" height="70%">
                 <div class="parter-01 pf bd_b clearfix">
-                    <div class="par1-left fl"></div>
+                    <i class="iconfont icon-guanbi par1-close" @click="show1=false"></i>
+                    <div class="par1-left fl">
+                        <img src="//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/0bef1311b94ccb05cf36e796fb3d1b30.jpg">
+                    </div>
                     <div class="par1-right">
                         <div class="par1r-01 price"> 3200</div>
                         <div class="par1r-02">黑鲨游戏手机 高配版 极夜黑 128GB</div>
                     </div>
                 </div>
-                <div class="parter-02"></div>
-                <div class="parter-03 pf">
+                <div class="parter-02">
+                    <div class="par2-in">
+
+                        <div class="gd-arg">
+                            <div class="gd-arg-tit">版本</div>
+                            <ul class="gd-arg-con">
+                               <li class="current">6GB+64GB 2999元</li>
+                               <li>6GB+64GB 2999元</li>
+                               <li>6GB+64GB 2999元</li>
+                            </ul>
+                        </div>
+
+                        <div class="gd-arg inline-box mt30">
+                            <div class="gd-arg-tit">颜色</div>
+                            <ul class="gd-arg-con">
+                               <li class="current">黑色</li>
+                               <li>白色</li>
+                               <li>红色</li>
+                            </ul>
+                        </div>
+
+                        <div class="gd-arg mt30" style="border-bottom:none;">
+                            <div class="gd-arg-tit">数量</div>
+                            <div class="gd-num mt30 mb30">
+                                <yd-spinner :style="{'margin-left':'12px'}" width="130px" height="35px" v-model="spinner"></yd-spinner>
+                            </div>
+                        </div>
+                        
+
+
+                    </div>
+                </div>
+                <div class="parter-03 pf" @click="addCar">
                     加入购物车
                 </div>
             </yd-popup>
@@ -95,9 +135,6 @@
 export default {
     data () {
         return {
-            show1:true,
-            show2:false,
-            // some swiper options/callbacks
             // 所有的参数同 swiper 官方 api 参数
             swiperOption: {
                 lazy: true,
@@ -105,19 +142,26 @@ export default {
                     el: '.swiper-pagination',
                 },
             },
+
+            spinner:1,
+            show1:false,
+            show2:false,
         }
     },
     methods:{
         //轮播使用
         swiper() {
-            return this.$refs.mySwiper.swiper
+            return this.$refs.mySwiper.swiper;
         },
-
         //返回上一级
     	back(){
     		this.$router.back();
             // this.$router.push({path:'/'});
-    	}
+    	},
+        //添加到购物车
+        addCar(){
+            console.log('添加到购物车');
+        }
     },
     mounted(){
     	var _self = this;
