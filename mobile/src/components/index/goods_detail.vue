@@ -1,5 +1,5 @@
 <template>
-    <div class="child-page">
+    <div class="child-page bg-f5f5f5">
 		<div class="cp2-body">
 
             <div class="clearfix pr">
@@ -55,7 +55,19 @@
                 </yd-cell-group>
             </div>
 
-            
+            <div class="gd-bottom">
+                <div class="gdb-icon" @click="goIndex">
+                    <i class="iconfont icon-shouye"></i>
+                    <span>首页</span>
+                </div>
+                <div class="gdb-icon" @click="goCar">
+                    <i class="iconfont icon-gouwuche"></i>
+                    <span>购物车</span>
+                </div>
+                <a href="javascript:;" class="gdb-btn">
+                    加入购物车
+                </a>
+            </div>
 
 
 
@@ -132,6 +144,8 @@
 
 <script>
 
+import { mapGetters } from 'vuex'; 
+
 export default {
     data () {
         return {
@@ -148,6 +162,9 @@ export default {
             show2:false,
         }
     },
+    computed:{
+        ...mapGetters(['menu'])
+    },
     methods:{
         //轮播使用
         swiper() {
@@ -161,7 +178,15 @@ export default {
         //添加到购物车
         addCar(){
             console.log('添加到购物车');
-        }
+        },
+        goIndex(){
+            this.menu.currentNum = 0;
+            this.$router.push({'path':'/'});
+        },
+        goCar(){
+            this.menu.currentNum = 2;
+            this.$router.push({'path':'/car'});
+        },
     },
     mounted(){
     	var _self = this;

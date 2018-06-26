@@ -188,6 +188,7 @@
 }
 .cp2-body{
 	top:0;
+	bottom:1rem;
 }
 .child-page{
 	position:fixed;
@@ -195,10 +196,12 @@
 	top:0;
 	right:0;
 	bottom:0;
-	background-color:#f5f5f5;
+	background-color:#ffffff;
 	z-index:9;
 }
-
+.bg-f5f5f5{
+	background-color:#f5f5f5;
+}
 .index-header{
 	position: fixed;
 	width:7.5rem;

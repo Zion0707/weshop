@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.20)
 # Database: weshop
-# Generation Time: 2018-06-25 09:07:54 +0000
+# Generation Time: 2018-06-26 03:49:02 +0000
 # ************************************************************
 
 
@@ -27,6 +27,7 @@ DROP TABLE IF EXISTS `goods`;
 
 CREATE TABLE `goods` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '商品id',
+  `hot` int(11) DEFAULT '0' COMMENT '热度:用户购买1次就加1',
   `name` varchar(100) DEFAULT NULL COMMENT '商品名称',
   `cover` varchar(255) DEFAULT NULL COMMENT '商品封面',
   `description` varchar(255) DEFAULT NULL COMMENT '商品描述',
@@ -42,87 +43,11 @@ CREATE TABLE `goods` (
 LOCK TABLES `goods` WRITE;
 /*!40000 ALTER TABLE `goods` DISABLE KEYS */;
 
-INSERT INTO `goods` (`id`, `name`, `cover`, `description`, `realPrice`, `marketPrice`, `createTime`, `types`, `status`, `model`)
+INSERT INTO `goods` (`id`, `hot`, `name`, `cover`, `description`, `realPrice`, `marketPrice`, `createTime`, `types`, `status`, `model`)
 VALUES
-	(1,'黑鲨手机','//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360','专业游戏手机',3200.00,4000.00,NULL,0,0,NULL);
+	(1,0,'黑鲨手机','//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360','专业游戏手机',3200.00,4000.00,NULL,0,0,NULL);
 
 /*!40000 ALTER TABLE `goods` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table order
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `order`;
-
-CREATE TABLE `order` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '订单id',
-  `uid` int(10) DEFAULT NULL COMMENT '用户id',
-  `oid` varchar(100) DEFAULT NULL COMMENT '订单编号',
-  `name` varchar(100) DEFAULT NULL COMMENT '商品名称',
-  `description` varchar(255) DEFAULT NULL COMMENT '商品描述',
-  `createTime` int(10) DEFAULT NULL COMMENT '订单创建时间',
-  `realPrice` decimal(11,2) DEFAULT NULL COMMENT '订单真实价格',
-  `marketPrice` decimal(11,2) DEFAULT NULL COMMENT '订单市场价格',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-
-# Dump of table shop_car
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `shop_car`;
-
-CREATE TABLE `shop_car` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '购物车id',
-  `uid` int(10) DEFAULT NULL COMMENT '用户id',
-  `status` int(1) DEFAULT '0' COMMENT '购物车状态：0表示正常，1表示禁用',
-  `createTime` int(10) DEFAULT NULL COMMENT '创建时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-LOCK TABLES `shop_car` WRITE;
-/*!40000 ALTER TABLE `shop_car` DISABLE KEYS */;
-
-INSERT INTO `shop_car` (`id`, `uid`, `status`, `createTime`)
-VALUES
-	(1,16,0,1529811570),
-	(2,17,0,1529811964);
-
-/*!40000 ALTER TABLE `shop_car` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table user_info
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `user_info`;
-
-CREATE TABLE `user_info` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户id',
-  `username` varchar(20) DEFAULT NULL COMMENT '用户名',
-  `password` varchar(32) DEFAULT NULL COMMENT '用户密码',
-  `tellphone` int(11) DEFAULT NULL COMMENT '手机号码',
-  `avatarUrl` varchar(100) DEFAULT '../../../static/images/logo.png' COMMENT '用户头像地址',
-  `sex` int(1) DEFAULT NULL COMMENT '性别：0男，1女',
-  `age` int(3) DEFAULT NULL COMMENT '年龄',
-  `address` varchar(255) DEFAULT NULL COMMENT '地址',
-  `createTime` int(10) DEFAULT NULL COMMENT '创建时间',
-  `character` int(1) DEFAULT '0' COMMENT '角色：0表示普通用户，2表示vip，3表示管理员',
-  `status` int(1) DEFAULT '0' COMMENT '用户状态：0表示正常 , 1表示禁用，2表示删除',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-LOCK TABLES `user_info` WRITE;
-/*!40000 ALTER TABLE `user_info` DISABLE KEYS */;
-
-INSERT INTO `user_info` (`id`, `username`, `password`, `tellphone`, `avatarUrl`, `sex`, `age`, `address`, `createTime`, `character`, `status`)
-VALUES
-	(12,'Zion','41c45c00e7515f75bfccda7eaf3086cc',NULL,'../../../static/images/logo.png',NULL,NULL,NULL,1529749975,0,0),
-	(17,'Zion2','3d39b90398028dc2f30902704865963d',NULL,'../../../static/images/logo.png',NULL,NULL,NULL,1529811964,0,0);
-
-/*!40000 ALTER TABLE `user_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
 

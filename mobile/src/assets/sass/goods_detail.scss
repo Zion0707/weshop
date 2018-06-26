@@ -132,3 +132,64 @@
 	top:0.1rem;
 	color:#999;
 }
+.gd-bottom{
+	position: fixed;
+	background-color:#fff;
+	height:1rem;
+	width:100%;
+	bottom:0;
+	left:0;
+	display: flex;
+	border-top:1px solid #f1f1f1;
+}
+.gdb-icon{
+	text-align: center;
+	width:2rem;
+	height:1rem;
+	display: block;
+	color:#999;
+	i{
+		display:block;
+		font-size:0.45rem;
+		margin:0.05rem 0;
+	}
+	span{
+		display: block;
+	}
+}
+.gdb-btn{
+	width:5.5rem;
+	height:1rem;
+	line-height:1rem;
+	color:#fff;
+	background-color:$colorff6700;
+	text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
