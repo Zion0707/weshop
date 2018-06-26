@@ -160,6 +160,9 @@ export default {
             spinner:1,
             show1:false,
             show2:false,
+
+            goodsId: this.$route.query.goodsId,
+            goodsDetail:{}
         }
     },
     computed:{
@@ -175,6 +178,7 @@ export default {
     		this.$router.back();
             // this.$router.push({path:'/'});
     	},
+
         //添加到购物车
         addCar(){
             console.log('添加到购物车');
@@ -187,10 +191,24 @@ export default {
             this.menu.currentNum = 2;
             this.$router.push({'path':'/car'});
         },
+        //获取商品详情
+        getGoodsDetail(){
+            var _self = this;
+            this.http.post('/GoodsDetail.class.php',{
+                goodsId: this.goodsId
+            },function(data){
+                if ( data.code == 0 ) {
+                    _self.goodsDetail = data;
+                }else{
+                    _self.$dialog.toast({ mes: data.msg });
+                }
+            });
+        }   
     },
     mounted(){
     	var _self = this;
 
+        this.getGoodsDetail();
     }
 }
 </script>
