@@ -67,9 +67,9 @@
                             <span slot="title">{{ item.name }}</span>
                             <yd-list-other slot="other">
                                 <div class="rdl-01">
-                                    <span class="list-price price"> {{ item.realPrice }}</span>
+                                    <span class="list-price price"> {{ item.marketPrice }}</span>
                                 </div>
-                                <div class="rdl-02">{{ item.description }}</div>
+                                <div class="rdl-02">{{ item.shortDesc }}</div>
                             </yd-list-other>
                         </yd-list-item>
                     </yd-list>
@@ -87,9 +87,9 @@
                             <span slot="title">{{ item.name }}</span>
                             <yd-list-other slot="other">
                                 <div class="rdl-01">
-                                    <span class="list-price price"> {{ item.realPrice }}</span>
+                                    <span class="list-price price"> {{ item.marketPrice }}</span>
                                 </div>
-                                <div class="rdl-02">{{ item.description }}</div>
+                                <div class="rdl-02">{{ item.shortDesc }}</div>
                             </yd-list-other>
                         </yd-list-item>
                     </yd-list>
@@ -107,9 +107,9 @@
                             <span slot="title">{{ item.name }}</span>
                             <yd-list-other slot="other">
                                 <div class="rdl-01">
-                                    <span class="list-price price"> {{ item.realPrice }}</span>
+                                    <span class="list-price price"> {{ item.marketPrice }}</span>
                                 </div>
-                                <div class="rdl-02">{{ item.description }}</div>
+                                <div class="rdl-02">{{ item.shortDesc }}</div>
                             </yd-list-other>
                         </yd-list-item>
                     </yd-list>
