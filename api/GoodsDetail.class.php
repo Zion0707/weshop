@@ -9,8 +9,7 @@
 	class GoodsDetail
 	{
 		private $pdo;
-		public function __construct()
-		{
+		public function __construct(){
 			$Conn = new Conn();
 			$this->pdo = $Conn->connDb();
 		}
@@ -74,8 +73,8 @@
 				$row['colorList'] = $colorList;
 
 				//剔除不要的信息
-				unset( $row['id'] );
-				unset( $row['gid'] );
+				// unset( $row['id'] );
+				// unset( $row['gid'] );
 				unset( $row['realPrice'] );
 				$rowArr[] = $row;
 			}

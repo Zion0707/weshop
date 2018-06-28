@@ -31,7 +31,7 @@
             <div class="clearfix mt10">
                 <yd-cell-group>
                     <yd-cell-item arrow @click.native="show1 = true">
-                        <div class="goods-select" slot="left"><em>已选</em><span>{{ goodsDetail.specifications }} x{{ goodsSpinner }}</span></div>
+                        <div class="goods-select" slot="left"><em>已选</em><span>{{ goodsDetail.specifications }} x{{ totalNum }}</span></div>
                         <div slot="right"></div>
                     </yd-cell-item>
                     <yd-cell-item arrow @click.native="show2 = true">
@@ -111,7 +111,7 @@
                                     width="110px" 
                                     height="35px" 
                                     :readonly="false" 
-                                    v-model.trim="goodsSpinner">        
+                                    v-model.trim="totalNum">        
                                 </yd-spinner>
                             </div>
                         </div>
@@ -152,12 +152,13 @@ export default {
                 },
             },
 
-            goodsSpinner:1,
+            totalNum:1,
             show1:false,
             show2:false,
             gid: this.$route.query.gid,
             gIndex: this.$route.query.gIndex,
             goodsDetail:{},
+            parameter:{},
             parameterList:[],
             colorList:[],
             colorIndex:'',
@@ -198,7 +199,9 @@ export default {
 
                     //根据gIndex查询颜色及库存列表
                     for(var i in _self.parameterList){
+                        //根据gIndex来定位是哪个规格
                         if ( _self.parameterList[i].gIndex == _self.gIndex ) {
+                            _self.parameter = _self.parameterList[i];
                             _self.colorList = _self.parameterList[i].colorList;
                         }
                     }
@@ -210,6 +213,7 @@ export default {
         //选择规格
         selectParameter(item){
             //相关数据赋值
+            this.parameter = item;
             this.gIndex = item.gIndex;
             this.goodsDetail.marketPrice = item.marketPrice;
             this.goodsDetail.specifications = item.specifications;
@@ -228,11 +232,28 @@ export default {
         
         //添加到购物车
         addCar(){
-            if ( this.goodsColor ) 
-            {
-                console.log( this.goodsDetail.name, this.goodsDetail.specifications , this.goodsDetail.marketPrice, this.goodsColor, this.goodsSpinner );
-            }else
-            {
+            var _self = this;
+
+            if ( this.goodsColor ){
+
+                this.http.post('/ShopCar.class.php',{
+                    type: 'addGoods',
+                    gid: this.parameter.gid,
+                    goodsParameterId: this.parameter.id,
+                    name: this.goodsDetail.name +''+this.parameter.specifications,
+                    description: this.parameter.versionDescription,
+                    marketPrice: this.goodsDetail.marketPrice,
+                    totalNum: this.totalNum,
+                    goodsColor: this.goodsColor
+                },function(data){
+                    if ( data.code == 0 ) {
+                        console.log('添加成功！');
+                    }else{
+                        _self.$dialog.toast({ mes: data.msg });
+                    }
+                });
+
+            }else{
                 this.$dialog.toast({ mes: '请完善商品信息哦！'});
             }
 
