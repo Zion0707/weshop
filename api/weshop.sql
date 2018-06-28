@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.20)
 # Database: weshop
-# Generation Time: 2018-06-28 07:35:41 +0000
+# Generation Time: 2018-06-28 10:19:33 +0000
 # ************************************************************
 
 
@@ -207,15 +207,40 @@ DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '订单id',
   `uid` int(10) DEFAULT NULL COMMENT '用户id',
-  `oid` varchar(100) DEFAULT NULL COMMENT '订单编号',
+  `gid` int(10) DEFAULT NULL COMMENT '与商品相关联的id',
+  `goodsParameterId` int(10) DEFAULT NULL COMMENT '商品规格id',
   `name` varchar(100) DEFAULT NULL COMMENT '商品名称',
   `description` varchar(255) DEFAULT NULL COMMENT '商品描述',
-  `createTime` int(10) DEFAULT NULL COMMENT '订单创建时间',
-  `realPrice` decimal(11,2) DEFAULT NULL COMMENT '订单真实价格',
   `marketPrice` decimal(11,2) DEFAULT NULL COMMENT '订单市场价格',
+  `totalNum` int(11) DEFAULT NULL COMMENT '订单数量',
+  `goodsColor` varchar(100) DEFAULT NULL COMMENT '商品颜色',
+  `createTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '订单创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `order` WRITE;
+/*!40000 ALTER TABLE `order` DISABLE KEYS */;
+
+INSERT INTO `order` (`id`, `uid`, `gid`, `goodsParameterId`, `name`, `description`, `marketPrice`, `totalNum`, `goodsColor`, `createTime`)
+VALUES
+	(2,7,1,3,'黑鲨游戏手机黑鲨手机 豪华版','豪华版描述',3600.00,1,'紫色','2018-06-28 18:02:37'),
+	(3,7,1,2,'黑鲨游戏手机黑鲨手机 高级版','高级版描述',3400.00,5,'黑色','2018-06-28 18:04:25'),
+	(4,7,1,2,'黑鲨游戏手机黑鲨手机 高级版','高级版描述',3400.00,1,'黑色','2018-06-28 18:07:52'),
+	(5,7,1,3,'黑鲨游戏手机黑鲨手机 豪华版','豪华版描述',3600.00,1,'黑色','2018-06-28 18:09:55'),
+	(6,7,1,3,'黑鲨游戏手机黑鲨手机 豪华版','豪华版描述',3600.00,1,'黑色','2018-06-28 18:10:01'),
+	(7,7,1,2,'黑鲨游戏手机黑鲨手机 高级版','高级版描述',3400.00,1,'黑色','2018-06-28 18:10:11'),
+	(8,7,1,1,'黑鲨游戏手机黑鲨手机 普通版','普通版描述',3200.00,1,'紫色','2018-06-28 18:10:20'),
+	(9,7,1,3,'黑鲨游戏手机黑鲨手机 豪华版','豪华版描述',3600.00,1,'紫色','2018-06-28 18:11:12'),
+	(10,7,1,1,'黑鲨游戏手机黑鲨手机 普通版','普通版描述',3200.00,1,'紫色','2018-06-28 18:11:26'),
+	(11,7,1,3,'黑鲨游戏手机黑鲨手机 豪华版','豪华版描述',3600.00,1,'黑色','2018-06-28 18:13:28'),
+	(12,7,1,3,'黑鲨游戏手机黑鲨手机 豪华版','豪华版描述',3600.00,1,'黑色','2018-06-28 18:15:15'),
+	(13,7,1,1,'黑鲨游戏手机黑鲨手机 普通版','普通版描述',3200.00,1,'白色','2018-06-28 18:15:52'),
+	(14,7,1,3,'黑鲨游戏手机黑鲨手机 豪华版','豪华版描述',3600.00,1,'黑色','2018-06-28 18:16:57'),
+	(15,7,1,1,'黑鲨游戏手机黑鲨手机 普通版','普通版描述',3200.00,1,'紫色','2018-06-28 18:17:02'),
+	(16,7,1,1,'黑鲨游戏手机黑鲨手机 普通版','普通版描述',3200.00,1,'黑色','2018-06-28 18:17:50');
+
+/*!40000 ALTER TABLE `order` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table shop_car
@@ -236,8 +261,9 @@ LOCK TABLES `shop_car` WRITE;
 
 INSERT INTO `shop_car` (`id`, `uid`, `status`, `createTime`)
 VALUES
-	(1,16,0,1529811570),
-	(2,17,0,1529811964);
+	(7,7,0,1530172996),
+	(8,8,0,1530173210),
+	(9,9,0,1530173429);
 
 /*!40000 ALTER TABLE `shop_car` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -268,8 +294,9 @@ LOCK TABLES `user_info` WRITE;
 
 INSERT INTO `user_info` (`id`, `username`, `password`, `tellphone`, `avatarUrl`, `sex`, `age`, `address`, `createTime`, `character`, `status`)
 VALUES
-	(1,'Zion','41c45c00e7515f75bfccda7eaf3086cc',NULL,'../../../static/images/logo.png',NULL,NULL,NULL,1529749975,0,0),
-	(2,'Zion2','3d39b90398028dc2f30902704865963d',NULL,'../../../static/images/logo.png',NULL,NULL,NULL,1529811964,0,0);
+	(7,'Zion','41c45c00e7515f75bfccda7eaf3086cc',NULL,'../../../static/images/logo.png',NULL,NULL,NULL,1530172996,0,0),
+	(8,'Zion2','3d39b90398028dc2f30902704865963d',NULL,'../../../static/images/logo.png',NULL,NULL,NULL,1530173210,0,0),
+	(9,'Zion3','16fb4009fa738dd011692bb1b23c2cdd',NULL,'../../../static/images/logo.png',NULL,NULL,NULL,1530173429,0,0);
 
 /*!40000 ALTER TABLE `user_info` ENABLE KEYS */;
 UNLOCK TABLES;
