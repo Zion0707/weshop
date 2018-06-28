@@ -31,19 +31,7 @@
 			return $userArr;
 		}
 
-		/*
-		* 创建购物车
-		* @param $pdo PDO 对象
-		* @param $uid 用户id
-		*/ 
-		private function createCar($pdo, $uid){
-			$stmt = $pdo->prepare('INSERT INTO shop_car (`uid`, `createTime`) VALUES (?,?) ');
-			$stmt->bindParam(1, $uid);
-			$createTime = time();
-			$stmt->bindParam(2, $createTime);
-			return $stmt->execute();
-		}	
-
+		
 		/*
 		* 注册新用户
 		* @param $pdo PDO 对象
@@ -60,7 +48,18 @@
 			return $stmt->execute();
 		}
 
-
+		/*
+		* 创建购物车
+		* @param $pdo PDO 对象
+		* @param $uid 用户id
+		*/ 
+		private function createCar($pdo, $uid){
+			$stmt = $pdo->prepare('INSERT INTO shop_car (`uid`, `createTime`) VALUES (?,?) ');
+			$stmt->bindParam(1, $uid);
+			$createTime = time();
+			$stmt->bindParam(2, $createTime);
+			return $stmt->execute();
+		}	
 
 		/**
 		* @param $post 是注册传递过来的值
