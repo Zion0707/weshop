@@ -85,7 +85,7 @@
                             <div class="gd-arg-tit">版本</div>
                             <ul class="gd-arg-con">
                                 <li v-for="item in parameterList" 
-                                    :class="{'current': item.gIndex == gIndex }" 
+                                    :class="{'current': item.gIndex === gIndex }" 
                                     @click="selectParameter(item)">
                                     {{ item.specifications }} {{ item.marketPrice }}元
                                 </li>
@@ -95,7 +95,7 @@
                         <div class="gd-arg inline-box mt30">
                             <div class="gd-arg-tit">颜色</div>
                             <ul class="gd-arg-con">
-                               <li :class="{ 'current': $index == colorIndex , 'notCurrent': item.totalNum < 1 }" 
+                               <li :class="{ 'current': $index === colorIndex , 'notCurrent': item.totalNum < 1 }" 
                                     v-for="item,$index in colorList"
                                     @click="selectColor(item, $index)">
                                    {{ item.color }}
@@ -247,7 +247,15 @@ export default {
                     goodsColor: this.goodsColor
                 },function(data){
                     if ( data.code == 0 ) {
-                        console.log('添加成功！');
+                        _self.$dialog.toast({
+                            mes: data.msg,
+                            icon: 'success',
+                            callback(){
+                                _self.show1 = false;
+                                _self.colorIndex = '';
+                                _self.goodsColor = '';
+                            }
+                        });
                     }else{
                         _self.$dialog.toast({ mes: data.msg });
                     }
