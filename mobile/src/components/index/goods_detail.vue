@@ -24,14 +24,14 @@
                 <div class="gd-01">{{ goodsDetail.name }}</div>
                 <div class="gd-02 mt10">{{ goodsDetail.description }}</div>
                 <div class="gd-03 mt10 price">
-                    {{ goodsDetail.marketPrice }}
+                    {{ parameter.marketPrice }}
                 </div>
             </div>
 
             <div class="clearfix mt10">
                 <yd-cell-group>
                     <yd-cell-item arrow @click.native="show1 = true">
-                        <div class="goods-select" slot="left"><em>已选</em><span>{{ goodsDetail.specifications }} x{{ totalNum }}</span></div>
+                        <div class="goods-select" slot="left"><em>已选</em><span>{{ parameter.specifications }} x{{ totalNum }}</span></div>
                         <div slot="right"></div>
                     </yd-cell-item>
                     <yd-cell-item arrow @click.native="show2 = true">
@@ -74,8 +74,8 @@
                         <img :src="goodsDetail.cover">
                     </div>
                     <div class="par1-right mt30">
-                        <div class="par1r-01 price"> {{ goodsDetail.marketPrice }}</div>
-                        <div class="par1r-02">{{ goodsDetail.specifications }}</div>
+                        <div class="par1r-01 price"> {{ parameter.marketPrice }}</div>
+                        <div class="par1r-02">{{ parameter.specifications }}</div>
                     </div>
                 </div>
                 <div class="parter-02">
@@ -215,8 +215,6 @@ export default {
             //相关数据赋值
             this.parameter = item;
             this.gIndex = item.gIndex;
-            this.goodsDetail.marketPrice = item.marketPrice;
-            this.goodsDetail.specifications = item.specifications;
             this.colorList = item.colorList;
             this.colorIndex = '';
             this.goodsColor = '';
@@ -240,9 +238,9 @@ export default {
                     type: 'addGoods',
                     gid: this.parameter.gid,
                     goodsParameterId: this.parameter.id,
-                    name: this.goodsDetail.name +''+this.parameter.specifications,
+                    name: this.goodsDetail.name +' '+ this.parameter.specifications,
                     description: this.parameter.versionDescription,
-                    marketPrice: this.goodsDetail.marketPrice,
+                    marketPrice: this.parameter.marketPrice,
                     totalNum: this.totalNum,
                     goodsColor: this.goodsColor
                 },function(data){
@@ -251,9 +249,13 @@ export default {
                             mes: data.msg,
                             icon: 'success',
                             callback(){
+
+                                //添加成功之后恢复到默认值
                                 _self.show1 = false;
                                 _self.colorIndex = '';
                                 _self.goodsColor = '';
+                                _self.totalNum = 1;
+                                
                             }
                         });
                     }else{

@@ -18,23 +18,23 @@
 		* @param $gid 根据商品id查询单个商品相关参数
 		* @param $gIndex 根据规格索引来定位具体对应的索引商品
 		*/ 
-		private function getOnlyGoodsParameter($gid, $gIndex){
-			$pdo = $this->pdo;
-			//根据gid查询单个商品的相关规格
-			$stmt = $pdo->prepare('SELECT * FROM `goods_parameter` WHERE `gid`=? AND `gIndex`=? LIMIT 0,1');	
-			$stmt->bindParam(1,$gid);	
-			$stmt->bindParam(2,$gIndex);	
-			$stmt->execute();
-			$rowArr=[];
+		// private function getOnlyGoodsParameter($gid, $gIndex){
+		// 	$pdo = $this->pdo;
+		// 	//根据gid查询单个商品的相关规格
+		// 	$stmt = $pdo->prepare('SELECT * FROM `goods_parameter` WHERE `gid`=? AND `gIndex`=? LIMIT 0,1');	
+		// 	$stmt->bindParam(1,$gid);	
+		// 	$stmt->bindParam(2,$gIndex);	
+		// 	$stmt->execute();
+		// 	$rowArr=[];
 
-			while( $row = $stmt->fetch(PDO::FETCH_ASSOC) ){
-				//剔除不要的信息
-				unset( $row['id'] );
+		// 	while( $row = $stmt->fetch(PDO::FETCH_ASSOC) ){
+		// 		//剔除不要的信息
+		// 		unset( $row['id'] );
 
-				$rowArr[] = $row;
-			}
-			return $rowArr;
-		}
+		// 		$rowArr[] = $row;
+		// 	}
+		// 	return $rowArr;
+		// }
 
 		/*
 		* @param $gpid 根据规格参数查询相对应的颜色及库存
@@ -92,9 +92,10 @@
 			$stmt->execute();
 			$goodsArr=[];
 			while ( $row=$stmt->fetch(PDO::FETCH_ASSOC) ) {
+				
+				// 合并单个商品的参数，组成详细的商品详情
+				// $arg = $this->getOnlyGoodsParameter($row['id'], $gIndex);
 
-				//合并单个商品的参数，组成详细的商品详情
-				$arg = $this->getOnlyGoodsParameter($row['id'], $gIndex);
 				if ( isset($arg[0]) ) {
 					$goodsArr[] = array_merge($row, (array)$arg[0]);
 				}else{
