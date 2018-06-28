@@ -29,11 +29,32 @@
 			$rowArr=[];
 
 			while( $row = $stmt->fetch(PDO::FETCH_ASSOC) ){
+				//剔除不要的信息
+				unset( $row['id'] );
+
+				$rowArr[] = $row;
+			}
+			return $rowArr;
+		}
+
+		/*
+		* @param $gpid 根据规格参数查询相对应的颜色及库存
+		*/
+		private function goodsParameterColor($gpid){
+			$pdo = $this->pdo;
+			//根据 $gpid 查询对应的颜色
+			$stmt = $pdo->prepare('SELECT * FROM `goods_color` WHERE `gpid`=?');
+			$stmt->bindParam(1, $gpid);
+			$stmt->execute();
+			$rowArr=[];
+
+			while( $row = $stmt->fetch(PDO::FETCH_ASSOC) ){
+				//剔除不要的信息
+				unset( $row['id'] );
+
 				$rowArr[] = $row;
 			}
 
-			//处理掉不要的属性
-			unset($rowArr[0]['id']);
 			return $rowArr;
 		}
 
@@ -48,11 +69,14 @@
 			$rowArr=[];
 
 			while( $row = $stmt->fetch(PDO::FETCH_ASSOC) ){
+				//把该型号的颜色和库存塞入到对应的型号中
+				$colorList = $this->goodsParameterColor( $row['id'] );
+				$row['colorList'] = $colorList;
+
 				//剔除不要的信息
 				unset( $row['id'] );
 				unset( $row['gid'] );
 				unset( $row['realPrice'] );
-
 				$rowArr[] = $row;
 			}
 			return $rowArr;
@@ -111,12 +135,12 @@
 			//banner图集
 			$banner = $this->goodsBanner($gid);
 			//参数列表
-			$parameter = $this->getAllGoodsParameter($gid);
+			$parameterList = $this->getAllGoodsParameter($gid);
 
 			//判断是否存在该商品
 			if ( count($goods) != 0 ) {
 
-				$success = ['code'=> 0, 'msg'=> 'success', 'banner'=> $banner, 'parameter'=> $parameter];
+				$success = ['code'=> 0, 'msg'=> 'success', 'banner'=> $banner, 'parameterList'=> $parameterList];
 				$resArr = array_merge($goods[0], $success);
 				exit(json_encode($resArr));
 

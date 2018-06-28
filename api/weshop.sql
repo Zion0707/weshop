@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.20)
 # Database: weshop
-# Generation Time: 2018-06-28 03:12:40 +0000
+# Generation Time: 2018-06-28 07:35:41 +0000
 # ************************************************************
 
 
@@ -44,7 +44,7 @@ LOCK TABLES `goods` WRITE;
 
 INSERT INTO `goods` (`id`, `name`, `cover`, `shortDesc`, `description`, `createTime`, `types`, `status`, `label`, `labelType`)
 VALUES
-	(1,'黑鲨游戏手机 液冷更快','//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360','液冷更快，独显芯片','液冷散热 / 独立图像处理芯片 / 一键游戏模式 / 骁龙845处理器 / 18:9全面屏 / 前后2000万摄像头',1529992051,0,0,'手机',0),
+	(1,'黑鲨游戏手机','//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/ee44583e8167f3d250186069a26c1384.jpg?thumb=1&w=360&h=360','液冷更快，独显芯片','液冷散热 / 独立图像处理芯片 / 一键游戏模式 / 骁龙845处理器 / 18:9全面屏 / 前后2000万摄像头',1529992051,0,0,'手机',0),
 	(2,'红米6','//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/7c4c3f392acbce030e183681995f49ab.jpg?thumb=1&w=360&h=360','AI双摄，小屏高性能','AI双摄，小屏高性能',1529992051,0,0,'手机',1),
 	(3,'红米6A','//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/3c1cc1a103dbccafee59d542ded8aa80.jpg?thumb=1&w=360&h=360','AI人脸解锁，小巧屏高性能','AI人脸解锁，小巧屏高性能',1529992051,0,0,'手机',0),
 	(4,'小米MIX 2S','//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/53d32c5e55cba00b473b48908c571f02.jpg?thumb=1&w=360&h=360','骁龙845旗舰处理器，AI双摄','骁龙845旗舰处理器，AI双摄',1529992051,0,0,'手机',2),
@@ -111,6 +111,40 @@ VALUES
 UNLOCK TABLES;
 
 
+# Dump of table goods_color
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `goods_color`;
+
+CREATE TABLE `goods_color` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `gpid` int(10) DEFAULT NULL COMMENT '商品规格对应的id',
+  `color` varchar(10) DEFAULT NULL COMMENT '颜色',
+  `totalNum` int(11) DEFAULT NULL COMMENT '该颜色的商品总数',
+  `note` varchar(100) DEFAULT NULL COMMENT '商品备注',
+  `cover` varchar(255) DEFAULT NULL COMMENT '商品封面',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `goods_color` WRITE;
+/*!40000 ALTER TABLE `goods_color` DISABLE KEYS */;
+
+INSERT INTO `goods_color` (`id`, `gpid`, `color`, `totalNum`, `note`, `cover`)
+VALUES
+	(1,1,'白色',99,'黑鲨手机 普通版',NULL),
+	(2,1,'黑色',80,'黑鲨手机 普通版',NULL),
+	(3,1,'紫色',2,'黑鲨手机 普通版',NULL),
+	(4,2,'白色',0,'黑鲨手机 高级版',NULL),
+	(5,2,'黑色',2,'黑鲨手机 高级版',NULL),
+	(6,2,'紫色',0,'黑鲨手机 高级版',NULL),
+	(7,3,'白色',0,'黑鲨手机 豪华版',NULL),
+	(8,3,'黑色',10,'黑鲨手机 豪华版',NULL),
+	(9,3,'紫色',888,'黑鲨手机 豪华版',NULL);
+
+/*!40000 ALTER TABLE `goods_color` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
 # Dump of table goods_parameter
 # ------------------------------------------------------------
 
@@ -124,7 +158,7 @@ CREATE TABLE `goods_parameter` (
   `marketPrice` decimal(11,2) DEFAULT NULL COMMENT '商品市场价格',
   `versionDescription` varchar(255) DEFAULT NULL COMMENT '商品描述',
   `hot` int(11) DEFAULT '0' COMMENT '热度:用户购买1次就加1',
-  `gIndex` int(11) DEFAULT NULL COMMENT '产品索引：根据索引来进行查询对应的产品 0，1，2...',
+  `gIndex` int(11) DEFAULT NULL COMMENT '商品索引：根据索引来进行查询对应的产品 0，1，2...',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

@@ -31,7 +31,7 @@
             <div class="clearfix mt10">
                 <yd-cell-group>
                     <yd-cell-item arrow @click.native="show1 = true">
-                        <div class="goods-select" slot="left"><em>已选</em><span>{{ goodsDetail.specifications }} x{{ spinner }}</span></div>
+                        <div class="goods-select" slot="left"><em>已选</em><span>{{ goodsDetail.specifications }} x{{ goodsSpinner }}</span></div>
                         <div slot="right"></div>
                     </yd-cell-item>
                     <yd-cell-item arrow @click.native="show2 = true">
@@ -50,7 +50,7 @@
                     <i class="iconfont icon-gouwuche"></i>
                     <span>购物车</span>
                 </div>
-                <a href="javascript:;" class="gdb-btn">
+                <a href="javascript:;" class="gdb-btn" @click="show1=true">
                     加入购物车
                 </a>
             </div>
@@ -58,7 +58,7 @@
 
 
 
-            <!-- 华丽的分割线 -->
+            <!-- ///////////////////////////////////// 华丽的分割线 //////////////////////////////////// -->
 
 
 
@@ -84,7 +84,9 @@
                         <div class="gd-arg">
                             <div class="gd-arg-tit">版本</div>
                             <ul class="gd-arg-con">
-                                <li v-for="item in goodsDetail.parameter" :class="{'current': item.gIndex == gIndex }" @click="selectParameter(item)">
+                                <li v-for="item in parameterList" 
+                                    :class="{'current': item.gIndex == gIndex }" 
+                                    @click="selectParameter(item)">
                                     {{ item.specifications }} {{ item.marketPrice }}元
                                 </li>
                             </ul>
@@ -93,23 +95,30 @@
                         <div class="gd-arg inline-box mt30">
                             <div class="gd-arg-tit">颜色</div>
                             <ul class="gd-arg-con">
-                               <li class="current">黑色</li>
-                               <li>白色</li>
-                               <li>红色</li>
+                               <li :class="{ 'current': $index == colorIndex , 'notCurrent': item.totalNum < 1 }" 
+                                    v-for="item,$index in colorList"
+                                    @click="selectColor(item, $index)">
+                                   {{ item.color }}
+                               </li>
                             </ul>
                         </div>
 
                         <div class="gd-arg mt30 clearfix" style="border-bottom:none;">
                             <div class="gd-arg-tit fl">数量</div>
                             <div class="gd-num fr">
-                                <yd-spinner :style="{'margin-left':'12px'}" width="110px" height="35px" v-model="spinner"></yd-spinner>
+                                <yd-spinner 
+                                    :style="{'margin-left':'12px'}" 
+                                    width="110px" 
+                                    height="35px" 
+                                    :readonly="false" 
+                                    v-model.trim="goodsSpinner">        
+                                </yd-spinner>
                             </div>
                         </div>
                         
-
-
                     </div>
                 </div>
+
                 <div class="parter-03 pf" @click="addCar">
                     加入购物车
                 </div>
@@ -143,12 +152,16 @@ export default {
                 },
             },
 
-            spinner:1,
+            goodsSpinner:1,
             show1:false,
             show2:false,
             gid: this.$route.query.gid,
             gIndex: this.$route.query.gIndex,
             goodsDetail:{},
+            parameterList:[],
+            colorList:[],
+            colorIndex:'',
+            goodsColor:''
         }
     },
     computed:{
@@ -164,11 +177,6 @@ export default {
     		this.$router.back();
             // this.$router.push({path:'/'});
     	},
-
-        //添加到购物车
-        addCar(){
-            console.log('添加到购物车');
-        },
         goIndex(){
             this.menu.currentNum = 0;
             this.$router.push({'path':'/'});
@@ -186,6 +194,14 @@ export default {
             },function(data){
                 if ( data.code == 0 ) {
                     _self.goodsDetail = data;
+                    _self.parameterList = data.parameterList;
+
+                    //根据gIndex查询颜色及库存列表
+                    for(var i in _self.parameterList){
+                        if ( _self.parameterList[i].gIndex == _self.gIndex ) {
+                            _self.colorList = _self.parameterList[i].colorList;
+                        }
+                    }
                 }else{
                     _self.$dialog.toast({ mes: data.msg });
                 }
@@ -193,14 +209,36 @@ export default {
         },
         //选择规格
         selectParameter(item){
+            //相关数据赋值
             this.gIndex = item.gIndex;
             this.goodsDetail.marketPrice = item.marketPrice;
             this.goodsDetail.specifications = item.specifications;
+            this.colorList = item.colorList;
+            this.colorIndex = '';
+            this.goodsColor = '';
+        },
+        //选择颜色
+        selectColor(item, idx){
+            //相关数据赋值
+            if ( item.totalNum > 0 ) {
+                this.colorIndex = idx;
+                this.goodsColor = item.color;
+            }
+        },
+        
+        //添加到购物车
+        addCar(){
+            if ( this.goodsColor ) 
+            {
+                console.log( this.goodsDetail.name, this.goodsDetail.specifications , this.goodsDetail.marketPrice, this.goodsColor, this.goodsSpinner );
+            }else
+            {
+                this.$dialog.toast({ mes: '请完善商品信息哦！'});
+            }
+
         }
     },
     mounted(){
-    	var _self = this;
-
         this.getGoodsDetail();
     }
 }

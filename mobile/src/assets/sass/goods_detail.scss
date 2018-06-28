@@ -111,6 +111,10 @@
 				color:$colorff6700;
 				border-color:#ffd4b5;
 			}
+			&.notCurrent{
+				color:#999;
+				border:1px dashed #ccc;
+			}
 		}
 	}
 }
