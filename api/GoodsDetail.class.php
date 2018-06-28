@@ -17,12 +17,14 @@
 
 		/*
 		* @param $gid 根据商品id查询单个商品相关参数
+		* @param $gIndex 根据规格索引来定位具体对应的索引商品
 		*/ 
-		private function getOnlyGoodsArg($gid){
+		private function getOnlyGoodsParameter($gid, $gIndex){
 			$pdo = $this->pdo;
 			//根据gid查询单个商品的相关规格
-			$stmt = $pdo->prepare('SELECT * FROM `goods_parameter` WHERE `gid`=? ORDER BY `hot` DESC LIMIT 0,1');	
+			$stmt = $pdo->prepare('SELECT * FROM `goods_parameter` WHERE `gid`=? AND `gIndex`=? LIMIT 0,1');	
 			$stmt->bindParam(1,$gid);	
+			$stmt->bindParam(2,$gIndex);	
 			$stmt->execute();
 			$rowArr=[];
 
@@ -35,11 +37,32 @@
 			return $rowArr;
 		}
 
+		/*
+		* @param $gid 根据商品id查询单个商品的所有相关参数
+		*/ 
+		private function getAllGoodsParameter($gid){
+			$pdo = $this->pdo;
+			$stmt = $pdo->prepare('SELECT * FROM `goods_parameter` WHERE `gid`=? ORDER BY `hot` DESC');
+			$stmt->bindParam(1,$gid);
+			$stmt->execute();
+			$rowArr=[];
+
+			while( $row = $stmt->fetch(PDO::FETCH_ASSOC) ){
+				//剔除不要的信息
+				unset( $row['id'] );
+				unset( $row['gid'] );
+				unset( $row['realPrice'] );
+
+				$rowArr[] = $row;
+			}
+			return $rowArr;
+		}
 
 		/*
 		* @param $gid 根据商品id查询单个商品
+		* @param $gIndex 根据规格索引来定位具体对应的索引商品
 		*/ 
-		private function goodsRow($gid){
+		private function goodsRow($gid,$gIndex){
 			$pdo = $this->pdo;
 			$stmt=$pdo->prepare('SELECT * FROM `goods` WHERE `id`=? LIMIT 0,1');
 			$stmt->bindParam(1, $gid);
@@ -48,7 +71,7 @@
 			while ( $row=$stmt->fetch(PDO::FETCH_ASSOC) ) {
 
 				//合并单个商品的参数，组成详细的商品详情
-				$arg = $this->getOnlyGoodsArg($row['id']);
+				$arg = $this->getOnlyGoodsParameter($row['id'], $gIndex);
 				if ( isset($arg[0]) ) {
 					$goodsArr[] = array_merge($row, (array)$arg[0]);
 				}else{
@@ -78,15 +101,22 @@
 
 		/*
 		* 返回最终的商品详情数据
+		* @param $gid 根据商品id查询单个商品
+		* @param $gIndex 根据规格索引来定位具体对应的索引商品
 		*/
-		public function goodsRes($gid){
-			$goods = $this->goodsRow($gid);
+		public function goodsRes($gid,$gIndex){
+
+			//单个商品基本信息
+			$goods = $this->goodsRow($gid,$gIndex);
+			//banner图集
 			$banner = $this->goodsBanner($gid);
+			//参数列表
+			$parameter = $this->getAllGoodsParameter($gid);
 
 			//判断是否存在该商品
 			if ( count($goods) != 0 ) {
 
-				$success = ['code'=> 0, 'msg'=> 'success', 'banner'=> $banner];
+				$success = ['code'=> 0, 'msg'=> 'success', 'banner'=> $banner, 'parameter'=> $parameter];
 				$resArr = array_merge($goods[0], $success);
 				exit(json_encode($resArr));
 
@@ -99,18 +129,17 @@
 				
 			}
 
-
-
 		}
 	}
 		
 	
-	// $_POST['goodsId'] = 1;
-	//判断参数是否有goodsId，有则查询
-	if ( isset($_POST['goodsId']) ) 
+	// $_POST['gid'] = 1;
+	// $_POST['gIndex'] = 1;
+	//判断参数是否有gid和gIndex，有则查询
+	if ( isset($_POST['gid']) && isset($_POST['gIndex']) ) 
 	{
 		$GoodsDetail = new GoodsDetail();	
-		$GoodsDetail->goodsRes( $_POST['goodsId'] );
+		$GoodsDetail->goodsRes( $_POST['gid'] , $_POST['gIndex']);
 	}else
 	{
 		exit(json_encode([

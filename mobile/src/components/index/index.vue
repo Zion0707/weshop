@@ -159,7 +159,13 @@ export default {
         //跳转到详情
         goodsDetail(item){
             // console.log(item);
-            this.$router.push({ 'path':'/goods_detail', 'query':{ 'goodsId': item.id }});
+            this.$router.push({ 
+                'path':'/goods_detail', 
+                'query':{ 
+                    'gid': item.id ,
+                    'gIndex': item.gIndex
+                }
+            });
         },
 
         //跳转到`我的`页面

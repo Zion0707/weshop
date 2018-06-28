@@ -10,6 +10,7 @@
                 <swiper :options="swiperOption" ref="mySwiper" :class="'order-swiper'">
                     <!-- slides -->
                     <swiper-slide v-for="item,key in goodsDetail.banner" :key="key">
+                        <!-- 图片懒加载，但是第一张图片不用懒加载 -->
                         <img :src="item.url" v-if="key==0">
                         <img class="swiper-lazy" :data-src="item.url" v-else>
                         <div class="swiper-lazy-preloader swiper-lazy-preloader-white" v-if="key > 0"></div>
@@ -30,7 +31,7 @@
             <div class="clearfix mt10">
                 <yd-cell-group>
                     <yd-cell-item arrow @click.native="show1 = true">
-                        <div class="goods-select" slot="left"><em>已选</em><span>黑鲨游戏手机 高配版 极夜黑 128GB x1</span></div>
+                        <div class="goods-select" slot="left"><em>已选</em><span>{{ goodsDetail.specifications }} x{{ spinner }}</span></div>
                         <div slot="right"></div>
                     </yd-cell-item>
                     <yd-cell-item arrow @click.native="show2 = true">
@@ -70,11 +71,11 @@
                 <div class="parter-01 pf bd_b clearfix">
                     <i class="iconfont icon-guanbi par1-close" @click="show1=false"></i>
                     <div class="par1-left fl">
-                        <img src="//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/0bef1311b94ccb05cf36e796fb3d1b30.jpg">
+                        <img :src="goodsDetail.cover">
                     </div>
-                    <div class="par1-right">
-                        <div class="par1r-01 price"> 3200</div>
-                        <div class="par1r-02">黑鲨游戏手机 高配版 极夜黑 128GB</div>
+                    <div class="par1-right mt30">
+                        <div class="par1r-01 price"> {{ goodsDetail.marketPrice }}</div>
+                        <div class="par1r-02">{{ goodsDetail.specifications }}</div>
                     </div>
                 </div>
                 <div class="parter-02">
@@ -83,9 +84,9 @@
                         <div class="gd-arg">
                             <div class="gd-arg-tit">版本</div>
                             <ul class="gd-arg-con">
-                               <li class="current">6GB+64GB 2999元</li>
-                               <li>6GB+64GB 2999元</li>
-                               <li>6GB+64GB 2999元</li>
+                                <li v-for="item in goodsDetail.parameter" :class="{'current': item.gIndex == gIndex }" @click="selectParameter(item)">
+                                    {{ item.specifications }} {{ item.marketPrice }}元
+                                </li>
                             </ul>
                         </div>
 
@@ -98,10 +99,10 @@
                             </ul>
                         </div>
 
-                        <div class="gd-arg mt30" style="border-bottom:none;">
-                            <div class="gd-arg-tit">数量</div>
-                            <div class="gd-num mt30 mb30">
-                                <yd-spinner :style="{'margin-left':'12px'}" width="130px" height="35px" v-model="spinner"></yd-spinner>
+                        <div class="gd-arg mt30 clearfix" style="border-bottom:none;">
+                            <div class="gd-arg-tit fl">数量</div>
+                            <div class="gd-num fr">
+                                <yd-spinner :style="{'margin-left':'12px'}" width="110px" height="35px" v-model="spinner"></yd-spinner>
                             </div>
                         </div>
                         
@@ -145,9 +146,9 @@ export default {
             spinner:1,
             show1:false,
             show2:false,
-
-            goodsId: this.$route.query.goodsId,
-            goodsDetail:{}
+            gid: this.$route.query.gid,
+            gIndex: this.$route.query.gIndex,
+            goodsDetail:{},
         }
     },
     computed:{
@@ -180,7 +181,8 @@ export default {
         getGoodsDetail(){
             var _self = this;
             this.http.post('/GoodsDetail.class.php',{
-                goodsId: this.goodsId
+                gid: this.gid,
+                gIndex: this.gIndex
             },function(data){
                 if ( data.code == 0 ) {
                     _self.goodsDetail = data;
@@ -188,7 +190,13 @@ export default {
                     _self.$dialog.toast({ mes: data.msg });
                 }
             });
-        }   
+        },
+        //选择规格
+        selectParameter(item){
+            this.gIndex = item.gIndex;
+            this.goodsDetail.marketPrice = item.marketPrice;
+            this.goodsDetail.specifications = item.specifications;
+        }
     },
     mounted(){
     	var _self = this;

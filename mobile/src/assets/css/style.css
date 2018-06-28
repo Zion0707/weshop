@@ -153,7 +153,9 @@
 .order-swiper .swiper-pagination-bullet{
 	background-color:#fff;
 }
-
+.yd-spinner>input{
+	font-size:0.3rem;
+}
 
 
 
