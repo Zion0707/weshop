@@ -26,9 +26,9 @@
 			$Conn->checkLogin();
 
 			$pdo = $this->pdo;
-			$stmt=$pdo->prepare('INSERT INTO `order` (uid, gid, gpId, name, description, marketPrice, totalNum, gcId) VALUES (?,?,?,?,?,?,?,?)');
+			$stmt=$pdo->prepare('INSERT INTO `order` (uid, gid, gpid, name, description, marketPrice, totalNum, gcid) VALUES (?,?,?,?,?,?,?,?)');
 
-			if( !isset($post['gid']) || !isset($post['gpId']) || !isset($post['name']) || !isset($post['description']) || !isset($post['marketPrice']) || !isset($post['totalNum']) || !isset($post['gcId']) ){
+			if( !isset($post['gid']) || !isset($post['gpid']) || !isset($post['name']) || !isset($post['description']) || !isset($post['marketPrice']) || !isset($post['totalNum']) || !isset($post['gcid']) ){
 				exit(json_encode([
 					'code'=> -2,
 					'msg'=> '参数错误，无法添加！'
@@ -38,12 +38,12 @@
 			$uid = $_SESSION['uid'];
 			$stmt->bindParam(1, $uid);
 			$stmt->bindParam(2, $post['gid']);
-			$stmt->bindParam(3, $post['gpId']);
+			$stmt->bindParam(3, $post['gpid']);
 			$stmt->bindParam(4, $post['name']);
 			$stmt->bindParam(5, $post['description']);
 			$stmt->bindParam(6, $post['marketPrice']);
 			$stmt->bindParam(7, $post['totalNum']);
-			$stmt->bindParam(8, $post['gcId']);
+			$stmt->bindParam(8, $post['gcid']);
 
 			if ( $stmt->execute() ) {
 				exit(json_encode([
@@ -61,17 +61,26 @@
 
 
 		/*
-		* 根据 gcId 查询具体的订单信息
-		* @paramg $gcId 颜色id
+		* 根据 gcid 查询具体的订单信息
+		* @paramg $gcid 颜色id
 		*/ 
-		private function orderMsg($gcId){
+		private function orderMsg($gcid){
 			$pdo=$this->pdo;
 			$stmt=$pdo->prepare('SELECT * FROM `goods_color` WHERE `id`=?');
-			$stmt->bindParam(1, $gcId);
+			$stmt->bindParam(1, $gcid);
 			$stmt->execute();
 			$rowArr=[];
+			while( $row=$stmt->fetch(PDO::FETCH_ASSOC) ){
+				unset($row['id']);
+				$rowArr[] = $row;
+			}
 
-			//.....
+			if ( count($rowArr) ) {
+				return $rowArr[0];
+			}else{
+				return null;
+			}
+
 		}
 
 
@@ -87,7 +96,17 @@
 			$stmt->execute();
 			$rowArr=[];
 			while( $row=$stmt->fetch(PDO::FETCH_ASSOC) ){
-				$rowArr[] = $row;
+				$orderMsg = $this->orderMsg( $row['gcid'] );
+				$resRow = array_merge($row, $orderMsg);
+
+				//剔除不要的信息
+				// unset($resRow['id']);
+				unset($resRow['uid']);
+				// unset($resRow['gid']);
+				// unset($resRow['gpid']);
+				// unset($resRow['gcid']);
+
+				$rowArr[]=$resRow;
 			}
 
 			return $rowArr;
@@ -109,15 +128,19 @@
 			$stmt->bindParam(1, $uid);
 			$stmt->execute();
 			
-			//返回参数
+			//返回对象
 			while( $row=$stmt->fetch(PDO::FETCH_OBJ) ){
+				unset($row->id);
+				unset($row->uid);
 				$resObj = $row;
 			}
 
 			$orderList = $this->orderList();
-			exit( json_encode($orderList) );
+			$resObj->code = 0;
+			$resObj->msg = 'success';
+			$resObj->orderList=$orderList;
 
-
+			exit( json_encode($resObj) );
 
 		}
 

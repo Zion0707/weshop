@@ -162,7 +162,7 @@ export default {
             parameterList:[],
             colorList:[],
             colorIndex:'',
-            gcId:''
+            gcid:''
         }
     },
     computed:{
@@ -217,15 +217,15 @@ export default {
             this.gIndex = item.gIndex;
             this.colorList = item.colorList;
             this.colorIndex = '';
-            this.gcId = '';
+            this.gcid = '';
         },
         //选择颜色
         selectColor(item, idx){
-            //相关数据赋值
-            if ( item.totalNum > 0 ) {
+            //库存大于0才能被选择
+            if ( item.inventory > 0 ) {
                 this.colorIndex = idx;
                 this.goodsDetail.cover = item.colorCover;
-                this.gcId = item.id;
+                this.gcid = item.id;
             }
         },
         
@@ -233,17 +233,17 @@ export default {
         addCar(){
             var _self = this;
 
-            if ( this.gcId ){
+            if ( this.gcid ){
 
                 this.http.post('/ShopCar.class.php',{
                     type: 'addOrder',
                     gid: this.parameter.gid,
-                    gpId: this.parameter.id,
+                    gpid: this.parameter.id,
                     name: this.goodsDetail.name +' '+ this.parameter.specifications,
                     description: this.parameter.versionDescription,
                     marketPrice: this.parameter.marketPrice,
                     totalNum: this.totalNum,
-                    gcId: this.gcId
+                    gcid: this.gcid
                 },function(data){
                     if ( data.code == 0 ) {
                         _self.$dialog.toast({
@@ -254,7 +254,7 @@ export default {
                                 //添加成功之后恢复到默认值
                                 _self.show1 = false;
                                 _self.colorIndex = '';
-                                _self.gcId = '';
+                                _self.gcid = '';
                                 _self.totalNum = 1;
                                 
                             }

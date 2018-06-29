@@ -13,31 +13,25 @@
 		<div class="cp-body cp3-body">
             
 
-            <yd-checklist v-model="checklist" :label="false">
-                <yd-checklist-item val="aaa">
+            <yd-checklist v-model="checkList" :label="false" :color="'#f55624'">
+                <yd-checklist-item v-for="item,key in orderList" :key="key" :val="item.id">
                     <yd-flexbox>
-                        <img src="//img12.360buyimg.com/n1/jfs/t2122/170/1006550413/171711/de099a6f/56399d01N67907749.jpg">
+                        <img :src="item.colorCover">
                         <yd-flexbox-item align="top">
-                            [aaa] 类似购物车 / 类似购物车<br/>
-                            <span style="color: blue;">点击这边的内容是禁止选中的</span><br/>
-                            <p style="color:#F00;">选中值：{{checklist}}</p>
+                            <div>{{ item.note }}</div>
+                            <div>{{ item.marketPrice }}</div>
+                            <div>
+                                <yd-spinner 
+                                    width="90px" 
+                                    height="30px" 
+                                    :readonly="false" 
+                                    v-model.trim="item.totalNum">        
+                                </yd-spinner>
+                            </div>
                         </yd-flexbox-item>
-                    </yd-flexbox>
-                </yd-checklist-item>
-                <yd-checklist-item val="bbb">
-                    <yd-flexbox>
-                        <img src="//img10.360buyimg.com/n1/jfs/t6925/75/2382158459/437865/f3931d24/598be5b1N24d949fe.jpg">
-                        <yd-flexbox-item align="top">
-                            [bbb] 南非进口红西柚 6个 单果重约300-330g 新鲜水果
-                        </yd-flexbox-item>
-                    </yd-flexbox>
-                </yd-checklist-item>
-                <yd-checklist-item val="ccc">
-                    <yd-flexbox>
-                        <img src="//img14.360buyimg.com/n1/jfs/t3232/69/539717695/176729/cf1ff3d8/57baa5d1N901ffea5.jpg">
-                        <yd-flexbox-item align="top">
-                            [ccc] 展卉 越南进口红心火龙果 3个装中果 单果约300~350g 新鲜水果
-                        </yd-flexbox-item>
+                        <div>
+                            <i class="iconfont icon-shanchu"></i>
+                        </div>
                     </yd-flexbox>
                 </yd-checklist-item>
             </yd-checklist>
@@ -52,9 +46,16 @@
 export default {
     data () {
         return {
-            checklist: []
+            checkList: [],
+            orderList: [],
         }
     },
+    watch:{
+        checkList(){
+            console.log( this.checkList );
+        }
+    },
+
     methods:{
     	back(){
     		this.$router.back();
@@ -62,6 +63,18 @@ export default {
     },
     mounted(){
     	var _self = this;
+        
+        this.http.post('/ShopCar.class.php',{
+            type: 'getOrder'
+        },function(data){
+            if ( data.code == 0 ) {
+                _self.orderList = data.orderList;
+            }else if( data.code == -1 ){
+
+            }else{
+                _self.$dialog.toast({ mes: data.msg });
+            }
+        });
 
     }
 }

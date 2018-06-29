@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.20)
 # Database: weshop
-# Generation Time: 2018-06-29 03:49:54 +0000
+# Generation Time: 2018-06-29 06:53:03 +0000
 # ************************************************************
 
 
@@ -120,7 +120,7 @@ CREATE TABLE `goods_color` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `gpid` int(10) DEFAULT NULL COMMENT '商品规格对应的id',
   `color` varchar(10) DEFAULT NULL COMMENT '颜色',
-  `totalNum` int(11) DEFAULT NULL COMMENT '该颜色的商品总数',
+  `inventory` int(11) DEFAULT NULL COMMENT '库存',
   `note` varchar(100) DEFAULT NULL COMMENT '商品备注',
   `colorCover` varchar(255) DEFAULT NULL COMMENT '商品封面',
   PRIMARY KEY (`id`)
@@ -129,7 +129,7 @@ CREATE TABLE `goods_color` (
 LOCK TABLES `goods_color` WRITE;
 /*!40000 ALTER TABLE `goods_color` DISABLE KEYS */;
 
-INSERT INTO `goods_color` (`id`, `gpid`, `color`, `totalNum`, `note`, `colorCover`)
+INSERT INTO `goods_color` (`id`, `gpid`, `color`, `inventory`, `note`, `colorCover`)
 VALUES
 	(1,1,'白色',99,'黑鲨手机 普通版','//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/a8c3b93eb77dedf964a3c6bcb9bc0359.jpg?thumb=1&w=720&h=792'),
 	(2,1,'黑色',80,'黑鲨手机 普通版','//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/32368af038111276c17719aede69b563.jpg?thumb=1&w=720&h=792'),
@@ -208,8 +208,8 @@ CREATE TABLE `order` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '订单id',
   `uid` int(10) DEFAULT NULL COMMENT '用户id',
   `gid` int(10) DEFAULT NULL COMMENT '与商品相关联的id',
-  `gpId` int(10) DEFAULT NULL COMMENT '商品规格id',
-  `gcId` int(10) DEFAULT NULL COMMENT '商品颜色id',
+  `gpid` int(10) DEFAULT NULL COMMENT '商品规格id',
+  `gcid` int(10) DEFAULT NULL COMMENT '商品颜色id',
   `name` varchar(100) DEFAULT NULL COMMENT '商品名称',
   `description` varchar(255) DEFAULT NULL COMMENT '商品描述',
   `marketPrice` decimal(11,2) DEFAULT NULL COMMENT '订单市场价格',
@@ -221,12 +221,13 @@ CREATE TABLE `order` (
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
 
-INSERT INTO `order` (`id`, `uid`, `gid`, `gpId`, `gcId`, `name`, `description`, `marketPrice`, `totalNum`, `createTime`)
+INSERT INTO `order` (`id`, `uid`, `gid`, `gpid`, `gcid`, `name`, `description`, `marketPrice`, `totalNum`, `createTime`)
 VALUES
 	(35,7,1,3,8,'黑鲨游戏手机 黑鲨手机 豪华版','豪华版描述',3600.00,1,'2018-06-29 10:56:44'),
 	(37,7,1,3,8,'黑鲨游戏手机 黑鲨手机 豪华版','豪华版描述',3600.00,1,'2018-06-29 10:00:00'),
 	(38,7,1,3,9,'黑鲨游戏手机 黑鲨手机 豪华版','豪华版描述',3600.00,1,'2018-06-29 11:48:18'),
-	(39,7,1,1,3,'黑鲨游戏手机 黑鲨手机 普通版','普通版描述',3200.00,1,'2018-06-29 11:48:38');
+	(39,7,1,1,3,'黑鲨游戏手机 黑鲨手机 普通版','普通版描述',3200.00,1,'2018-06-29 11:48:38'),
+	(40,7,1,3,9,'黑鲨游戏手机 黑鲨手机 豪华版','豪华版描述',3600.00,3,'2018-06-29 14:46:54');
 
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
