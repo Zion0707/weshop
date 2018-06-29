@@ -58,11 +58,9 @@
 			}
 		}
 
-
-
 		/*
 		* 根据 gcid 查询具体的订单信息
-		* @paramg $gcid 颜色id
+		* @param $gcid 颜色id
 		*/ 
 		private function orderMsg($gcid){
 			$pdo=$this->pdo;
@@ -83,14 +81,12 @@
 
 		}
 
-
-
 		/*
 		* 根据 uid 获取订单列表
 		*/ 
 		private function orderList(){
 			$pdo=$this->pdo;
-			$stmt=$pdo->prepare('SELECT * FROM `order` WHERE `uid`=? ORDER BY `id` DESC');
+			$stmt=$pdo->prepare('SELECT * FROM `order` WHERE `uid`=? AND `status`=0 ORDER BY `id` DESC');
 			$uid=$_SESSION['uid'];
 			$stmt->bindParam(1, $uid);
 			$stmt->execute();
@@ -112,6 +108,39 @@
 			return $rowArr;
 		}
 
+		/*
+		* 删除单条订单
+		* @param $post 
+		*/ 
+		public function delOrder($post){
+			//检测是否已经登录
+			$Conn = new Conn();
+			$Conn->checkLogin();
+
+			//判断是否存在关键的请求参数
+			if ( !isset( $post['id'] ) ) {
+				exit(json_encode([
+					'code'=> -2,
+					'msg'=> '请求参数错误！'
+				]));
+			}
+
+			$pdo=$this->pdo;
+			$stmt=$pdo->prepare('UPDATE `order` SET `status`=1 WHERE `id`=?');
+			$stmt->bindParam(1, $post['id']);
+
+			if( $stmt->execute() ){
+				exit(json_encode([
+					'code'=> 0,
+					'msg'=> 'success'
+				]));
+			}else{
+				exit(json_encode([
+					'code'=> -2,
+					'msg'=> '删除失败！'
+				]));
+			}
+		}
 
 		/*
 		* 返回购物车信息
@@ -162,6 +191,10 @@
 			//获取所有订单
 			case 'getOrder':
 				$ShopCar->getOrder();
+			break;
+			//删除单条订单
+			case 'delOrder':
+				$ShopCar->delOrder( $_POST );
 			break;
 		}
 	}

@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.20)
 # Database: weshop
-# Generation Time: 2018-06-29 06:53:03 +0000
+# Generation Time: 2018-06-29 07:56:40 +0000
 # ************************************************************
 
 
@@ -215,19 +215,20 @@ CREATE TABLE `order` (
   `marketPrice` decimal(11,2) DEFAULT NULL COMMENT '订单市场价格',
   `totalNum` int(11) DEFAULT NULL COMMENT '订单数量',
   `createTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '订单创建时间',
+  `status` int(1) DEFAULT '0' COMMENT '0表示正常，1表示删除',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
 
-INSERT INTO `order` (`id`, `uid`, `gid`, `gpid`, `gcid`, `name`, `description`, `marketPrice`, `totalNum`, `createTime`)
+INSERT INTO `order` (`id`, `uid`, `gid`, `gpid`, `gcid`, `name`, `description`, `marketPrice`, `totalNum`, `createTime`, `status`)
 VALUES
-	(35,7,1,3,8,'黑鲨游戏手机 黑鲨手机 豪华版','豪华版描述',3600.00,1,'2018-06-29 10:56:44'),
-	(37,7,1,3,8,'黑鲨游戏手机 黑鲨手机 豪华版','豪华版描述',3600.00,1,'2018-06-29 10:00:00'),
-	(38,7,1,3,9,'黑鲨游戏手机 黑鲨手机 豪华版','豪华版描述',3600.00,1,'2018-06-29 11:48:18'),
-	(39,7,1,1,3,'黑鲨游戏手机 黑鲨手机 普通版','普通版描述',3200.00,1,'2018-06-29 11:48:38'),
-	(40,7,1,3,9,'黑鲨游戏手机 黑鲨手机 豪华版','豪华版描述',3600.00,3,'2018-06-29 14:46:54');
+	(35,7,1,3,8,'黑鲨游戏手机 黑鲨手机 豪华版','豪华版描述',3600.00,1,'2018-06-29 10:56:44',1),
+	(37,7,1,3,8,'黑鲨游戏手机 黑鲨手机 豪华版','豪华版描述',3600.00,1,'2018-06-29 10:00:00',1),
+	(38,7,1,3,9,'黑鲨游戏手机 黑鲨手机 豪华版','豪华版描述',3600.00,1,'2018-06-29 11:48:18',0),
+	(39,7,1,1,3,'黑鲨游戏手机 黑鲨手机 普通版','普通版描述',3200.00,1,'2018-06-29 11:48:38',0),
+	(40,7,1,3,9,'黑鲨游戏手机 黑鲨手机 豪华版','豪华版描述',3600.00,3,'2018-06-29 14:46:54',1);
 
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;

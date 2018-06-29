@@ -12,29 +12,41 @@
 	    </div>
 		<div class="cp-body cp3-body">
             
+            
 
-            <yd-checklist v-model="checkList" :label="false" :color="'#f55624'">
-                <yd-checklist-item v-for="item,key in orderList" :key="key" :val="item.id">
-                    <yd-flexbox>
-                        <img :src="item.colorCover">
-                        <yd-flexbox-item align="top">
-                            <div>{{ item.note }}</div>
-                            <div>{{ item.marketPrice }}</div>
+            <div class="order-list" v-if="orderData.code==0">
+                <yd-checklist v-model="checkList" :label="false" :color="'#f55624'">
+                    <yd-checklist-item v-for="item,key in orderData.orderList" :key="key" :val="item.id">
+                        <yd-flexbox>
+                            <img :src="item.colorCover">
+                            <yd-flexbox-item align="top">
+                                <div>{{ item.note }}</div>
+                                <div>{{ item.marketPrice }}</div>
+                                <div>
+                                    <yd-spinner 
+                                        width="90px" 
+                                        height="30px" 
+                                        :readonly="false" 
+                                        v-model.trim="item.totalNum">        
+                                    </yd-spinner>
+                                </div>
+                            </yd-flexbox-item>
                             <div>
-                                <yd-spinner 
-                                    width="90px" 
-                                    height="30px" 
-                                    :readonly="false" 
-                                    v-model.trim="item.totalNum">        
-                                </yd-spinner>
+                                <i class="iconfont icon-shanchu" @click="delOrder(item, key)"></i>
                             </div>
-                        </yd-flexbox-item>
-                        <div>
-                            <i class="iconfont icon-shanchu"></i>
-                        </div>
-                    </yd-flexbox>
-                </yd-checklist-item>
-            </yd-checklist>
+                        </yd-flexbox>
+                    </yd-checklist-item>
+                </yd-checklist>
+            </div>
+
+            <div class="order-not-login" v-else>
+                <yd-cell-group>
+                    <yd-cell-item arrow href="/login" type="link">
+                        <span slot="left">您还未登录，请先登录！</span>
+                        <span slot="right">去登陆</span>
+                    </yd-cell-item>
+                </yd-cell-group>
+            </div>
 
 
 		</div>
@@ -47,7 +59,7 @@ export default {
     data () {
         return {
             checkList: [],
-            orderList: [],
+            orderData: {},
         }
     },
     watch:{
@@ -59,23 +71,36 @@ export default {
     methods:{
     	back(){
     		this.$router.back();
-    	}
+    	},
+        delOrder(item, idx){
+            var _self = this;
+            this.http.post('/ShopCar.class.php',{
+                type: 'delOrder',
+                id: item.id
+            },function(data){
+                if ( data.code == 0 ) {
+                    _self.orderData.orderList.splice(idx ,1);
+                }else{
+                    _self.$dialog.toast({ mes: data.msg });
+                }
+            });
+        },
+
+        getOrder(){
+            var _self = this;
+            this.http.post('/ShopCar.class.php',{
+                type: 'getOrder'
+            },function(data){
+                if ( data.code == 0 || data.code == -1 ) {
+                    _self.orderData = data;
+                }else{
+                    _self.$dialog.toast({ mes: data.msg });
+                }
+            });
+        }
     },
     mounted(){
-    	var _self = this;
-        
-        this.http.post('/ShopCar.class.php',{
-            type: 'getOrder'
-        },function(data){
-            if ( data.code == 0 ) {
-                _self.orderList = data.orderList;
-            }else if( data.code == -1 ){
-
-            }else{
-                _self.$dialog.toast({ mes: data.msg });
-            }
-        });
-
+        this.getOrder();
     }
 }
 </script>
