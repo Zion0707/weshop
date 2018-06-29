@@ -180,7 +180,8 @@
 	height:1rem;
 }
 .cp-body,
-.cp2-body{
+.cp2-body,
+.cp3-body{
 	position: fixed;
 	left:0;
 	right:0;
@@ -190,6 +191,10 @@
 }
 .cp2-body{
 	top:0;
+	bottom:1rem;
+}
+.cp3-body{
+	top:1rem;
 	bottom:1rem;
 }
 .child-page{

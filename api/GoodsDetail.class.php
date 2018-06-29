@@ -49,7 +49,7 @@
 
 			while( $row = $stmt->fetch(PDO::FETCH_ASSOC) ){
 				//剔除不要的信息
-				unset( $row['id'] );
+				// unset( $row['id'] );
 
 				$rowArr[] = $row;
 			}

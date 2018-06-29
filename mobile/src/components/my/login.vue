@@ -56,6 +56,7 @@ export default {
         	username:'',
         	password:'',
         	vCode:'',
+            preUrl: this.$route.query.preUrl
         }
     },
     methods:{
@@ -84,9 +85,14 @@ export default {
                         _self.$dialog.toast({
                             mes: data.msg,
                             callback:()=>{
-                                //调用父级组件中的方法并返回到父级
-                                _self.$parent.getUserInfo();
-                                _self.$router.push({path:'/my'});
+                                // _self.$parent.getUserInfo();
+
+                                if ( _self.preUrl ) {
+                                    _self.$router.push({ path:_self.preUrl });
+                                }else{
+                                    _self.$router.push({ path:'/' });
+                                }
+
                             }
                         });
                     }else{
@@ -103,6 +109,7 @@ export default {
     },
     mounted(){
     	var _self = this;
+
 
 
         //canvas 验证码生成

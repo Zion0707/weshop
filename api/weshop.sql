@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.20)
 # Database: weshop
-# Generation Time: 2018-06-28 10:44:15 +0000
+# Generation Time: 2018-06-29 03:49:54 +0000
 # ************************************************************
 
 
@@ -122,24 +122,24 @@ CREATE TABLE `goods_color` (
   `color` varchar(10) DEFAULT NULL COMMENT '颜色',
   `totalNum` int(11) DEFAULT NULL COMMENT '该颜色的商品总数',
   `note` varchar(100) DEFAULT NULL COMMENT '商品备注',
-  `cover` varchar(255) DEFAULT NULL COMMENT '商品封面',
+  `colorCover` varchar(255) DEFAULT NULL COMMENT '商品封面',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `goods_color` WRITE;
 /*!40000 ALTER TABLE `goods_color` DISABLE KEYS */;
 
-INSERT INTO `goods_color` (`id`, `gpid`, `color`, `totalNum`, `note`, `cover`)
+INSERT INTO `goods_color` (`id`, `gpid`, `color`, `totalNum`, `note`, `colorCover`)
 VALUES
-	(1,1,'白色',99,'黑鲨手机 普通版',NULL),
-	(2,1,'黑色',80,'黑鲨手机 普通版',NULL),
-	(3,1,'紫色',2,'黑鲨手机 普通版',NULL),
-	(4,2,'白色',0,'黑鲨手机 高级版',NULL),
-	(5,2,'黑色',2,'黑鲨手机 高级版',NULL),
-	(6,2,'紫色',0,'黑鲨手机 高级版',NULL),
-	(7,3,'白色',0,'黑鲨手机 豪华版',NULL),
-	(8,3,'黑色',10,'黑鲨手机 豪华版',NULL),
-	(9,3,'紫色',888,'黑鲨手机 豪华版',NULL);
+	(1,1,'白色',99,'黑鲨手机 普通版','//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/a8c3b93eb77dedf964a3c6bcb9bc0359.jpg?thumb=1&w=720&h=792'),
+	(2,1,'黑色',80,'黑鲨手机 普通版','//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/32368af038111276c17719aede69b563.jpg?thumb=1&w=720&h=792'),
+	(3,1,'紫色',2,'黑鲨手机 普通版','//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/3372902d84c593dc2ef1303592228aa0.jpg?thumb=1&w=720&h=792'),
+	(4,2,'白色',0,'黑鲨手机 高级版','//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/fbba1cc0cafce94c52b260d3c613eb39.jpg?thumb=1&w=720&h=792'),
+	(5,2,'黑色',2,'黑鲨手机 高级版','//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/a16b59a3d47c53cf08f21025de9f0816.jpg?thumb=1&w=720&h=792'),
+	(6,2,'紫色',0,'黑鲨手机 高级版','//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/936dba0ada52e4cb64aa4a70f215b4dc.jpg?thumb=1&w=720&h=792'),
+	(7,3,'白色',0,'黑鲨手机 豪华版','//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/1301f2b1c9c260581be6ecc9d103c736.jpg?thumb=1&w=720&h=792'),
+	(8,3,'黑色',10,'黑鲨手机 豪华版','//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/fbba1cc0cafce94c52b260d3c613eb39.jpg?thumb=1&w=720&h=792'),
+	(9,3,'紫色',888,'黑鲨手机 豪华版','//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/a8c3b93eb77dedf964a3c6bcb9bc0359.jpg?thumb=1&w=720&h=792');
 
 /*!40000 ALTER TABLE `goods_color` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -208,12 +208,12 @@ CREATE TABLE `order` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '订单id',
   `uid` int(10) DEFAULT NULL COMMENT '用户id',
   `gid` int(10) DEFAULT NULL COMMENT '与商品相关联的id',
-  `goodsParameterId` int(10) DEFAULT NULL COMMENT '商品规格id',
+  `gpId` int(10) DEFAULT NULL COMMENT '商品规格id',
+  `gcId` int(10) DEFAULT NULL COMMENT '商品颜色id',
   `name` varchar(100) DEFAULT NULL COMMENT '商品名称',
   `description` varchar(255) DEFAULT NULL COMMENT '商品描述',
   `marketPrice` decimal(11,2) DEFAULT NULL COMMENT '订单市场价格',
   `totalNum` int(11) DEFAULT NULL COMMENT '订单数量',
-  `goodsColor` varchar(100) DEFAULT NULL COMMENT '商品颜色',
   `createTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '订单创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -221,11 +221,12 @@ CREATE TABLE `order` (
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
 
-INSERT INTO `order` (`id`, `uid`, `gid`, `goodsParameterId`, `name`, `description`, `marketPrice`, `totalNum`, `goodsColor`, `createTime`)
+INSERT INTO `order` (`id`, `uid`, `gid`, `gpId`, `gcId`, `name`, `description`, `marketPrice`, `totalNum`, `createTime`)
 VALUES
-	(22,7,1,2,'黑鲨游戏手机 黑鲨手机 高级版','高级版描述',3400.00,2,'黑色','2018-06-28 18:42:46'),
-	(23,7,1,2,'黑鲨游戏手机 黑鲨手机 高级版','高级版描述',3400.00,2,'黑色','2018-06-28 18:43:16'),
-	(24,7,1,2,'黑鲨游戏手机 黑鲨手机 高级版','高级版描述',3400.00,1,'黑色','2018-06-28 18:43:20');
+	(35,7,1,3,8,'黑鲨游戏手机 黑鲨手机 豪华版','豪华版描述',3600.00,1,'2018-06-29 10:56:44'),
+	(37,7,1,3,8,'黑鲨游戏手机 黑鲨手机 豪华版','豪华版描述',3600.00,1,'2018-06-29 10:00:00'),
+	(38,7,1,3,9,'黑鲨游戏手机 黑鲨手机 豪华版','豪华版描述',3600.00,1,'2018-06-29 11:48:18'),
+	(39,7,1,1,3,'黑鲨游戏手机 黑鲨手机 普通版','普通版描述',3200.00,1,'2018-06-29 11:48:38');
 
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;

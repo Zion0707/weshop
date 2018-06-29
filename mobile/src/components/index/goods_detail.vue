@@ -162,7 +162,7 @@ export default {
             parameterList:[],
             colorList:[],
             colorIndex:'',
-            goodsColor:''
+            gcId:''
         }
     },
     computed:{
@@ -217,14 +217,15 @@ export default {
             this.gIndex = item.gIndex;
             this.colorList = item.colorList;
             this.colorIndex = '';
-            this.goodsColor = '';
+            this.gcId = '';
         },
         //选择颜色
         selectColor(item, idx){
             //相关数据赋值
             if ( item.totalNum > 0 ) {
                 this.colorIndex = idx;
-                this.goodsColor = item.color;
+                this.goodsDetail.cover = item.colorCover;
+                this.gcId = item.id;
             }
         },
         
@@ -232,17 +233,17 @@ export default {
         addCar(){
             var _self = this;
 
-            if ( this.goodsColor ){
+            if ( this.gcId ){
 
                 this.http.post('/ShopCar.class.php',{
-                    type: 'addGoods',
+                    type: 'addOrder',
                     gid: this.parameter.gid,
-                    goodsParameterId: this.parameter.id,
+                    gpId: this.parameter.id,
                     name: this.goodsDetail.name +' '+ this.parameter.specifications,
                     description: this.parameter.versionDescription,
                     marketPrice: this.parameter.marketPrice,
                     totalNum: this.totalNum,
-                    goodsColor: this.goodsColor
+                    gcId: this.gcId
                 },function(data){
                     if ( data.code == 0 ) {
                         _self.$dialog.toast({
@@ -253,18 +254,31 @@ export default {
                                 //添加成功之后恢复到默认值
                                 _self.show1 = false;
                                 _self.colorIndex = '';
-                                _self.goodsColor = '';
+                                _self.gcId = '';
                                 _self.totalNum = 1;
                                 
                             }
                         });
+                    }else if( data.code == -1 ){
+                        _self.$router.push({
+                            path: '/login',
+                            query: {
+                                preUrl : window.location.href.split('/#')[1]
+                            }
+                        });
                     }else{
-                        _self.$dialog.toast({ mes: data.msg });
+                        _self.$dialog.toast({ 
+                            mes: data.msg,
+                            icon: 'error'
+                        });
                     }
                 });
 
             }else{
-                this.$dialog.toast({ mes: '请完善商品信息哦！'});
+                this.$dialog.notify({ 
+                    mes: '请完善商品信息哦！',
+                    timeout: 1500
+                });
             }
 
         }
