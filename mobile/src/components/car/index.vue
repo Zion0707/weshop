@@ -20,18 +20,18 @@
                         <yd-flexbox>
                             <img :src="item.colorCover">
                             <yd-flexbox-item align="top">
-                                <div>{{ item.note }}</div>
-                                <div>{{ item.marketPrice }}</div>
-                                <div>
+                                <div class="order-title mt10">{{ item.note }}</div>
+                                <div class="order-price mt10">售价: {{ item.marketPrice }}</div>
+                                <div class="order-tool mt30">
                                     <yd-spinner 
-                                        width="90px" 
+                                        width="85px" 
                                         height="30px" 
                                         :readonly="false" 
                                         v-model.trim="item.totalNum">        
                                     </yd-spinner>
                                 </div>
                             </yd-flexbox-item>
-                            <div>
+                            <div class="order-del">
                                 <i class="iconfont icon-shanchu" @click="delOrder(item, key)"></i>
                             </div>
                         </yd-flexbox>
