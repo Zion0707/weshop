@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.20)
 # Database: weshop
-# Generation Time: 2018-06-29 07:56:40 +0000
+# Generation Time: 2018-07-02 01:18:54 +0000
 # ************************************************************
 
 
@@ -244,17 +244,18 @@ CREATE TABLE `shop_car` (
   `uid` int(10) DEFAULT NULL COMMENT '用户id',
   `status` int(1) DEFAULT '0' COMMENT '购物车状态：0表示正常，1表示禁用',
   `createTime` int(10) DEFAULT NULL COMMENT '创建时间',
+  `totalNum` int(11) DEFAULT '0' COMMENT '订单总数',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `shop_car` WRITE;
 /*!40000 ALTER TABLE `shop_car` DISABLE KEYS */;
 
-INSERT INTO `shop_car` (`id`, `uid`, `status`, `createTime`)
+INSERT INTO `shop_car` (`id`, `uid`, `status`, `createTime`, `totalNum`)
 VALUES
-	(7,7,0,1530172996),
-	(8,8,0,1530173210),
-	(9,9,0,1530173429);
+	(7,7,0,1530172996,1),
+	(8,8,0,1530173210,0),
+	(9,9,0,1530173429,0);
 
 /*!40000 ALTER TABLE `shop_car` ENABLE KEYS */;
 UNLOCK TABLES;
