@@ -19,7 +19,7 @@
                             <yd-flexbox>
                                 <img :src="item.colorCover">
                                 <yd-flexbox-item align="top">
-                                    <div class="order-title mt10">{{ item.note }}</div>
+                                    <div class="order-title mt10">{{ item.note }} {{ item.color }}</div>
                                     <div class="order-price mt10">售价: {{ item.marketPrice }}</div>
                                     <div class="order-tool mt30">
                                         <yd-spinner 
