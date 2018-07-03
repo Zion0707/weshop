@@ -179,11 +179,11 @@ export default {
             // this.$router.push({path:'/'});
     	},
         goIndex(){
-            this.menu.currentNum = 0;
+            // this.menu.currentNum = 0;
             this.$router.push({'path':'/'});
         },
         goCar(){
-            this.menu.currentNum = 2;
+            // this.menu.currentNum = 2;
             this.$router.push({'path':'/car'});
         },
         //获取商品详情

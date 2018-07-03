@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.20)
 # Database: weshop
-# Generation Time: 2018-07-02 01:18:54 +0000
+# Generation Time: 2018-07-03 06:49:53 +0000
 # ************************************************************
 
 
@@ -219,19 +219,6 @@ CREATE TABLE `order` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-LOCK TABLES `order` WRITE;
-/*!40000 ALTER TABLE `order` DISABLE KEYS */;
-
-INSERT INTO `order` (`id`, `uid`, `gid`, `gpid`, `gcid`, `name`, `description`, `marketPrice`, `totalNum`, `createTime`, `status`)
-VALUES
-	(35,7,1,3,8,'黑鲨游戏手机 黑鲨手机 豪华版','豪华版描述',3600.00,1,'2018-06-29 10:56:44',1),
-	(37,7,1,3,8,'黑鲨游戏手机 黑鲨手机 豪华版','豪华版描述',3600.00,1,'2018-06-29 10:00:00',1),
-	(38,7,1,3,9,'黑鲨游戏手机 黑鲨手机 豪华版','豪华版描述',3600.00,1,'2018-06-29 11:48:18',0),
-	(39,7,1,1,3,'黑鲨游戏手机 黑鲨手机 普通版','普通版描述',3200.00,1,'2018-06-29 11:48:38',0),
-	(40,7,1,3,9,'黑鲨游戏手机 黑鲨手机 豪华版','豪华版描述',3600.00,3,'2018-06-29 14:46:54',1);
-
-/*!40000 ALTER TABLE `order` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump of table shop_car
@@ -253,9 +240,7 @@ LOCK TABLES `shop_car` WRITE;
 
 INSERT INTO `shop_car` (`id`, `uid`, `status`, `createTime`, `totalNum`)
 VALUES
-	(7,7,0,1530172996,1),
-	(8,8,0,1530173210,0),
-	(9,9,0,1530173429,0);
+	(7,7,0,1530172996,0);
 
 /*!40000 ALTER TABLE `shop_car` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -286,9 +271,7 @@ LOCK TABLES `user_info` WRITE;
 
 INSERT INTO `user_info` (`id`, `username`, `password`, `tellphone`, `avatarUrl`, `sex`, `age`, `address`, `createTime`, `character`, `status`)
 VALUES
-	(7,'Zion','41c45c00e7515f75bfccda7eaf3086cc',NULL,'../../../static/images/logo.png',NULL,NULL,NULL,1530172996,0,0),
-	(8,'Zion2','3d39b90398028dc2f30902704865963d',NULL,'../../../static/images/logo.png',NULL,NULL,NULL,1530173210,0,0),
-	(9,'Zion3','16fb4009fa738dd011692bb1b23c2cdd',NULL,'../../../static/images/logo.png',NULL,NULL,NULL,1530173429,0,0);
+	(7,'Zion','41c45c00e7515f75bfccda7eaf3086cc',NULL,'../../../static/images/logo.png',NULL,NULL,NULL,1530172996,0,0);
 
 /*!40000 ALTER TABLE `user_info` ENABLE KEYS */;
 UNLOCK TABLES;

@@ -68,7 +68,29 @@ export default {
             }
         }
     },
+    watch:{
+        //底部按钮聚焦
+        '$route'(to) {
+
+            switch(to.path){
+                case '/':
+                    this.menu.currentNum = 0;
+                break;
+                case '/class':
+                    this.menu.currentNum = 1;
+                break;
+                case '/car':
+                    this.menu.currentNum = 2;
+                break;
+                case '/my':
+                    this.menu.currentNum = 3;
+                break;
+            }
+
+        }
+    },
     mounted(){
+
 
     }
 }

@@ -15,28 +15,37 @@
             
 
             <div class="order-list" v-if="orderData.code==0">
-                <yd-checklist v-model="checkList" :label="false" :color="'#f55624'">
-                    <yd-checklist-item v-for="item,key in orderData.orderList" :key="key" :val="item.id">
-                        <yd-flexbox>
-                            <img :src="item.colorCover">
-                            <yd-flexbox-item align="top">
-                                <div class="order-title mt10">{{ item.note }}</div>
-                                <div class="order-price mt10">售价: {{ item.marketPrice }}</div>
-                                <div class="order-tool mt30">
-                                    <yd-spinner 
-                                        width="85px" 
-                                        height="30px" 
-                                        :readonly="false" 
-                                        v-model.trim="item.totalNum">        
-                                    </yd-spinner>
+            
+                <div v-if="orderList.length">
+                    <yd-checklist v-model="checkList" :label="false" :color="'#f55624'">
+                        <yd-checklist-item v-for="item,key in orderList" :key="key" :val="item.id">
+                            <yd-flexbox>
+                                <img :src="item.colorCover">
+                                <yd-flexbox-item align="top">
+                                    <div class="order-title mt10">{{ item.note }}</div>
+                                    <div class="order-price mt10">售价: {{ item.marketPrice }}</div>
+                                    <div class="order-tool mt30">
+                                        <yd-spinner 
+                                            width="85px" 
+                                            height="30px" 
+                                            :readonly="false" 
+                                            v-model.trim="item.totalNum">        
+                                        </yd-spinner>
+                                    </div>
+                                </yd-flexbox-item>
+                                <div class="order-del">
+                                    <i class="iconfont icon-shanchu" @click="delOrder(item, key)"></i>
                                 </div>
-                            </yd-flexbox-item>
-                            <div class="order-del">
-                                <i class="iconfont icon-shanchu" @click="delOrder(item, key)"></i>
-                            </div>
-                        </yd-flexbox>
-                    </yd-checklist-item>
-                </yd-checklist>
+                            </yd-flexbox>
+                        </yd-checklist-item>
+                    </yd-checklist>
+                </div>
+                <div v-else class="not-order">
+                    <i class="iconfont icon-gouwuche"></i>
+                    <span>购物车还是空的</span>
+                    <router-link to="/">去逛逛</router-link>
+                </div>
+
             </div>
 
             <div class="order-not-login" v-else>
@@ -47,9 +56,22 @@
                     </yd-cell-item>
                 </yd-cell-group>
             </div>
-
-
 		</div>
+    
+
+        <div class="order-tool">
+            <div class="ot-item ot-i1">
+                <div class="ot-total">共6件 金额：</div>
+                <div class="ot-money price"><span>3134</span>元</div>
+            </div>
+            <div class="ot-item ot-i2">
+                <router-link to="/">继续购物</router-link> 
+            </div>
+            <div class="ot-item ot-i3">
+                去结算
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -60,6 +82,7 @@ export default {
         return {
             checkList: [],
             orderData: {},
+            orderList: []
         }
     },
     watch:{
@@ -79,7 +102,7 @@ export default {
                 id: item.id
             },function(data){
                 if ( data.code == 0 ) {
-                    _self.orderData.orderList.splice(idx ,1);
+                    _self.orderList.splice(idx ,1);
                 }else{
                     _self.$dialog.toast({ mes: data.msg });
                 }

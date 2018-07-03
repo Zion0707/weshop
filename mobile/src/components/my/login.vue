@@ -16,23 +16,21 @@
 			<yd-cell-group style="border-top:1px solid #f1f1f1;">
 		        <yd-cell-item>
 		            <span slot="left">用户名：</span>
-		            <yd-input slot="right" v-model.trim="username" placeholder="请输入用户名"></yd-input>
+		            <yd-input slot="right" v-model.trim="username" @keyup.enter.native="upFrom" placeholder="请输入用户名"></yd-input>
 		        </yd-cell-item>
 		        <yd-cell-item>
 		            <span slot="left">密码：</span>
-		            <yd-input slot="right" type="password" v-model.trim="password" placeholder="请输入密码"></yd-input>
+		            <yd-input slot="right" type="password" v-model.trim="password" @keyup.enter.native="upFrom" placeholder="请输入密码"></yd-input>
 		        </yd-cell-item>
 		        <yd-cell-item>
 		            <span slot="left" style="position: relative;">验证码：
                         <canvas width="100" height="40" class="vCode" id="code"></canvas>
 		            </span>
-		            <yd-input slot="right" v-model.trim="vCode" placeholder="请输入验证码"></yd-input>
+		            <yd-input slot="right" v-model.trim="vCode" @keyup.enter.native="upFrom" placeholder="请输入验证码"></yd-input>
 		        </yd-cell-item>
 		    </yd-cell-group>
 			
 
-
-				
 	        <div class="pd1050">
 	        	<yd-button size="large" type="primary" @click.native="upFrom">登 录</yd-button>
 	        </div>

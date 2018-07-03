@@ -170,7 +170,7 @@ export default {
 
         //跳转到`我的`页面
         myPath(){
-            this.menu.currentNum = 3;
+            // this.menu.currentNum = 3;
             this.$router.push({'path':'/my'});
         },
 

@@ -17,6 +17,28 @@
 		}
 
 		/*
+		* 订单总数加操作
+		* @param $totalNum 总数
+		* @param $type 'plus' or 'less'
+		*/
+		private function operatingTotalNum($totalNum,$type){
+			$pdo = $this->pdo;
+			if ( $type=='plus' ) {
+				$sql = 'UPDATE `shop_car` SET `totalNum`=`totalNum`+? WHERE `uid`=?';
+			}else{
+				$sql = 'UPDATE `shop_car` SET `totalNum`=`totalNum`-? WHERE `uid`=?';
+			}
+			$stmt=$pdo->prepare($sql);
+			$uid = $_SESSION['uid'];
+			$stmt->bindParam(1, $totalNum);
+			$stmt->bindParam(2, $uid);
+			$stmt->execute();
+		}
+
+
+
+
+		/*
 		* 添加订单 
 		* @param $post 为前端传过来的值
 		*/ 
@@ -46,11 +68,16 @@
 			$stmt->bindParam(8, $post['gcid']);
 
 			if ( $stmt->execute() ) {
+				
+				//订单数累加
+				$this->operatingTotalNum( $post['totalNum'] , 'plus');
+
 				exit(json_encode([
 					'code'=> 0,
 					'msg'=> '添加成功！'
 				]));
 			}else{
+				
 				exit(json_encode([
 					'code'=> -2,
 					'msg'=> '添加失败！'
@@ -130,6 +157,10 @@
 			$stmt->bindParam(1, $post['id']);
 
 			if( $stmt->execute() ){
+
+				//订单数累减
+				$this->operatingTotalNum(1,'less');
+
 				exit(json_encode([
 					'code'=> 0,
 					'msg'=> 'success'
