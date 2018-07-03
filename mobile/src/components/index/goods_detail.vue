@@ -95,7 +95,7 @@
                         <div class="gd-arg inline-box mt30">
                             <div class="gd-arg-tit">颜色</div>
                             <ul class="gd-arg-con">
-                               <li :class="{ 'current': $index === colorIndex , 'notCurrent': item.totalNum < 1 }" 
+                               <li :class="{ 'current': $index === colorIndex , 'notCurrent': item.inventory < 1 }" 
                                     v-for="item,$index in colorList"
                                     @click="selectColor(item, $index)">
                                    {{ item.color }}
@@ -246,13 +246,15 @@ export default {
                     gcid: this.gcid
                 },function(data){
                     if ( data.code == 0 ) {
+                        
+                        _self.show1 = false;
+
                         _self.$dialog.toast({
                             mes: data.msg,
                             icon: 'success',
                             callback(){
 
                                 //添加成功之后恢复到默认值
-                                _self.show1 = false;
                                 _self.colorIndex = '';
                                 _self.gcid = '';
                                 _self.totalNum = 1;

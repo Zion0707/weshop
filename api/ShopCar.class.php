@@ -35,9 +35,6 @@
 			$stmt->execute();
 		}
 
-
-
-
 		/*
 		* 添加订单 
 		* @param $post 为前端传过来的值
