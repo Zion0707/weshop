@@ -11,11 +11,8 @@
 		    </yd-navbar>
 	    </div>
 		<div class="cp-body cp3-body">
-            
-            
-
+        
             <div class="order-list" v-if="orderData.code==0">
-            
                 <div v-if="orderList.length">
                     <yd-checklist v-model="checkList" :label="false" :color="'#f55624'">
                         <yd-checklist-item v-for="item,key in orderList" :key="key" :val="item.id">
@@ -45,8 +42,7 @@
                     <span>购物车还是空的</span>
                     <router-link to="/">去逛逛</router-link>
                 </div>
-
-            </div>
+            </div><!--order-list-->
 
             <div class="order-not-login" v-else>
                 <yd-cell-group>
@@ -55,13 +51,14 @@
                         <span slot="right">去登陆</span>
                     </yd-cell-item>
                 </yd-cell-group>
-            </div>
+            </div><!--order-not-login-->
+
 		</div>
     
 
-        <div class="order-tool">
+        <div class="bottom-order-tool" :class="{ 'has-order-tool': orderData.totalNum > 0 }">
             <div class="ot-item ot-i1">
-                <div class="ot-total">共6件 金额：</div>
+                <div class="ot-total">共{{ orderData.totalNum }}件 金额：</div>
                 <div class="ot-money price"><span>3134</span>元</div>
             </div>
             <div class="ot-item ot-i2">
@@ -80,8 +77,8 @@
 export default {
     data () {
         return {
-            checkList: [],
             orderData: {},
+            checkList: [],
             orderList: []
         }
     },
@@ -116,6 +113,7 @@ export default {
             },function(data){
                 if ( data.code == 0 || data.code == -1 ) {
                     _self.orderData = data;
+                    _self.orderList = data.orderList;
                 }else{
                     _self.$dialog.toast({ mes: data.msg });
                 }
