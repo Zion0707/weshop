@@ -100,6 +100,7 @@ export default {
             },function(data){
                 if ( data.code == 0 ) {
                     _self.orderList.splice(idx ,1);
+                    _self.orderData.totalNum = data.totalNum;
                 }else{
                     _self.$dialog.toast({ mes: data.msg });
                 }

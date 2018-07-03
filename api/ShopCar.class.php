@@ -19,17 +19,42 @@
 		/*
 		* 订单总数加操作
 		* @param $totalNum 总数
-		* @param $type 'plus' or 'less'
 		*/
-		private function operatingTotalNum($totalNum,$type){
+		private function plusTotalNum($totalNum){
 			$pdo = $this->pdo;
-			if ( $type=='plus' ) {
-				$sql = 'UPDATE `shop_car` SET `totalNum`=`totalNum`+? WHERE `uid`=?';
-			}else{
-				$sql = 'UPDATE `shop_car` SET `totalNum`=`totalNum`-? WHERE `uid`=?';
-			}
-			$stmt=$pdo->prepare($sql);
+			$stmt=$pdo->prepare('UPDATE `shop_car` SET `totalNum`=`totalNum`+? WHERE `uid`=?');
 			$uid = $_SESSION['uid'];
+			$stmt->bindParam(1, $totalNum);
+			$stmt->bindParam(2, $uid);
+			$stmt->execute();
+		}
+
+		/*
+		* 查询单条订单总数
+		* @param $orderId 订单id
+		*/
+		private function orderTotalNum( $orderId ){
+			$pdo = $this->pdo;
+			//根据订单id查询到总数 
+			$stmt=$pdo->prepare('SELECT `totalNum` FROM `order` WHERE `id`=?');
+			$stmt->bindParam(1, $orderId);
+			$stmt->execute();
+			while ( $row=$stmt->fetch(PDO::FETCH_OBJ) ) {
+				$resObj = $row;
+			}
+			return $resObj->totalNum;
+		}
+
+		/*
+		* 订单总数累减
+		* @param $orderId 订单id
+		*/
+		private function lessTotalNum( $orderId ){
+			$pdo = $this->pdo;
+			//根据totalNum数量进行相减
+			$stmt=$pdo->prepare('UPDATE `shop_car` SET `totalNum`=`totalNum`-? WHERE `uid`=?');
+			$uid = $_SESSION['uid'];
+			$totalNum = $this->orderTotalNum($orderId);
 			$stmt->bindParam(1, $totalNum);
 			$stmt->bindParam(2, $uid);
 			$stmt->execute();
@@ -67,7 +92,7 @@
 			if ( $stmt->execute() ) {
 				
 				//订单数累加
-				$this->operatingTotalNum( $post['totalNum'] , 'plus');
+				$this->plusTotalNum( $post['totalNum'] );
 
 				exit(json_encode([
 					'code'=> 0,
@@ -133,6 +158,21 @@
 		}
 
 		/*
+		* 查询购物车的订单总数
+		*/
+		private function shopCarTotalNum(){
+			$pdo = $this->pdo;
+			$stmt=$pdo->prepare('SELECT `totalNum` FROM `shop_car` WHERE `uid`=?');
+			$uid=$_SESSION['uid'];
+			$stmt->bindParam(1, $uid);
+			$stmt->execute();
+			while ( $row=$stmt->fetch(PDO::FETCH_OBJ) ) {
+				$resObj = $row;
+			}
+			return $resObj->totalNum;
+		}
+
+		/*
 		* 删除单条订单
 		* @param $post 
 		*/ 
@@ -156,10 +196,11 @@
 			if( $stmt->execute() ){
 
 				//订单数累减
-				$this->operatingTotalNum(1,'less');
+				$this->lessTotalNum( $post['id'] );
 
 				exit(json_encode([
 					'code'=> 0,
+					'totalNum'=> $this->shopCarTotalNum(),
 					'msg'=> 'success'
 				]));
 			}else{
