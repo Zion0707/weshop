@@ -125,6 +125,7 @@
 		private function orderList(){
 			$pdo=$this->pdo;
 			$stmt=$pdo->prepare('SELECT * FROM `order` WHERE `uid`=? AND `status`=0 ORDER BY `id` DESC');
+			if (!session_id()) session_start();
 			$uid=$_SESSION['uid'];
 			$stmt->bindParam(1, $uid);
 			$stmt->execute();
@@ -150,8 +151,11 @@
 		* 查询购物车订单总数和总价格
 		*/
 		private function totalPriceAndCount(){
+			
 			$pdo=$this->pdo;
 			$stmt=$pdo->prepare('SELECT SUM(`marketPrice` * `totalNum`) AS `allMarketPrice` , SUM(`totalNum`) AS `allTotalNum` FROM `order` WHERE `status`=0 AND `isCheck`=1 AND `uid`=?');
+
+			if (!session_id()) session_start();
 			$uid = $_SESSION['uid'];
 			$stmt->bindParam(1, $uid);
 			$stmt->execute();
@@ -233,6 +237,40 @@
 
 		}
 
+
+		/*
+		* 设置订单是否选中状态
+		* @param $post 请求值
+		*/ 
+		public function setOrderCheck($post){
+
+			if ( !isset($post['status']) || !isset($post['id']) ) {
+				exit(json_encode([
+					'code'=> -2,
+					'msg'=> '请求参数错误！'
+				]));
+			}
+
+			$pdo=$this->pdo;
+			$stmt=$pdo->prepare('UPDATE `order` SET `isCheck`=? WHERE `id`=?');
+			$stmt->bindParam(1, $post['status']);
+			$stmt->bindParam(2, $post['id']);
+
+			if ( $stmt->execute() ) {
+				exit(json_encode([
+					'code'=> 0,
+					'allMarketPrice'=> $this->totalPriceAndCount()->allMarketPrice,
+					'allTotalNum'=> $this->totalPriceAndCount()->allTotalNum,
+					'msg'=> '修改成功！'
+				]));
+			}else{
+				exit(json_encode([
+					'code'=> -2,
+					'msg'=> '修改失败！'
+				]));
+			}
+
+		}
 	}
 
 
@@ -255,6 +293,10 @@
 			//删除单条订单
 			case 'delOrder':
 				$ShopCar->delOrder( $_POST );
+			break;
+			//设置订单是否选中状态
+			case 'setOrderCheck':
+				$ShopCar->setOrderCheck( $_POST );
 			break;
 		}
 	}

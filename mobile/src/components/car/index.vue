@@ -15,7 +15,7 @@
             <div class="order-list" v-if="orderData.code==0">
                 <div v-if="orderList.length">
                     <yd-checklist v-model="checkList" :label="false" :color="'#f55624'" :callback="checkListCallback">
-                        <yd-checklist-item v-for="item,key in orderList" :key="key" :val="item.id">
+                        <yd-checklist-item v-for="item,key in orderList" :key="key" :val="item.id" :data-id="item.id">
                             <yd-flexbox>
                                 <img :src="item.colorCover">
                                 <yd-flexbox-item align="top">
@@ -90,13 +90,15 @@ export default {
     // },
 
     methods:{
+        back(){
+            this.$router.back();
+        },
+
         checkListCallback(data){
             console.log(data);
         },
 
-    	back(){
-    		this.$router.back();
-    	},
+        //删除单条订单
         delOrder(item, idx){
             var _self = this;
             this.http.post('/ShopCar.class.php',{
@@ -113,6 +115,7 @@ export default {
             });
         },
 
+        //获取订单列表
         getOrder(){
             var _self = this;
             this.http.post('/ShopCar.class.php',{
@@ -128,11 +131,48 @@ export default {
                             _self.checkList.push(data.orderList[i].id);
                         }
                     }
+
+                    var timer = setTimeout(function(){
+                        _self.checkboxFun();
+                        clearTimeout(timer);
+                    });
                 }else{
                     _self.$dialog.toast({ mes: data.msg });
                 }
             });
+        },
+
+        /*
+        * 设置 checkbox 状态
+        * @param status 选中状态 1表示选中，0表示不选
+        * @param id 被操作的id
+        */
+        setCheckStatus(status, id){
+            var _self = this;
+            this.http.post('/ShopCar.class.php',{
+                type:'setOrderCheck',
+                status:status,
+                id:id
+            },function(data){
+                if ( data.code == 0 ) {
+                    _self.orderData.allTotalNum = data.allTotalNum;
+                    _self.orderData.allMarketPrice = data.allMarketPrice;
+                }else{
+                    _self.$dialog.toast({ mes: data.msg });
+                }
+            });
+        },
+
+        //check选中事件
+        checkboxFun(){
+            var _self = this;
+            $('.yd-checklist input[type="checkbox"]').on('change',function(){
+                let status = $(this).is(':checked') ? 1 : 0;
+                let id = $(this).parents('.yd-checklist-item').attr('data-id');
+                _self.setCheckStatus(status, id);
+            });
         }
+
     },
     mounted(){
         this.getOrder();
