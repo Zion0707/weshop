@@ -17,6 +17,28 @@
 		}
 
 		/*
+		* 加入购物车的时候判断订单是否存在
+		* @param $gid
+		* @param $gpid
+		* @param $gcid
+		* @return 返回的条数
+		*/ 
+		private function orderIsHas($gid,$gpid,$gcid){
+			$pdo = $this->pdo;
+			$stmt = $pdo->prepare('SELECT COUNT(*) AS count FROM `order` WHERE `gid`=? AND `gpid`=? AND `gcid`=?');
+			$stmt->bindParam(1, $gid);
+			$stmt->bindParam(2, $gpid);
+			$stmt->bindParam(3, $gcid);
+			$stmt->execute();
+
+			while ( $row=$stmt->fetch(PDO::FETCH_OBJ) ) {
+				$resObj = $row;
+			}
+
+			return $resObj->count;
+		}
+
+		/*
 		* 添加订单 
 		* @param $post 为前端传过来的值
 		*/ 
@@ -26,25 +48,39 @@
 			$Conn->checkLogin();
 
 			$pdo = $this->pdo;
-			$stmt=$pdo->prepare('INSERT INTO `order` (uid, gid, gpid, name, description, marketPrice, totalNum, gcid) VALUES (?,?,?,?,?,?,?,?)');
+			$uid = $_SESSION['uid'];
 
-			if( !isset($post['gid']) || !isset($post['gpid']) || !isset($post['name']) || !isset($post['description']) || !isset($post['marketPrice']) || !isset($post['totalNum']) || !isset($post['gcid']) ){
+			//判断参数是否齐全
+			if( !isset($post['gid']) || !isset($post['gpid']) || !isset($post['gcid']) || !isset($post['name']) || !isset($post['description']) || !isset($post['marketPrice']) || !isset($post['totalNum']) ){
 				exit(json_encode([
 					'code'=> -2,
 					'msg'=> '参数错误，无法添加！'
 				]));
 			}
 
-			$uid = $_SESSION['uid'];
-			$stmt->bindParam(1, $uid);
-			$stmt->bindParam(2, $post['gid']);
-			$stmt->bindParam(3, $post['gpid']);
-			$stmt->bindParam(4, $post['name']);
-			$stmt->bindParam(5, $post['description']);
-			$stmt->bindParam(6, $post['marketPrice']);
-			$stmt->bindParam(7, $post['totalNum']);
-			$stmt->bindParam(8, $post['gcid']);
+			//先进行查询是否存在
+			$count=$this->orderIsHas($post['gid'] , $post['gpid'] , $post['gcid']);
 
+			if ( $count > 0 ) {
+				//表示存在有相同规格的商品，那么进行总数+1即可
+				$stmt=$pdo->prepare('UPDATE `order` SET `totalNum`=`totalNum`+? WHERE `gid`=? AND `gpid`=? AND `gcid`=?');
+				$stmt->bindParam(1, $post['totalNum']);
+				$stmt->bindParam(2, $post['gid']);
+				$stmt->bindParam(3, $post['gpid']);
+				$stmt->bindParam(4, $post['gcid']);
+			}else{
+				//如果不存在相同规格的商品，那么插入新的订单
+				$stmt=$pdo->prepare('INSERT INTO `order` (uid, gid, gpid, name, description, marketPrice, totalNum, gcid) VALUES (?,?,?,?,?,?,?,?)');
+				$stmt->bindParam(1, $uid);
+				$stmt->bindParam(2, $post['gid']);
+				$stmt->bindParam(3, $post['gpid']);
+				$stmt->bindParam(4, $post['name']);
+				$stmt->bindParam(5, $post['description']);
+				$stmt->bindParam(6, $post['marketPrice']);
+				$stmt->bindParam(7, $post['totalNum']);
+				$stmt->bindParam(8, $post['gcid']);
+			}
+			
 			if ( $stmt->execute() ) {
 	
 				exit(json_encode([
