@@ -14,7 +14,7 @@
         
             <div class="order-list" v-if="orderData.code==0">
                 <div v-if="orderList.length">
-                    <yd-checklist v-model="checkList" :label="false" :color="'#f55624'">
+                    <yd-checklist v-model="checkList" :label="false" :color="'#f55624'" :callback="checkListCallback">
                         <yd-checklist-item v-for="item,key in orderList" :key="key" :val="item.id">
                             <yd-flexbox>
                                 <img :src="item.colorCover">
@@ -82,13 +82,18 @@ export default {
             orderList: []
         }
     },
-    watch:{
-        checkList(){
-            console.log( this.checkList );
-        }
-    },
+    
+    // watch:{
+    //     checkList(){
+    //         console.log( this.checkList );
+    //     }
+    // },
 
     methods:{
+        checkListCallback(data){
+            console.log(data);
+        },
+
     	back(){
     		this.$router.back();
     	},
@@ -116,6 +121,13 @@ export default {
                 if ( data.code == 0 || data.code == -1 ) {
                     _self.orderData = data;
                     _self.orderList = data.orderList;
+
+                    //判断是否选中，如果选中那么就push到数组里
+                    for( var i in data.orderList ){
+                        if ( data.orderList[i].isCheck == '1' ) {
+                            _self.checkList.push(data.orderList[i].id);
+                        }
+                    }
                 }else{
                     _self.$dialog.toast({ mes: data.msg });
                 }
