@@ -151,7 +151,7 @@
 		*/
 		private function totalPriceAndCount(){
 			$pdo=$this->pdo;
-			$stmt=$pdo->prepare('SELECT SUM(`marketPrice`) AS `allMarketPrice` , SUM(`totalNum`) AS `allTotalNum` FROM `order` WHERE `status`=0 AND `uid`=?');
+			$stmt=$pdo->prepare('SELECT SUM(`marketPrice` * `totalNum`) AS `allMarketPrice` , SUM(`totalNum`) AS `allTotalNum` FROM `order` WHERE `status`=0 AND `uid`=?');
 			$uid = $_SESSION['uid'];
 			$stmt->bindParam(1, $uid);
 			$stmt->execute();
