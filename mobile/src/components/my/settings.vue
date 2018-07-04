@@ -7,7 +7,7 @@
 		        </router-link>
 		    </yd-navbar>
 	    </div>
-		<div class="cp-body">
+		<div class="cp3-body">
 			
 			
 			<div class="logout mt20" @click="logout">

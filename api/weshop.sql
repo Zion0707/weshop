@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.20)
 # Database: weshop
-# Generation Time: 2018-07-04 10:18:37 +0000
+# Generation Time: 2018-07-04 10:51:32 +0000
 # ************************************************************
 
 
@@ -217,16 +217,18 @@ CREATE TABLE `order` (
   `createTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '订单创建时间',
   `status` int(1) DEFAULT '0' COMMENT '0表示正常，1表示删除',
   `isCheck` int(1) DEFAULT '0' COMMENT '0表示选中，1表示未选',
+  `gIndex` int(10) DEFAULT NULL COMMENT '商品索引：根据索引来进行查询对应的产品 0，1，2...',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
 
-INSERT INTO `order` (`id`, `uid`, `gid`, `gpid`, `gcid`, `name`, `description`, `marketPrice`, `totalNum`, `createTime`, `status`, `isCheck`)
+INSERT INTO `order` (`id`, `uid`, `gid`, `gpid`, `gcid`, `name`, `description`, `marketPrice`, `totalNum`, `createTime`, `status`, `isCheck`, `gIndex`)
 VALUES
-	(91,7,1,3,8,'黑鲨游戏手机 黑鲨手机 豪华版','豪华版描述',3600.00,1,'2018-07-04 18:14:39',0,1),
-	(92,7,1,1,3,'黑鲨游戏手机 黑鲨手机 普通版','普通版描述',3200.00,1,'2018-07-04 18:14:44',0,0);
+	(94,7,1,3,8,'黑鲨游戏手机 黑鲨手机 豪华版','豪华版描述',3600.00,1,'2018-07-04 18:42:48',0,0,2),
+	(95,7,1,1,2,'黑鲨游戏手机 黑鲨手机 普通版','普通版描述',3200.00,5,'2018-07-04 18:43:13',0,0,0),
+	(96,7,1,2,5,'黑鲨游戏手机 黑鲨手机 高级版','高级版描述',3400.00,1,'2018-07-04 18:45:22',0,0,1);
 
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
