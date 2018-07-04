@@ -17,50 +17,6 @@
 		}
 
 		/*
-		* 订单总数加操作
-		* @param $totalNum 总数
-		*/
-		private function plusTotalNum($totalNum){
-			$pdo = $this->pdo;
-			$stmt=$pdo->prepare('UPDATE `shop_car` SET `totalNum`=`totalNum`+? WHERE `uid`=?');
-			$uid = $_SESSION['uid'];
-			$stmt->bindParam(1, $totalNum);
-			$stmt->bindParam(2, $uid);
-			$stmt->execute();
-		}
-
-		/*
-		* 查询单条订单总数
-		* @param $orderId 订单id
-		*/
-		private function orderTotalNum( $orderId ){
-			$pdo = $this->pdo;
-			//根据订单id查询到总数 
-			$stmt=$pdo->prepare('SELECT `totalNum` FROM `order` WHERE `id`=?');
-			$stmt->bindParam(1, $orderId);
-			$stmt->execute();
-			while ( $row=$stmt->fetch(PDO::FETCH_OBJ) ) {
-				$resObj = $row;
-			}
-			return $resObj->totalNum;
-		}
-
-		/*
-		* 订单总数累减
-		* @param $orderId 订单id
-		*/
-		private function lessTotalNum( $orderId ){
-			$pdo = $this->pdo;
-			//根据totalNum数量进行相减
-			$stmt=$pdo->prepare('UPDATE `shop_car` SET `totalNum`=`totalNum`-? WHERE `uid`=?');
-			$uid = $_SESSION['uid'];
-			$totalNum = $this->orderTotalNum($orderId);
-			$stmt->bindParam(1, $totalNum);
-			$stmt->bindParam(2, $uid);
-			$stmt->execute();
-		}
-
-		/*
 		* 添加订单 
 		* @param $post 为前端传过来的值
 		*/ 
@@ -90,10 +46,7 @@
 			$stmt->bindParam(8, $post['gcid']);
 
 			if ( $stmt->execute() ) {
-				
-				//订单数累加
-				$this->plusTotalNum( $post['totalNum'] );
-
+	
 				exit(json_encode([
 					'code'=> 0,
 					'msg'=> '添加成功！'
@@ -158,18 +111,19 @@
 		}
 
 		/*
-		* 查询购物车的订单总数
+		* 查询购物车订单总数和总价格
 		*/
-		private function shopCarTotalNum(){
-			$pdo = $this->pdo;
-			$stmt=$pdo->prepare('SELECT `totalNum` FROM `shop_car` WHERE `uid`=?');
-			$uid=$_SESSION['uid'];
+		private function totalPriceAndCount(){
+			$pdo=$this->pdo;
+			$stmt=$pdo->prepare('SELECT SUM(`marketPrice`) AS `allMarketPrice` , SUM(`totalNum`) AS `allTotalNum` FROM `order` WHERE `status`=0 AND `uid`=?');
+			$uid = $_SESSION['uid'];
 			$stmt->bindParam(1, $uid);
 			$stmt->execute();
-			while ( $row=$stmt->fetch(PDO::FETCH_OBJ) ) {
+
+			while ( $row = $stmt->fetch(PDO::FETCH_OBJ) ) {
 				$resObj = $row;
 			}
-			return $resObj->totalNum;
+			return $resObj;
 		}
 
 		/*
@@ -195,15 +149,14 @@
 
 			if( $stmt->execute() ){
 
-				//订单数累减
-				$this->lessTotalNum( $post['id'] );
-
 				exit(json_encode([
 					'code'=> 0,
-					'totalNum'=> $this->shopCarTotalNum(),
+					'allMarketPrice'=> $this->totalPriceAndCount()->allMarketPrice,
+					'allTotalNum'=> $this->totalPriceAndCount()->allTotalNum,
 					'msg'=> 'success'
 				]));
 			}else{
+
 				exit(json_encode([
 					'code'=> -2,
 					'msg'=> '删除失败！'
@@ -237,6 +190,8 @@
 			$resObj->code = 0;
 			$resObj->msg = 'success';
 			$resObj->orderList=$orderList;
+			$resObj->allMarketPrice=$this->totalPriceAndCount()->allMarketPrice;
+			$resObj->allTotalNum=$this->totalPriceAndCount()->allTotalNum;
 
 			exit( json_encode($resObj) );
 

@@ -56,10 +56,10 @@
 		</div>
     
 
-        <div class="bottom-order-tool" :class="{ 'has-order-tool': orderData.totalNum > 0 }">
+        <div class="bottom-order-tool" :class="{ 'has-order-tool': orderData.allTotalNum > 0 }">
             <div class="ot-item ot-i1">
-                <div class="ot-total">共{{ orderData.totalNum }}件 金额：</div>
-                <div class="ot-money price"><span>3134</span>元</div>
+                <div class="ot-total">共{{ orderData.allTotalNum }}件 金额：</div>
+                <div class="ot-money price"><span>{{ orderData.allMarketPrice }}</span>元</div>
             </div>
             <div class="ot-item ot-i2">
                 <router-link to="/">继续购物</router-link> 
@@ -100,7 +100,8 @@ export default {
             },function(data){
                 if ( data.code == 0 ) {
                     _self.orderList.splice(idx ,1);
-                    _self.orderData.totalNum = data.totalNum;
+                    _self.orderData.allTotalNum = data.allTotalNum;
+                    _self.orderData.allMarketPrice = data.allMarketPrice;
                 }else{
                     _self.$dialog.toast({ mes: data.msg });
                 }
