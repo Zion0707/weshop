@@ -92,7 +92,7 @@ export default {
 
     methods:{
         checkListCallback(data){
-            console.log(data);
+            // console.log(data);
         },
 
         back(){
