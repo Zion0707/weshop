@@ -153,7 +153,7 @@
 		private function totalPriceAndCount(){
 			
 			$pdo=$this->pdo;
-			$stmt=$pdo->prepare('SELECT SUM(`marketPrice` * `totalNum`) AS `allMarketPrice` , SUM(`totalNum`) AS `allTotalNum` FROM `order` WHERE `status`=0 AND `isCheck`=1 AND `uid`=?');
+			$stmt=$pdo->prepare('SELECT SUM(`marketPrice` * `totalNum`) AS `allMarketPrice` , SUM(`totalNum`) AS `allTotalNum` FROM `order` WHERE `status`=0 AND `isCheck`=0 AND `uid`=?');
 
 			if (!session_id()) session_start();
 			$uid = $_SESSION['uid'];
@@ -163,6 +163,13 @@
 			while ( $row = $stmt->fetch(PDO::FETCH_OBJ) ) {
 				$resObj = $row;
 			}
+
+			//判断返回是否为null，如果为空那么设置默认值
+			if ( empty( $resObj->allMarketPrice ) ) {
+				$resObj->allMarketPrice='0.00';
+				$resObj->allTotalNum='0';
+			}
+
 			return $resObj;
 		}
 

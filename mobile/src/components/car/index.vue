@@ -56,7 +56,7 @@
 		</div>
     
 
-        <div class="bottom-order-tool" :class="{ 'has-order-tool': orderData.allTotalNum > 0 }">
+        <div class="bottom-order-tool" :class="{ 'has-order-tool': orderList.length > 0 }">
             <div class="ot-item ot-i1">
                 <div class="ot-total">共{{ orderData.allTotalNum }}件 金额：</div>
                 <div class="ot-money price"><span>{{ orderData.allMarketPrice }}</span>元</div>
@@ -107,8 +107,7 @@ export default {
             },function(data){
                 if ( data.code == 0 ) {
                     _self.orderList.splice(idx ,1);
-                    _self.orderData.allTotalNum = data.allTotalNum;
-                    _self.orderData.allMarketPrice = data.allMarketPrice;
+                    _self.getOrder();
                 }else{
                     _self.$dialog.toast({ mes: data.msg });
                 }
@@ -127,7 +126,7 @@ export default {
 
                     //判断是否选中，如果选中那么就push到数组里
                     for( var i in data.orderList ){
-                        if ( data.orderList[i].isCheck == '1' ) {
+                        if ( data.orderList[i].isCheck == '0' ) {
                             _self.checkList.push(data.orderList[i].id);
                         }
                     }
@@ -166,8 +165,9 @@ export default {
         //check选中事件
         checkboxFun(){
             var _self = this;
+            $('.yd-checklist input[type="checkbox"]').unbind('change');
             $('.yd-checklist input[type="checkbox"]').on('change',function(){
-                let status = $(this).is(':checked') ? 1 : 0;
+                let status = $(this).is(':checked') ? 0 : 1;
                 let id = $(this).parents('.yd-checklist-item').attr('data-id');
                 _self.setCheckStatus(status, id);
             });
