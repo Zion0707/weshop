@@ -10,7 +10,7 @@
 		        </router-link>
 		    </yd-navbar>
 	    </div>
-		<div class="cp-body">
+		<div class="cp3-body">
 
 			<yd-scrolltab :callback="ydScrollTabBack">
 	            <yd-scrolltab-panel label="手机">

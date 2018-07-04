@@ -25,7 +25,7 @@
 		*/ 
 		private function orderIsHas($gid,$gpid,$gcid){
 			$pdo = $this->pdo;
-			$stmt = $pdo->prepare('SELECT COUNT(*) AS count FROM `order` WHERE `gid`=? AND `gpid`=? AND `gcid`=?');
+			$stmt = $pdo->prepare('SELECT COUNT(*) AS count FROM `order` WHERE `gid`=? AND `gpid`=? AND `gcid`=? AND `status`=0');
 			$stmt->bindParam(1, $gid);
 			$stmt->bindParam(2, $gpid);
 			$stmt->bindParam(3, $gcid);
@@ -278,6 +278,43 @@
 			}
 
 		}
+
+
+		/*
+		* 设置订单是否选中状态
+		* @param $post 请求值
+		* 	->@param $totalNum 请求值
+		*   ->@param $id 请求值
+		*/ 
+		public function updateOnlyOrderNum($post){
+			if ( !isset($post['totalNum']) || !isset($post['id']) ) {
+				exit(json_encode([
+					'code'=> -2,
+					'msg'=> '请求参数错误！'
+				]));
+			}
+
+			$pdo=$this->pdo;
+			$stmt=$pdo->prepare('UPDATE `order` SET `totalNum`=? WHERE `id`=?');
+			$stmt->bindParam(1, $post['totalNum']);
+			$stmt->bindParam(2, $post['id']);
+
+			if ( $stmt->execute() ) {
+				exit(json_encode([
+					'code'=> 0,
+					'allMarketPrice'=> $this->totalPriceAndCount()->allMarketPrice,
+					'allTotalNum'=> $this->totalPriceAndCount()->allTotalNum,
+					'msg'=> '修改成功！'
+				]));
+			}else{
+				exit(json_encode([
+					'code'=> -2,
+					'msg'=> '修改失败！'
+				]));
+			}
+
+		}
+
 	}
 
 
@@ -304,6 +341,10 @@
 			//设置订单是否选中状态
 			case 'setOrderCheck':
 				$ShopCar->setOrderCheck( $_POST );
+			break;
+			//更改单条订单数量
+			case 'updateOnlyOrderNum':
+				$ShopCar->updateOnlyOrderNum( $_POST );
 			break;
 		}
 	}

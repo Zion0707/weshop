@@ -10,7 +10,7 @@
 		        </router-link>
 		    </yd-navbar>
 	    </div>
-		<div class="cp-body cp3-body">
+		<div class="cp3-body">
         
             <div class="order-list" v-if="orderData.code==0">
                 <div v-if="orderList.length">
@@ -22,12 +22,13 @@
                                     <div class="order-title mt10">{{ item.note }} {{ item.color }}</div>
                                     <div class="order-price mt10">售价: {{ item.marketPrice }}</div>
                                     <div class="order-tool mt30">
-                                        <yd-spinner 
-                                            width="85px" 
-                                            height="30px" 
-                                            :readonly="false" 
-                                            v-model.trim="item.totalNum">        
-                                        </yd-spinner>
+
+                                        <span class="yd-spinner" style="height: 30px; width: 85px;">
+                                            <a href="javascript:;" @click="lessNum(item.id, item.totalNum)"></a> 
+                                            <input type="number" pattern="[0-9]*" v-model.trim="item.totalNum" readonly="true" class="yd-spinner-input"> 
+                                            <a href="javascript:;" @click="plusNum(item.id, item.totalNum)"></a>
+                                        </span>
+
                                     </div>
                                 </yd-flexbox-item>
                                 <div class="order-del">
@@ -106,7 +107,7 @@ export default {
                 id: item.id
             },function(data){
                 if ( data.code == 0 ) {
-                    _self.orderList.splice(idx ,1);
+                    // _self.orderList.splice(idx ,1);
                     _self.getOrder();
                 }else{
                     _self.$dialog.toast({ mes: data.msg });
@@ -140,6 +141,16 @@ export default {
                 }
             });
         },
+        //check选中事件
+        checkboxFun(){
+            var _self = this;
+            $('.yd-checklist input[type="checkbox"]').unbind('change');
+            $('.yd-checklist input[type="checkbox"]').on('change',function(){
+                let status = $(this).is(':checked') ? 0 : 1;
+                let id = $(this).parents('.yd-checklist-item').attr('data-id');
+                _self.setCheckStatus(status, id);
+            });
+        },
 
         /*
         * 设置 checkbox 状态
@@ -162,17 +173,55 @@ export default {
             });
         },
 
-        //check选中事件
-        checkboxFun(){
+        /*
+        * 更新单条订单数量
+        * @param totalNum 当前单条订单总数
+        * @param id 被操作的id
+        */
+        updateOnlyOrderNum(totalNum, id){
             var _self = this;
-            $('.yd-checklist input[type="checkbox"]').unbind('change');
-            $('.yd-checklist input[type="checkbox"]').on('change',function(){
-                let status = $(this).is(':checked') ? 0 : 1;
-                let id = $(this).parents('.yd-checklist-item').attr('data-id');
-                _self.setCheckStatus(status, id);
+            this.http.post('/ShopCar.class.php',{
+                type:'updateOnlyOrderNum',
+                totalNum:totalNum,
+                id:id
+            },function(data){
+                if ( data.code == 0 ) {
+                    _self.orderData.allTotalNum = data.allTotalNum;
+                    _self.orderData.allMarketPrice = data.allMarketPrice;
+                }else{
+                    _self.$dialog.toast({ mes: data.msg });
+                }
             });
-        }
+        },
 
+        /*
+        * 减数
+        * @param id 订单id
+        * @param oldNum 输入框里面的当前值
+        */ 
+        lessNum(id,oldNum){
+            for(var i in this.orderList){
+                if (this.orderList[i].id==id) {
+                    this.orderList[i].totalNum-=1;
+                    this.updateOnlyOrderNum( this.orderList[i].totalNum , id );
+                    return;
+                }
+            }
+        },
+        /*
+        * 加数
+        * @param id 订单id
+        * @param oldNum 输入框里面的当前值
+        */ 
+        plusNum(id,oldNum){
+            for(var i in this.orderList){
+                if (this.orderList[i].id==id) {
+                    this.orderList[i].totalNum+=1;
+                    this.updateOnlyOrderNum( this.orderList[i].totalNum , id );
+                    return;
+                }
+            }
+        }
     },
     mounted(){
         this.getOrder();
