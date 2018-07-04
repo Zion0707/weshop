@@ -239,6 +239,7 @@ export default {
 
                 this.http.post('/ShopCar.class.php',{
                     type: 'addOrder',
+                    gIndex: this.parameter.gIndex,
                     gid: this.parameter.gid,
                     gpid: this.parameter.id,
                     name: this.goodsDetail.name +' '+ this.parameter.specifications,

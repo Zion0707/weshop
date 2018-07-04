@@ -17,7 +17,7 @@
                     <yd-checklist v-model="checkList" :label="false" :color="'#f55624'" :callback="checkListCallback">
                         <yd-checklist-item v-for="item,key in orderList" :key="key" :val="item.id" :data-id="item.id">
                             <yd-flexbox>
-                                <img :src="item.colorCover">
+                                <img :src="item.colorCover" @click="goodsDetail(item)">
                                 <yd-flexbox-item align="top">
                                     <div class="order-title mt10">{{ item.note }} {{ item.color }}</div>
                                     <div class="order-price mt10">售价: {{ item.marketPrice }}</div>
@@ -91,12 +91,24 @@ export default {
     // },
 
     methods:{
+        checkListCallback(data){
+            console.log(data);
+        },
+
         back(){
             this.$router.back();
         },
 
-        checkListCallback(data){
-            console.log(data);
+        //跳转到详情
+        goodsDetail(item){
+            // console.log(item);
+            this.$router.push({ 
+                'path':'/goods_detail', 
+                'query':{ 
+                    'gid': item.gid ,
+                    'gIndex': item.gIndex
+                }
+            });
         },
 
         //删除单条订单
