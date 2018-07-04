@@ -201,8 +201,9 @@ export default {
         */ 
         lessNum(id,oldNum){
             for(var i in this.orderList){
-                if (this.orderList[i].id==id) {
-                    this.orderList[i].totalNum-=1;
+                if ( this.orderList[i].id == id ) {
+                    if ( this.orderList[i].totalNum <= 1 ) return; 
+                    this.orderList[i].totalNum = parseInt( this.orderList[i].totalNum ) - 1;
                     this.updateOnlyOrderNum( this.orderList[i].totalNum , id );
                     return;
                 }
@@ -215,8 +216,8 @@ export default {
         */ 
         plusNum(id,oldNum){
             for(var i in this.orderList){
-                if (this.orderList[i].id==id) {
-                    this.orderList[i].totalNum+=1;
+                if ( this.orderList[i].id == id ) {
+                    this.orderList[i].totalNum = parseInt( this.orderList[i].totalNum ) + 1;
                     this.updateOnlyOrderNum( this.orderList[i].totalNum , id );
                     return;
                 }
