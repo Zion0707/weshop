@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.20)
 # Database: weshop
-# Generation Time: 2018-07-05 01:24:41 +0000
+# Generation Time: 2018-07-05 10:29:58 +0000
 # ************************************************************
 
 
@@ -18,6 +18,36 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+# Dump of table address
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `address`;
+
+CREATE TABLE `address` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) DEFAULT NULL COMMENT '用户id',
+  `receiver` varchar(100) DEFAULT NULL COMMENT '收货人姓名',
+  `phoneNumber` varchar(13) DEFAULT NULL COMMENT '收货人手机号',
+  `district` varchar(255) DEFAULT NULL COMMENT '省市区',
+  `address` varchar(255) DEFAULT NULL COMMENT '详细地址',
+  `isDefaultAddress` int(1) DEFAULT '0' COMMENT '是否是默认地址：0表示不是，1表示是',
+  `status` int(1) DEFAULT '0' COMMENT '0表示正常，1表示删除',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `address` WRITE;
+/*!40000 ALTER TABLE `address` DISABLE KEYS */;
+
+INSERT INTO `address` (`id`, `uid`, `receiver`, `phoneNumber`, `district`, `address`, `isDefaultAddress`, `status`)
+VALUES
+	(1,7,'黄子豪','15820354729','广东省 深圳市 南山区','科技路99号',1,1),
+	(5,7,'黄子豪','15820354729','广东省 深圳市 南山区','科技路9号',1,1),
+	(6,7,'黄子豪','15820354729','广东省 深圳市 南山区','科技路99号',1,1);
+
+/*!40000 ALTER TABLE `address` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table goods
@@ -227,7 +257,8 @@ LOCK TABLES `order` WRITE;
 
 INSERT INTO `order` (`orderNum`, `id`, `uid`, `gid`, `gpid`, `gcid`, `name`, `description`, `marketPrice`, `totalNum`, `createTime`, `status`, `isCheck`, `gIndex`)
 VALUES
-	('201807050923277',99,7,1,3,8,'黑鲨游戏手机 黑鲨手机 豪华版','豪华版描述',3600.00,1,'2018-07-05 09:23:27',0,0,2);
+	('201807050923277',99,7,1,3,8,'黑鲨游戏手机 黑鲨手机 豪华版','豪华版描述',3600.00,1,'2018-07-05 09:23:27',1,1,2),
+	('201807051000437',100,7,1,3,8,'黑鲨游戏手机 黑鲨手机 豪华版','豪华版描述',3600.00,1,'2018-07-05 10:00:43',0,0,2);
 
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;

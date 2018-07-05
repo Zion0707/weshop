@@ -49,7 +49,13 @@ export default new Router({
 				},
 				{
 					path:'/settings',
-					component: resolve => require(['@/components/my/settings.vue'], resolve)
+					component: resolve => require(['@/components/my/settings.vue'], resolve) ,
+					children:[
+						{
+							path:'/address',
+							component: resolve => require(['@/components/my/address.vue'], resolve) 
+						}
+					]
 				}
 			]	
 		}

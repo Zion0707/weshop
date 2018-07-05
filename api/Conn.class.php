@@ -3,7 +3,7 @@
 	//命名空间
 	namespace Weshop\Api;
 	//用了main，就相当于取main目录下面的PDO了，但是PDO是PHP带的，不在main里，所以需要注册一下使用use PDO;
-	use PDO; 
+	use PDO; // pdo操作文章 https://blog.csdn.net/snow_finland/article/details/51330395 
 
 	//允许跨域请求
 	header('Access-Control-Allow-Origin: '.$_SERVER['HTTP_ORIGIN']);

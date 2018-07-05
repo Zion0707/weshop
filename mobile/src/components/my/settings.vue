@@ -8,13 +8,21 @@
 		    </yd-navbar>
 	    </div>
 		<div class="cp3-body">
-			
-			
-			<div class="logout mt20" @click="logout">
+			<yd-cell-group>
+                <yd-cell-item arrow href="/address" type="link">
+                    <span slot="left">地址管理</span>
+                </yd-cell-item>
+            </yd-cell-group>
+
+			<div class="logout" @click="logout">
 				退出登录
 			</div>
-
 		</div>
+
+        <transition name="goleft">
+            <router-view></router-view>
+        </transition>
+
     </div>
 </template>
 
