@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.20)
 # Database: weshop
-# Generation Time: 2018-07-04 11:00:01 +0000
+# Generation Time: 2018-07-05 01:24:41 +0000
 # ************************************************************
 
 
@@ -205,6 +205,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `order`;
 
 CREATE TABLE `order` (
+  `orderNum` varchar(100) DEFAULT NULL COMMENT '订单编号',
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '订单id',
   `uid` int(10) DEFAULT NULL COMMENT '用户id',
   `gid` int(10) DEFAULT NULL COMMENT '与商品相关联的id',
@@ -224,11 +225,9 @@ CREATE TABLE `order` (
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
 
-INSERT INTO `order` (`id`, `uid`, `gid`, `gpid`, `gcid`, `name`, `description`, `marketPrice`, `totalNum`, `createTime`, `status`, `isCheck`, `gIndex`)
+INSERT INTO `order` (`orderNum`, `id`, `uid`, `gid`, `gpid`, `gcid`, `name`, `description`, `marketPrice`, `totalNum`, `createTime`, `status`, `isCheck`, `gIndex`)
 VALUES
-	(94,7,1,3,8,'黑鲨游戏手机 黑鲨手机 豪华版','豪华版描述',3600.00,1,'2018-07-04 18:42:48',0,0,2),
-	(95,7,1,1,2,'黑鲨游戏手机 黑鲨手机 普通版','普通版描述',3200.00,1,'2018-07-04 18:43:13',0,1,0),
-	(96,7,1,2,5,'黑鲨游戏手机 黑鲨手机 高级版','高级版描述',3400.00,1,'2018-07-04 18:45:22',0,0,1);
+	('201807050923277',99,7,1,3,8,'黑鲨游戏手机 黑鲨手机 豪华版','豪华版描述',3600.00,1,'2018-07-05 09:23:27',0,0,2);
 
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
