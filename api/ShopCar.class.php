@@ -70,7 +70,7 @@
 				$stmt->bindParam(4, $post['gcid']);
 			}else{
 				//如果不存在相同规格的订单，那么插入新的订单
-				$stmt=$pdo->prepare('INSERT INTO `order` (uid, gid, gpid, name, description, marketPrice, totalNum, gcid, gIndex) VALUES (?,?,?,?,?,?,?,?,?)');
+				$stmt=$pdo->prepare('INSERT INTO `order` (uid, gid, gpid, name, description, marketPrice, totalNum, gcid, gIndex, orderNum) VALUES (?,?,?,?,?,?,?,?,?,?)');
 				$stmt->bindParam(1, $uid);
 				$stmt->bindParam(2, $post['gid']);
 				$stmt->bindParam(3, $post['gpid']);
@@ -80,6 +80,13 @@
 				$stmt->bindParam(7, $post['totalNum']);
 				$stmt->bindParam(8, $post['gcid']);
 				$stmt->bindParam(9, $post['gIndex']);
+
+				//订单号生成 日期+用户id（uid）
+				$dateStr = date('Y-m-d H:i:s');
+				$repStr = str_replace(['-',' ',':'],'',$dateStr);
+				$resOrderNum = $repStr.$uid;
+				$stmt->bindParam(10, $resOrderNum);
+
 			}
 			
 			if ( $stmt->execute() ) {
