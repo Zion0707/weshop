@@ -338,4 +338,13 @@
 	font-style: italic;
 	font-size:0.8rem;
 }
+.address-item .yd-cell{
+	background:url(../../../static/images/bd1.png) 0 0 repeat-x;
+	background-size: .52rem .08rem;
+}
+.address-item .yd-cell-left{
+	white-space: normal;
+	width:90%;
+	padding:0.4rem 0 0.2rem;
+}
 

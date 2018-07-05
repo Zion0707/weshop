@@ -8,8 +8,15 @@
 		    </yd-navbar>
 	    </div>
 		<div class="cp3-body">
-            
-            222
+    
+            <yd-cell-group :class="'address-item'">
+                <yd-cell-item arrow>
+                    <div slot="left">
+                        <p><strong>小明 185****9977</strong></p>
+                        <p>江苏 泰州市 兴化市 沈沦镇 钠弊06山段路28 (053888)</p>
+                    </div>
+                </yd-cell-item>
+            </yd-cell-group>
 
 		</div>
     
