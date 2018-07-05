@@ -57,7 +57,7 @@
 		</div>
     
 
-        <div class="bottom-order-tool" :class="{ 'has-order-tool': orderList.length > 0 }">
+        <div class="bottom-order-tool" :class="{ 'has-order-tool': orderListLen > 0 }">
             <div class="ot-item ot-i1">
                 <div class="ot-total">共{{ orderData.allTotalNum }}件 金额：</div>
                 <div class="ot-money price"><span>{{ orderData.allMarketPrice }}</span>元</div>
@@ -65,10 +65,14 @@
             <div class="ot-item ot-i2">
                 <router-link to="/">继续购物</router-link> 
             </div>
-            <div class="ot-item ot-i3">
-                去结算
-            </div>
+            <div class="ot-item ot-i3" @click="settlementFun">去结算</div>
         </div>
+
+
+        
+        <transition name="goleft">
+            <router-view></router-view>
+        </transition>
 
     </div>
 </template>
@@ -80,7 +84,8 @@ export default {
         return {
             orderData: {},
             checkList: [],
-            orderList: []
+            orderList: [],
+            orderListLen: 0
         }
     },
     
@@ -91,12 +96,24 @@ export default {
     // },
 
     methods:{
+        back(){
+            this.$router.back();
+        },
+        
         checkListCallback(data){
             // console.log(data);
         },
+        // 去结算
+        settlementFun(){
+            //如果没有选中商品那么则要提示
+            if ( this.checkList.length==0 ) {
+                this.$dialog.alert({
+                    mes:'请勾选要结算的商品！'
+                });
+                return;
+            }
 
-        back(){
-            this.$router.back();
+            this.$router.push({path:'/car/settlement'});
         },
 
         //跳转到详情
@@ -136,6 +153,7 @@ export default {
                 if ( data.code == 0 || data.code == -1 ) {
                     _self.orderData = data;
                     _self.orderList = data.orderList;
+                    _self.orderListLen = data.orderList.length;
 
                     //判断是否选中，如果选中那么就push到数组里
                     for( var i in data.orderList ){

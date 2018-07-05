@@ -27,7 +27,13 @@ export default new Router({
 		},
 		{
 			path: '/car',
-			component: resolve => require(['@/components/car/index.vue'], resolve) 
+			component: resolve => require(['@/components/car/index.vue'], resolve) ,
+			children:[
+				{
+					path:'/car/settlement',
+					component: resolve => require(['@/components/car/settlement.vue'], resolve)
+				}
+			]
 		},
 		{
 			path: '/my',
