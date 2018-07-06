@@ -8,8 +8,8 @@
 		    </yd-navbar>
 	    </div>
 		<div class="cp-body">
-			
-			暂无地址~
+			 
+             
 			
 		</div>
     </div>
