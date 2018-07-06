@@ -14,7 +14,7 @@
                 </yd-cell-item>
             </yd-cell-group>
 
-			<div class="logout" @click="logout">
+			<div class="bottom-btn logout" @click="logout">
 				退出登录
 			</div>
 		</div>

@@ -29,7 +29,7 @@
 			if ( !isset($post['id']) || !isset($post['receiver']) || !isset($post['phoneNumber']) || !isset($post['district']) || !isset($post['address']) || !isset($post['isDefaultAddress']) ) {
 				exit(json_encode([
 					'code'=> -2,
-					'msg'=> '参数错误，无法更新！'
+					'msg'=> '参数错误！'
 				]));
 			}
 
@@ -68,7 +68,7 @@
 			if ( !isset($post['id']) ) {
 				exit(json_encode([
 					'code'=> -2,
-					'msg'=> '参数错误，无法删除！'
+					'msg'=> '参数错误！'
 				]));
 			}
 
@@ -136,13 +136,26 @@
 		/*
 		* 获取用户收货地址
 		*/ 
-		public function getAddress(){
+		public function getAddress($post){
 			$Conn = new Conn();
 			$Conn->checkLogin();
 
+			if ( !isset($post['pageNo']) || !isset($post['pageSize']) ) {
+				exit(json_encode([
+					'code'=> -2,
+					'msg'=> '参数错误！'
+				]));
+			}
+
 			$pdo = $this->pdo;
-			$stmt = $pdo->prepare('SELECT * FROM `address` WHERE `uid`=? AND `status`=0');
+			$stmt = $pdo->prepare('SELECT * FROM `address` WHERE `uid`=? AND `status`=0 LIMIT ?,?');
+
+			$pageSize = (int)$post['pageSize'];
+			$pageNo = ( (int)$post['pageNo'] - 1 ) * $pageSize;
+
 			$stmt->bindParam(1, $_SESSION['uid']);
+			$stmt->bindParam(2, $pageNo, PDO::PARAM_INT);
+			$stmt->bindParam(3, $pageSize, PDO::PARAM_INT);
 			$stmt->execute();
 			$rowArr=[];
 
@@ -167,7 +180,7 @@
 
 		switch ($_POST['type']) {
 			case 'getAddress':
-				$Address->getAddress();
+				$Address->getAddress($_POST);
 			break;
 			case 'addAddress':
 				$Address->addAddress($_POST);

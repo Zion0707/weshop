@@ -82,17 +82,27 @@
 }
 
 .logout{
-	width:100%;
-	height:0.95rem;
-	line-height:0.95rem;
 	background-color:#f4f4f4;
-	color:#555555;
-	text-align: center;
-	font-size:0.3rem;
-	position: fixed;
-	bottom:0;
+	color:#555;
 }
+.add-new{
+	background-color:#ff6700;
+	color:#fff;
+}
+.address-list{
+	padding:0.05rem 0.2rem;
+}
+.address-item{
+	padding:0.25rem;
+	margin:0.2rem 0;
 
+	.adi-header{
+		
+	}
+	.adi-con{
+		color:#555;
+	}
+}
 
 
 
