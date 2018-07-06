@@ -29,7 +29,7 @@
 			if ( !isset($post['id']) || !isset($post['receiver']) || !isset($post['phoneNumber']) || !isset($post['district']) || !isset($post['address']) || !isset($post['isDefaultAddress']) ) {
 				exit(json_encode([
 					'code'=> -2,
-					'msg'=> '参数错误，无法添加！'
+					'msg'=> '参数错误，无法更新！'
 				]));
 			}
 
@@ -162,11 +162,25 @@
 
 
 
-	$Address = new Address();
-	// $Address->getAddress();
-	// $Address->addAddress($_POST);
-	// $Address->delAddress($_POST);
-	$Address->updateAddress($_POST);
+	if ( isset($_POST) ) {
+		$Address = new Address();
+
+		switch ($_POST['type']) {
+			case 'getAddress':
+				$Address->getAddress();
+			break;
+			case 'addAddress':
+				$Address->addAddress($_POST);
+			break;
+			case 'delAddress':
+				$Address->delAddress($_POST);
+			break;
+			case 'updateAddress':
+				$Address->updateAddress($_POST);
+			break;
+		}
+
+	}
 
 
 
