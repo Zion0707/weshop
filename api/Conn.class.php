@@ -46,6 +46,10 @@
 
 		//连接 pdo 数据库
 		public function connDb(){
+			
+			//设置为json模式
+			header("Content-type: application/json");
+			
 			try {
 				$this->pdo = new PDO('mysql:host=localhost:3306;dbname=weshop','root','Zion');
 			} catch (PDOException $e) {
