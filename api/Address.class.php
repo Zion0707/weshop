@@ -27,10 +27,11 @@
 		public function updateAddress($post){
 			
 			if ( !isset($post['id']) || !isset($post['receiver']) || !isset($post['phoneNumber']) || !isset($post['district']) || !isset($post['address']) || !isset($post['isDefaultAddress']) ) {
-				exit(json_encode([
+				echo(json_encode([
 					'code'=> -2,
 					'msg'=> '参数错误！'
 				]));
+				return;
 			}
 
 			$pdo = $this->pdo;
@@ -46,12 +47,12 @@
 			
 			//判断是否更新成功
 			if ( $stmt->execute($sqlParam) ) {
-				exit(json_encode([
+				echo(json_encode([
 					'code'=> 0,
 					'msg'=> '更新成功！'
 				]));
 			}else{
-				exit(json_encode([
+				echo(json_encode([
 					'code'=> -2,
 					'msg'=> '更新失败！'
 				]));
@@ -66,10 +67,11 @@
 		public function delAddress($post){
 
 			if ( !isset($post['id']) ) {
-				exit(json_encode([
+				echo(json_encode([
 					'code'=> -2,
 					'msg'=> '参数错误！'
 				]));
+				return;
 			}
 
 			$pdo = $this->pdo;
@@ -80,12 +82,12 @@
 			$stmt->execute($sqlParam);
 			//判断是否更新成功
 			if ( $stmt->rowCount() > 0 ) {
-				exit(json_encode([
+				echo(json_encode([
 					'code'=> 0,
 					'msg'=> '删除成功！'
 				]));
 			}else{
-				exit(json_encode([
+				echo(json_encode([
 					'code'=> -2,
 					'msg'=> '删除失败！'
 				]));
@@ -105,10 +107,11 @@
 			$Conn->checkLogin();
 
 			if ( !isset($post['receiver']) || !isset($post['phoneNumber']) || !isset($post['district']) || !isset($post['address']) || !isset($post['isDefaultAddress']) ) {
-				exit(json_encode([
+				echo(json_encode([
 					'code'=> -2,
 					'msg'=> '参数错误，无法添加！'
 				]));
+				return;
 			}
 
 			$pdo = $this->pdo;
@@ -121,12 +124,12 @@
 			$stmt->bindParam(6, $_SESSION['uid']);		
 		
 			if( $stmt->execute() ){
-				exit(json_encode([
+				echo(json_encode([
 					'code'=> 0,
 					'msg'=> '新增成功！'
 				]));
 			}else{
-				exit(json_encode([
+				echo(json_encode([
 					'code'=> -2,
 					'msg'=> '新增失败！'
 				]));
@@ -141,10 +144,11 @@
 			$Conn->checkLogin();
 
 			if ( !isset($post['pageNo']) || !isset($post['pageSize']) ) {
-				exit(json_encode([
+				echo(json_encode([
 					'code'=> -2,
 					'msg'=> '参数错误！'
 				]));
+				return;
 			}
 
 			$pdo = $this->pdo;
@@ -165,7 +169,7 @@
 				$rowArr[]=$row;
 			}
 
-			exit(json_encode([
+			echo(json_encode([
 				'code'=> 0,
 				'msg'=> 'success',
 				'addressList'=> $rowArr
